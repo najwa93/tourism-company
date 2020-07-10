@@ -22,7 +22,7 @@ Route::prefix('Web')->group(function () {
 
 
 Route::prefix('Admin')->group(function () {
-    Route::resource('index', 'Admin\AdminController');
+    Route::resource('Main', 'Admin\AdminController');
 
     //Countries Controller
     Route::resource('Countries', 'Admin\CountryController\CountryController');
@@ -32,4 +32,7 @@ Route::prefix('Admin')->group(function () {
     Route::resource('Cities', 'Admin\City\CityController');
     Route::get('getCity/{Country}', 'Admin\City\CityController@getCity')->name('GetCity.create');
     Route::post('storeCity/{Country}', 'Admin\City\CityController@storeCity')->name('StoreCity.store');
+
+    //Hotels Controller
+    Route::resource('Hotels', 'Admin\Hotel\HotelController');
 });

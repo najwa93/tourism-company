@@ -1,6 +1,7 @@
 @extends('Layouts.Admin_app')
 
-<style type="text/css">
+@section('styles')
+
     * {
         margin: 0;
         padding: 0;
@@ -58,7 +59,7 @@
         margin-top: -1px;
         opacity: 0.9;
     }
-</style>
+@endsection
 
 @section('title')
     إدارة المدن
@@ -119,10 +120,10 @@
                     <td>
                         <div class="btn-group btn-group-justified" role="group" aria-label="...">
                             <div class="btn-group" role="group">
-                                <button type="button" class="btn btn-danger">حذف</button>
+                               <button type="button" class="btn btn-danger">حذف</button>
                             </div>
                             <div class="btn-group" role="group">
-                                <button type="button" class="btn btn-warning">تعديل</button>
+                                <a href="{{route('Cities.edit',$value['city_id'])}}"><button type="button" class="btn btn-warning">تعديل</button></a>
                             </div>
                         </div>
                     </td>

@@ -74,16 +74,17 @@ class CountryController extends Controller
         $country = Country::where('id',$country_id)
         ->with('city')
         ->first();
-
+        //return $country;
         $data = [];
         $allData = [];
             $data['country'] = $country['name'];
             foreach ($country['city'] as $value) {
+                $data['city_id'] = $value['id'];
                 $data['city'] = $value['name'];
                 array_push($allData,$data);
             }
 
-            //return $allData;
+       // return $allData;
         return view('Admin.CountryManagement.Show',compact(['allData','country']));
     }
 

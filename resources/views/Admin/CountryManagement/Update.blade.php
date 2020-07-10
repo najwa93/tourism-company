@@ -1,21 +1,65 @@
 @extends('Layouts/Admin_app')
 
-<style type="text/css">
+@section('styles')
+
+    * {
+    margin: 0;
+    padding: 0;
+    }
+
+    body {
+    }
+
+    .header {
+    width: 100%;
+    height: 52px;
+    }
+
+    .navbar {
+    background-color: #64AEF7;
+    z-index: 9999;
+    border: 0;
+    font-size: 20px !important;
+    line-height: 1.5 !important;
+    border-radius: 0;
+    }
+
+    .navbar li a, .navbar .navbar-brand {
+    color: white !important;
+    }
+
+    .navbar-nav li a:hover, .navbar-nav li.active a {
+    color: #64AEF7 !important;
+    background-color: #fff !important;
+    }
+
+    .navbar-default .navbar-toggle {
+    border-color: transparent;
+    color: #fff !important;
+    }
+
+    @media screen and (max-width: 800px) {
+    .col-sm-4 {
+    text-align: center;
+    margin: 25px 0;
+    }
+
+    }
 
     .p1 {
-        background-image: url("{{asset('images/globe.jpg')}}");
-        width: 100%;
-        height: 300px;
-        background-size: cover;
-        overflow-y: auto;
-        overflow-x: auto;
-        background-attachment: fixed;
-        background-position: center;
-        background-repeat: no-repeat;
-        margin-top: -1px;
-        opacity: 0.9;
+    background-image: url("{{asset('images/globe.jpg')}}");
+    width: 100%;
+    height: 300px;
+    background-size: cover;
+    overflow-y: auto;
+    overflow-x: auto;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-top: -1px;
+    opacity: 0.9;
     }
-</style>
+@endsection
 
 @section('title')
     تعديل بـلـد
@@ -30,8 +74,7 @@
     <div class="p1">
         <div class="p1"><label
                     style="font-size: 40px; margin-top:9%; color: white; font-weight: bold; margin-right: 12%;"><span
-                        class="glyphicon glyphicon-globe" style="color: orange;"></span>&nbsp;إضـافـة بـلـد
-                جـديـد</label></div>
+                        class="glyphicon glyphicon-globe" style="color: orange;"></span>&nbsp;تعديل بلد</label></div>
     </div>
     <div class="container">
         <br>

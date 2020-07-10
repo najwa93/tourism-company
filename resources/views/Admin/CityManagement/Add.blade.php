@@ -1,6 +1,6 @@
 
 @extends('Layouts/Admin_app')
-    <style type="text/css">
+   @section('styles')
         *{
             margin: 0;
             padding: 0;
@@ -50,10 +50,10 @@
             margin-top: -1px;
             opacity: 0.9;
         }
-    </style>
+ @endsection
 
 
-<form action="{{route('StoreCity.store',$country->id)}}" method="POST">
+<form action="{{route('StoreCity.store',$country->id)}}" method="POST" enctype="multipart/form-data">
     {{csrf_field()}}
     <div class="p1"><label style="font-size: 40px; margin-top:9%; color: white; font-weight: bold; margin-right: 12%;"><span class="glyphicon glyphicon-globe" style="color: orange;"></span>&nbsp;إضـافـة مـديـنـة جـديـدة</label></div>
     <br>
@@ -81,7 +81,7 @@
                     </div>
                     <div class="form-group">
                         <label for="flag">صـور  مـن الـمـديـنـة</label>
-                        <input id="file-input" type="file"name="image" >
+                        <input id="file-input" type="file" name="images[]" multiple>
                     </div>
                     <br>
                     <button type="submit" class="btn btn-info" name="btnsave" style="color: white; width: 100px;height: 40px; font-size: 20px;"><span class="glyphicon glyphicon-floppy-save" style="color: orange;"></span>&nbsp;إضـافــة</button>

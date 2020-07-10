@@ -1,13 +1,115 @@
-@extends('Layouts/Admin_app')
+@extends('Layouts.Admin_app')
 
+@section('styles')
 
+    *{
+    margin: 0;
+    padding: 0;
+    }
+    body{
+    }
+    .header{
+    width: 100%;
+    height:52px;
+    }
+    .navbar {
+    background-color:#64AEF7;
+    z-index: 9999;
+    border: 0;
+    font-size: 20px !important;
+    line-height: 1.5 !important;
+    border-radius: 0;
+    }
+    .navbar li a, .navbar .navbar-brand {
+    color: white !important;
+    }
+    .navbar-nav li a:hover, .navbar-nav li.active a {
+    color: #64AEF7 !important;
+    background-color: #fff !important;
+    }
+    .navbar-default .navbar-toggle {
+    border-color: transparent;
+    color: #fff !important;
+    }
+    @media screen and (max-width: 800px) {
+    .col-sm-4 {
+    text-align: center;
+    margin: 25px 0;
+    }
+
+    }
+    .btn {
+    width: 370px;
+    height: 166px;
+    padding: 14px 28px;
+    font-size: 30px;
+    cursor: pointer;
+    display: inline-block;
+    }
+
+    /* Green */
+    .success {
+    border-color: #4CAF50;
+    color: green;
+    }
+
+    .success:hover {
+    background-color: #4CAF50;
+    color: white;
+    }
+
+    /* Blue */
+    .info {
+    border-color: #2196F3;
+    color: dodgerblue;
+    }
+
+    .info:hover {
+    background: #2196F3;
+    color: white;
+    }
+
+    /* Orange */
+    .warning {
+    border-color: #ff9800;
+    color: orange;
+    }
+
+    .warning:hover {
+    background: #ff9800;
+    color: white;
+    }
+
+    /* Red */
+    .danger {
+    border-color: #f44336;
+    color: red;
+    }
+
+    .danger:hover {
+    background: #f44336;
+    color: white;
+    }
+    @media screen and (max-width: 1000px) {
+    .col-md-4
+    {
+    text-align: center;
+    margin: 25px 0;
+    }
+
+    .col-xs-12{
+    text-align: center;
+    margin: 25px 0;
+    }
+    }
+    @endsection
 @section('content')
 <div class="well"  style="font-size: 25px;font-weight: bold; color: #64AEF7; text-align: center;"><span class="glyphicon glyphicon-king" style="color: orange;"></span>&nbsp; خـيارات المـديـر</div>
 <div class="container">
     <br>
     <br>
     <div class="row">
-        <div class=" col-md-4 col-xs-12"  style="float: right;"><a href="man-globe.php"><button class="btn success"><span class="glyphicon glyphicon-globe"></span><br>إدارة البلدان</button></a></div>
+        <div class=" col-md-4 col-xs-12"  style="float: right;"><a href="{{route('Countries.index')}}"><button class="btn success"><span class="glyphicon glyphicon-globe"></span><br>إدارة البلدان</button></a></div>
         <div class=" col-md-4 col-xs-12" style="float: right;"><a href="man-hotel.php"><button class="btn warning"><span class="glyphicon glyphicon-cutlery"></span><br>إدارة الفنادق</button></a></div>
         <div class=" col-md-4 col-xs-12"  style="float: right;"><a href="man-flights.php"><button class="btn info"><span class="glyphicon glyphicon-plane"></span><br>إدارة الرحلات الجوية</button></a></div>
 
@@ -26,3 +128,4 @@
 </div>
 
     @endsection
+
