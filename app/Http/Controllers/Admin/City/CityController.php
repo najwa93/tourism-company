@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin\City;
 
+use App\Models\City\City;
+use App\Models\Country\Country;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -22,10 +24,10 @@ class CityController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+   /* public function create()
     {
-        //
-    }
+        return view('Admin.CityManagement.Add');
+    }*/
 
     /**
      * Store a newly created resource in storage.
@@ -33,9 +35,38 @@ class CityController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+   /* public function store(Request $request)
     {
-        //
+        $city = new City();
+        $city->name = $request->input('name');
+        $city->description = $request->input('description');
+    }*/
+
+    // get city wuth related country
+    /*public function create($country_id)
+    {
+        $country = Country::findOrfail($country_id);
+        return view('Admin.CityManagement.Add' , compact(' country'));
+    }*/
+
+    // get city with related country
+    public function getCity($country_id)
+    {
+        $country = Country::findOrfail($country_id);
+        return view('Admin.CityManagement.Add',compact('country'));
+    }
+
+    // get city wuth related country
+    public function storeCity(Request $request,$country_id)
+    {
+        $country = Country::findOrfail($country_id);
+        $city = new City();
+        $city->name = $request->input('cityname');
+        $city->description = $request->input('aboutcity');
+        $city->country_id = $country->id;
+
+        $city->save();
+        return redirect()->route('Countries.show',$country->id);
     }
 
     /**

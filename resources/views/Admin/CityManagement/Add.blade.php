@@ -1,14 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>إضافة مديـنـة جـديـدة</title>
 
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/bootstrap-rtl.min.css" rel="stylesheet">
+@extends('Layouts/Admin_app')
     <style type="text/css">
         *{
             margin: 0;
@@ -47,7 +38,7 @@
 
         }
         .p1{
-            background-image: url('image/globe.jpg');
+            background-image: url("{{asset('images/globe.jpg')}}");
             width: 100%;
             height: 300px;
             background-size:cover;
@@ -60,33 +51,10 @@
             opacity: 0.9;
         }
     </style>
-</head>
 
-<body>
-<header class="header">
 
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header navbar-left">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" style="border-color:orange;   color: white !important;">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" style="font-family:Georgia; font-style: italic; font-size: 32px;color:white;">Travel<span style="font-family:Georgia;font-style: italic; color:orange;">Ro</span> </a>
-            </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav">
-                    <li><a href="index.php"  class="h"><span class="glyphicon glyphicon-home"style="color: orange;"></span>&nbsp;الرئيسية</i></a></li>
-                    <li><a href="manager.php"  class="h"><span class="glyphicon glyphicon-wrench"style="color: orange;"></span>&nbsp;إدارة  الموقع</i></a></li>
-                    <li><a href="" class="h"><span class="glyphicon glyphicon-user"style="color: orange;"></span>&nbsp;أهـلا بـك</i></a></li>
-                    <li><a href="logout.html" class="h"><span class="glyphicon glyphicon-log-out" style="color:orange;"></span>&nbsp;تسجيل الخروج  </i></a></li>
-                </ul>
-            </div>
-    </nav>
-
-</header>
-<form action="add-city.php" method="POST">
+<form action="{{route('StoreCity.store',$country->id)}}" method="POST">
+    {{csrf_field()}}
     <div class="p1"><label style="font-size: 40px; margin-top:9%; color: white; font-weight: bold; margin-right: 12%;"><span class="glyphicon glyphicon-globe" style="color: orange;"></span>&nbsp;إضـافـة مـديـنـة جـديـدة</label></div>
     <br>
     <br>
@@ -97,7 +65,7 @@
             <br>
             <br>
             <br>
-            <form action="add-city.php" method="POST">
+
                 <div style="font-size: 22px; font-weight: bold; color:#64AEF7;margin-right: 80px;">
                     <div class="form-group ">
                         <label for="usr">اســم الـمـديـنـة</label>
@@ -124,30 +92,4 @@
 </form>
 <br>
 <br>
-<footer>
-    <div style="font-size: 20px;font-family: cursive; text-align: center; width: 100%; height: 55px; padding-top: 12px; background-color:#64AEF7" >
-        <p style="color:white;">&copy;&nbsp;ترافل رو للسياحة والسفر  2020</p>
-    </div>
-</footer>
 
-<script type="text/javascript" src="js/jquery-3.4.1.js"></script>
-<script type="text/javascript" src="js/bootstrap.js"></script>
-</body>
-</html>
-
-<?php
-$conn=mysqli_connect('localhost','root','','dbtravelro') ;
-if (isset($_POST['btnsave']))
-{
-    $target="uploads/".basename($_FILES['image']['name']);
-    $name=$_POST['cityname'];
-    $aboutcity=$_POST['aboutcity'];
-    $location=$_POST['location'];
-    $image=$_FILES['image']['name'];
-    $query=" insert into cities('Name','description','CityLocation','CityImage') values ('$name','$aboutcity','$location','$image')";
-    $result=mysqli_query($conn,$query);
-    if ($result) {
-        echo "<script> alert('true')</script>";
-    }
-}
-?>

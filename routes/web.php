@@ -30,4 +30,6 @@ Route::prefix('Admin')->group(function () {
 
     //Cities Controller
     Route::resource('Cities', 'Admin\City\CityController');
+    Route::get('getCity/{Country}', 'Admin\City\CityController@getCity')->name('GetCity.create');
+    Route::post('storeCity/{Country}', 'Admin\City\CityController@storeCity')->name('StoreCity.store');
 });

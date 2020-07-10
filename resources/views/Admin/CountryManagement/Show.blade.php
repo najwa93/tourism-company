@@ -71,14 +71,13 @@
                     class="glyphicon glyphicon-globe" style="color: orange;"></span>&nbsp;إدارة الـمـدن</label></div>
     <div class="container">
         <br><br>
-        <a href="add-city.php" style="text-decoration:none ;">
-            <a href="{{route('Cities.create')}}" style="text-decoration:none ;">
+        <a href="{{route('GetCity.create',$country->id)}}" style="text-decoration:none ;">
             <button href="add-globe.php" type="button" class="btn btn-block"
                     style="background-color:#64AEF7; color: white; height: 40px; font-size: 22px; font-weight: bold;">
                 <span class="glyphicon glyphicon-plus" style="color: orange;"></span>&nbsp;&nbsp;إضــافــة مــديــنــة
                 جــديــدة
             </button>
-            </a>
+
         </a>
         <br>
         <div class="row">
@@ -115,8 +114,8 @@
             <tbody style="text-align: center;" dir="ltr">
             @foreach($allData as $value)
                 <tr>
-                    <td>{{$value['country']}}</td>
                     <td>{{$value['city']}}</td>
+                    <td>{{$value['country']}}</td>
                     <td>
                         <div class="btn-group btn-group-justified" role="group" aria-label="...">
                             <div class="btn-group" role="group">
