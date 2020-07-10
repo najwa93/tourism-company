@@ -1,0 +1,161 @@
+@extends('Layouts.Admin_app')
+
+<style type="text/css">
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+    }
+
+    .header {
+        width: 100%;
+        height: 52px;
+    }
+
+    .navbar {
+        background-color: #64AEF7;
+        z-index: 9999;
+        border: 0;
+        font-size: 20px !important;
+        line-height: 1.5 !important;
+        border-radius: 0;
+    }
+
+    .navbar li a, .navbar .navbar-brand {
+        color: white !important;
+    }
+
+    .navbar-nav li a:hover, .navbar-nav li.active a {
+        color: #64AEF7 !important;
+        background-color: #fff !important;
+    }
+
+    .navbar-default .navbar-toggle {
+        border-color: transparent;
+        color: #fff !important;
+    }
+
+    @media screen and (max-width: 800px) {
+        .col-sm-4 {
+            text-align: center;
+            margin: 25px 0;
+        }
+
+    }
+
+    .p1 {
+        background-image: url("{{asset('images/globe.jpg')}}");
+        width: 100%;
+        height: 300px;
+        background-size: cover;
+        overflow-y: auto;
+        overflow-x: auto;
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        margin-top: -1px;
+        opacity: 0.9;
+    }
+</style>
+
+@section('title')
+    إدارة المدن
+@endsection
+
+
+@section('content')
+    <div class="p1"><label
+                style="font-size: 40px; margin-top:9%; color: white; font-weight: bold; margin-right: 12%;"><span
+                    class="glyphicon glyphicon-globe" style="color: orange;"></span>&nbsp;إدارة الـمـدن</label></div>
+    <div class="container">
+        <br><br>
+        <a href="add-city.php" style="text-decoration:none ;">
+            <a href="{{route('Cities.create')}}" style="text-decoration:none ;">
+            <button href="add-globe.php" type="button" class="btn btn-block"
+                    style="background-color:#64AEF7; color: white; height: 40px; font-size: 22px; font-weight: bold;">
+                <span class="glyphicon glyphicon-plus" style="color: orange;"></span>&nbsp;&nbsp;إضــافــة مــديــنــة
+                جــديــدة
+            </button>
+            </a>
+        </a>
+        <br>
+        <div class="row">
+            <div class="col-md-4 col-xs-12" style="float: right;">
+                <label style=" font-size: 22px; color:#64AEF7; font-weight: bold; "><span
+                            class="glyphicon glyphicon-search" style="color: orange;"></span>&nbsp;&nbsp; الــبـحـث
+                    بـاســم الـمــديـنـة </label>
+            </div>
+
+            <div class="col-md-8 col-xs-12">
+                <input type="text" class="form-control" id="myInput" onkeyup="myFunction()"
+                       placeholder="الـبـحـث بـاسـم المدينـة...." style="text-align: right;">
+            </div>
+        </div>
+
+        <hr>
+        <br>
+        <div style="text-align: center; color:#64AEF7; font-size: 28px;"><label>قــائـــمـــة الـمــدن</label></div>
+        <!-- Table -->
+        <table class="table table-striped table-bordered" id="myTable">
+
+            <tr class="header">
+                <th class="text-center col-xs-4"
+                    style="font-size: 18px;width: 200px; color: white; background-color: #64AEF7;">الـمـديـنـة
+                </th>
+                <th class="text-center col-xs-4"
+                    style="font-size: 18px;width: 200px; color: white; background-color: #64AEF7;">الـبــلــد
+                </th>
+                <th class="text-center col-xs-8" style="font-size: 18px; color: white;background-color: #64AEF7">
+                    خــيــارات
+                </th>
+            </tr>
+
+            <tbody style="text-align: center;" dir="ltr">
+            @foreach($allData as $value)
+                <tr>
+                    <td>{{$value['country']}}</td>
+                    <td>{{$value['city']}}</td>
+                    <td>
+                        <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-danger">حذف</button>
+                            </div>
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-warning">تعديل</button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
+    <br>
+@endsection
+
+{{--<script>
+    function myFunction() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>--}}
+

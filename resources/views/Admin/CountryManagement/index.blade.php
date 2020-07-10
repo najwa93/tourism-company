@@ -106,14 +106,14 @@
                         <div class="btn-group btn-group-justified" role="group" aria-label="...">
                             <div class="btn-group" role="group">
                                 <a href="man-city.php">
-                                    <button type="button" class="btn btn-success">إدارة المدن</button>
+                                    <a href="{{route('Countries.show',$country->id)}}"><button type="button" class="btn btn-success">إدارة المدن</button></a>
                                 </a>
                             </div>
                             <div class="btn-group" role="group">
-                                <button type="button" class="btn btn-danger">حذف</button>
+                                <a href="{{route('Countries.delete',$country->id)}}"><button type="button" class="btn btn-danger">حذف</button></a>
                             </div>
                             <div class="btn-group" role="group">
-                                <button type="button" class="btn btn-warning">تعديل</button>
+                                <a href="{{route('Countries.edit',$country->id)}}"><button type="button" class="btn btn-warning">تعديل</button></a>
                             </div>
                         </div>
                     </td>

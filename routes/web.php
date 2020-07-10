@@ -23,5 +23,11 @@ Route::prefix('Web')->group(function () {
 
 Route::prefix('Admin')->group(function () {
     Route::resource('index', 'Admin\AdminController');
+
+    //Countries Controller
     Route::resource('Countries', 'Admin\CountryController\CountryController');
+    Route::get('Countries/{Country}/delete', 'Admin\CountryController\CountryController@delete')->name('Countries.delete');
+
+    //Cities Controller
+    Route::resource('Cities', 'Admin\City\CityController');
 });

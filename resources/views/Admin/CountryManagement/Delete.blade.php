@@ -18,7 +18,7 @@
 </style>
 
 @section('title')
-    تعديل بـلـد
+    حذف بـلـد
 @endsection
 
 
@@ -30,21 +30,21 @@
     <div class="p1">
         <div class="p1"><label
                     style="font-size: 40px; margin-top:9%; color: white; font-weight: bold; margin-right: 12%;"><span
-                        class="glyphicon glyphicon-globe" style="color: orange;"></span>&nbsp;إضـافـة بـلـد
-                جـديـد</label></div>
+                        class="glyphicon glyphicon-globe" style="color: orange;"></span>&nbsp;حذف بلد
+                </label></div>
     </div>
     <div class="container">
         <br>
         <div class="col-md-6 col-xs-12" style="float: right;">
             <label style=" font-size: 25px;
-    color:#64AEF7; font-weight: bold;"><span class="glyphicon glyphicon-download" style="color: orange;"></span>&nbsp;أضــف
-                بــلــد إلــى قــائـمـة الـبــلــدان الـمـتـاحـة</label>
+    color:#f73917; font-weight: bold;"><span class="glyphicon glyphicon-download" style="color: orange;"></span>&nbsp;
+                هل تريد بالتأكيد أن تقوم بحذف بلد ؟</label>
             <hr>
             <br>
             <br>
-            <form action="{{route('Countries.update',$country->id)}}" method="POST" enctype="multipart/form-data">
+            <form action="{{route('Countries.destroy',$country->id)}}" method="POST" enctype="multipart/form-data">
                 {{csrf_field()}}
-                @method('PUT')
+                @method('DELETE')
                 <div style="font-size: 22px; font-weight: bold; color:#64AEF7;margin-right: 80px;">
                     <div class="form-group ">
                         <label for="usr">اســم الـبــلــد:</label>
@@ -67,7 +67,7 @@
 
                     <button type="submit" class="btn btn-info" name="btnc"
                             style="color: white; width: 100px;height: 40px; font-size: 20px;"><span
-                                class="glyphicon glyphicon-floppy-save" style="color: orange;"></span>&nbsp;تعديل
+                                class="glyphicon glyphicon-floppy-save" style="color: #ff3928;"></span>&nbsp;حذف
                     </button>
 
                 </div>

@@ -60,7 +60,7 @@ class CountryController extends Controller
         $country->name = $request->input('countryname');
 
         $country->save();
-        return redirect()->back();
+        return redirect()->route('Countries.index');
     }
 
     /**
@@ -69,9 +69,22 @@ class CountryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($country_id)
     {
-        //
+        $country = Country::where('id',$country_id)
+        ->with('city')
+        ->first();
+
+        $data = [];
+        $allData = [];
+            $data['country'] = $country['name'];
+            foreach ($country['city'] as $value) {
+                $data['city'] = $value['name'];
+                array_push($allData,$data);
+            }
+
+            //return $allData;
+        return view('Admin.CountryManagement.Show',compact('allData'));
     }
 
     /**
@@ -121,14 +134,29 @@ class CountryController extends Controller
         return redirect()->back();
     }
 
+    public function delete($country_id){
+        $country = Country::findOrfail($country_id);
+
+        return view('Admin.CountryManagement.Delete',compact('country'));
+    }
+
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($country_id)
     {
-        //
+        $country = Country::findOrfail($country_id);
+        try{
+            $flagImg = unlink(public_path('/images/'.$country->img_path));
+            $country->delete();
+        }catch (\Exception $exception){
+            dd($exception->getMessage());
+        }
+
+        return redirect()->route('Countries.index');
+
     }
 }

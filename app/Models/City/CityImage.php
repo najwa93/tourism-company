@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Models\Country;
+namespace App\Models\City;
 
-use App\Models\City\City;
 use Illuminate\Database\Eloquent\Model;
 
-class Country extends Model
+class CityImage extends Model
 {
     public function city(){
         return $this->hasMany(City::class);

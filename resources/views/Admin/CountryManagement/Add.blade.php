@@ -20,10 +20,6 @@
 @section('title')
     إضافة بـلـد
 @endsection
-@section('contact')
-    إدارة  الموقع
-@endsection
-
 
 @section('content')
     <div class="p1">
