@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 
 Route::prefix('Web')->group(function () {
@@ -35,4 +33,8 @@ Route::prefix('Admin')->group(function () {
 
     //Hotels Controller
     Route::resource('Hotels', 'Admin\Hotel\HotelController');
+    Route::get('/getCities/{id}','Admin\Hotel\HotelController@getCities' );
 });
+
+//Route::get('/','Admin\CountryController\TestController@index' );
+//Route::get('/getCities/{id}','Admin\CountryController\TestController@getStates' );

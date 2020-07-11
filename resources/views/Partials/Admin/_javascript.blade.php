@@ -49,3 +49,38 @@
         }
     }
 </script>
+
+
+<!-- get dropdown with filter -->
+<script>
+    $(document).ready(function () {
+        $('select[name="country"]').on('change',function () {
+            var country_id = $(this).val();
+
+            if(country_id){
+                //console.log(country_id);
+                $.ajax({
+                    url: '/Admin/getCities/' + country_id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        // console.log(data);
+                        $('select[name="city"]').empty();
+                        // loop through the data
+                        $.each(data,function (key,value) {
+                            //  console.log(key);
+                            $('select[name="city"]').append('<option value="'+key+'">' + value + '</option>');
+                            /*$('select[name="city"]').on('change',function () {
+                                var city_id = $(this).val();
+                                console.log(city_id);
+                            })*/
+                        })
+                    }
+                })
+            }else {
+                ('select[name="city"]').empty();
+            }
+        })
+    })
+</script>
+

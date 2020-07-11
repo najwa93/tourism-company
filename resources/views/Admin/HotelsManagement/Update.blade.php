@@ -2,7 +2,7 @@
 @extends('Layouts/Admin_app')
 
 @section('title')
-    إضافة فـنـدق جـديـد
+   تعديل فندق
 @endsection
 
 @section('styles')
@@ -92,14 +92,14 @@
                     </select>
                 </div>
 
-             {{--   <div class="form-group ">
-                    <label for="usr">اســم الـبـلــد</label>
-                    <input type="text" class="form-control" name="countryname" id="usr" placeholder="أدخــل اســم الـبـلـد" style="font-size: 20px; color: black;">
-                </div>
-                <div class="form-group ">
-                    <label for="usr">اســم  الـمـديـنـة</label>
-                    <input type="text" class="form-control" name="cityname" id="usr" placeholder="أدخــل اســم الـمـديـنـة" style="font-size: 20px; color: black;">
-                </div>--}}
+                {{--   <div class="form-group ">
+                       <label for="usr">اســم الـبـلــد</label>
+                       <input type="text" class="form-control" name="countryname" id="usr" placeholder="أدخــل اســم الـبـلـد" style="font-size: 20px; color: black;">
+                   </div>
+                   <div class="form-group ">
+                       <label for="usr">اســم  الـمـديـنـة</label>
+                       <input type="text" class="form-control" name="cityname" id="usr" placeholder="أدخــل اســم الـمـديـنـة" style="font-size: 20px; color: black;">
+                   </div>--}}
                 <div class="form-group ">
                     <label for="usr">عـدد الـنـجـوم</label>
                     <input type="number" class="form-control" name="stars" id="usr" placeholder="عـدد الـنـجـوم" style="font-size: 20px; color: black;">
