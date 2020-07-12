@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin\Hotel;
 
 use App\Models\Admin\Hotel\Hotel;
 use App\Models\Admin\Hotel\HotelImage;
-use App\Models\City\City;
-use App\Models\Country\Country;
+use App\Models\Admin\City\City;
+use App\Models\Admin\Country\Country;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -100,7 +100,23 @@ class HotelController extends Controller
      */
     public function show($hotel_id)
     {
-       $hotel = Hotel::findOrfail($hotel_id);
+       $hotel = Hotel::findOrfail($hotel_id)
+        ->with('hotelRoom')
+        ->first();
+
+       //return $hotel;
+        $data = [];
+        $allData = [];
+        $data['hotel'] = $hotel['name'];
+        foreach ($hotel['hotelRoom'] as $value) {
+            $data['hotel_room_id'] = $value['id'];
+            $data['hotel_room'] = $value['name'];
+            $data['customers_count'] = $value['customers_count'];
+            $data['customers_count'] = $value['details'];
+            $data['customers_count'] = $value['night_price'];
+            //$data['hotel_room_type'] = $value['name'];
+            array_push($allData,$data);
+        }
 
        return view('Admin.HotelsManagement.Show',compact('hotel'));
     }
@@ -139,8 +155,8 @@ class HotelController extends Controller
 
         $hotelImages = HotelImage::where('hotel_id',$hotel_id)->get();
         $hotel->name = $request->input('name');
-        $hotel->country_id = $request->country;
-        $hotel->city_id = $request->city;
+        $hotel->country_id = $request->input('country');
+        $hotel->city_id = $request->input('city');
         $hotel->stars = $request->input('stars');
         $hotel->details = $request->input('abouthotel');
         $hotel->email = $request->input('email');
@@ -165,9 +181,7 @@ class HotelController extends Controller
                 $image->hotel_id = $hotel->id;
                 $image->save();
             }
-
         }
-        $hotel->update($request->all());
 
 
         return redirect()->route('Hotels.index');

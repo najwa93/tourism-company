@@ -31,12 +31,19 @@ Route::prefix('Admin')->group(function () {
     Route::get('getCity/{Country}', 'Admin\City\CityController@getCity')->name('GetCity.create');
     Route::post('storeCity/{Country}', 'Admin\City\CityController@storeCity')->name('StoreCity.store');
     Route::get('Cities/{City}/delete', 'Admin\City\CityController@delete')->name('Cities.delete');
-    //Hotels Controller
-    Route::resource('Hotels', 'Admin\Hotel\HotelController');
     Route::get('/getCities/{id}','Admin\Hotel\HotelController@getCities' );
 
+    //Hotels Controller
+    Route::resource('Hotels', 'Admin\Hotel\HotelController');
+    Route::prefix('Hotels')->group(function () {
+        Route::resource('Rooms', 'Admin\Hotel\RoomController');
+        Route::get('getRoom/{Hotel}', 'Admin\Hotel\RoomController@getRoom')->name('GetRoom.create');
+        Route::post('storeRoom/{Hotel}', 'Admin\Hotel\RoomController@storeRoom')->name('StoreRoom.store');
+    });
+
+
     //Images Controller
-    Route::resource('Images', 'Admin\Hotel\HotelController');
+   // Route::resource('Images', 'Admin\Hotel\HotelController');
 });
 
 //Route::get('/','Admin\CountryController\TestController@index' );

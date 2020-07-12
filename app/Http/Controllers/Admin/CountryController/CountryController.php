@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\CountryController;
 
-use App\Models\Country\Country;
+use App\Models\Admin\Country\Country;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

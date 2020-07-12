@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin\City;
 
-use App\Models\City\City;
-use App\Models\City\CityImage;
-use App\Models\Country\Country;
+use App\Models\Admin\City\City;
+use App\Models\Admin\City\CityImage;
+use App\Models\Admin\Country\Country;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
@@ -31,7 +31,7 @@ class CityController extends Controller
         return view('Admin.CityManagement.Add', compact('country'));
     }
 
-    // get cities wuth related country
+    // get cities with related country
     public function storeCity(Request $request, $country_id)
     {
         $country = Country::findOrfail($country_id);

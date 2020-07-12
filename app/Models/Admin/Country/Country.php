@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Models\Country;
+namespace App\Models\Admin\Country;
 
 use App\Models\Admin\Hotel\Hotel;
-use App\Models\City\City;
+use App\Models\Admin\City\City;
 use Illuminate\Database\Eloquent\Model;
 
 class Country extends Model

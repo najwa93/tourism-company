@@ -61,7 +61,7 @@
 <br> <br>
 <div class="well"  style="font-size: 25px; color: #64AEF7; text-align: center;"><span class="glyphicon glyphicon-bed" style="color: orange;"></span>&nbsp;{{$hotel->name}}</div>
 <div class="container">
-    <a  href="{{route('Rooms.store')}}" style="text-decoration:none ;"> <button type="button" class="btn btn-block" style="background-color:#64AEF7; color: white; height: 40px; font-size: 22px; font-weight: bold;"><span class="glyphicon glyphicon-plus" style="color: orange;"></span>&nbsp;&nbsp;إضــافــة  غـرفــة  جــديــدة</button> </a>
+    <a  href="{{route('GetRoom.create',$hotel->id)}}" style="text-decoration:none ;"> <button type="button" class="btn btn-block" style="background-color:#64AEF7; color: white; height: 40px; font-size: 22px; font-weight: bold;"><span class="glyphicon glyphicon-plus" style="color: orange;"></span>&nbsp;&nbsp;إضــافــة  غـرفــة  جــديــدة</button> </a>
     <br><br>
     <div  style="text-align: center; color:#64AEF7; font-size: 28px;"><label><span class="glyphicon glyphicon-lamp" style="color: orange;"></span>&nbsp;&nbsp;الـغـرف الـمـتـوفــرة</label></div>
     <!-- Table -->
