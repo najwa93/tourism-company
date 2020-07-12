@@ -81,7 +81,7 @@ class HotelController extends Controller
             foreach ($request->images as $image) {
                 $imgName = $image->getClientOriginalName();
                 // $imgSize = $image->getClientSize();
-                $imgPath = $image->storeAs('cities', $imgName, 'images');
+                $imgPath = $image->storeAs('hotels', $imgName, 'images');
                 $image = new HotelImage();
                 $image->img_path = $imgPath;
                 $image->hotel_id = $hotel->id;
@@ -109,9 +109,19 @@ class HotelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($hotel_id)
     {
-        return view('Admin.HotelsManagement.Update');
+        $hotel = Hotel::findOrfail($hotel_id);
+        $hotelImgs = HotelImage::where('hotel_id',$hotel->id)
+            ->get();
+        $country = Country::findOrfail($hotel->country_id);
+        $countries = Country::all()->pluck('name','id');
+
+        $cities = City::where('country_id',$country->id)
+            ->get();
+        $hotelImgs = HotelImage::where('hotel_id', $hotel->id)
+            ->get();
+        return view('Admin.HotelsManagement.Update',compact(['hotel','countries','cities','hotelImgs']));
     }
 
     /**
@@ -121,9 +131,44 @@ class HotelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $hotel_id)
     {
-        //
+        $hotel = Hotel::findOrfail($hotel_id);
+
+        $hotelImages = HotelImage::where('hotel_id',$hotel_id)->get();
+        $hotel->name = $request->input('name');
+        $hotel->country_id = $request->country;
+        $hotel->city_id = $request->city;
+        $hotel->stars = $request->input('stars');
+        $hotel->details = $request->input('abouthotel');
+        $hotel->email = $request->input('email');
+        $hotel->phone_number = $request->input('phone');
+        $hotel->location = $request->input('location');
+        $hotel->save();
+
+
+        // Save multiple photos in the database
+        if ($request->hasFile('images')) {
+           // $hotel->hotelImage()->detach();
+            foreach ($hotelImages as $hotelImage){
+                unlink(public_path('/images/'.$hotelImage->img_path));
+                $hotelImage->delete();
+            }
+            foreach ($request->images as $image) {
+                $imgName = $image->getClientOriginalName();
+                // $imgSize = $image->getClientSize();
+                $imgPath = $image->storeAs('hotels', $imgName, 'images');
+                $image = new HotelImage();
+                $image->img_path = $imgPath;
+                $image->hotel_id = $hotel->id;
+                $image->save();
+            }
+
+        }
+        $hotel->update($request->all());
+
+
+        return redirect()->route('Hotels.index');
     }
 
     /**

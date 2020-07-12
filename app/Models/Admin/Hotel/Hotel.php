@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Hotel extends Model
 {
+
+    protected $fillable = ['name','stars','country_id','city_id','phone_number','email','details','location'];
+
     public function city(){
         return $this->belongsTo(City::class);
     }

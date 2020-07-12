@@ -1,5 +1,8 @@
 
 @extends('Layouts/Admin_app')
+@section('title')
+    إضـافـة مـديـنـة جـديـدة
+    @endsection
    @section('styles')
         *{
             margin: 0;

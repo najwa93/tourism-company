@@ -30,10 +30,13 @@ Route::prefix('Admin')->group(function () {
     Route::resource('Cities', 'Admin\City\CityController');
     Route::get('getCity/{Country}', 'Admin\City\CityController@getCity')->name('GetCity.create');
     Route::post('storeCity/{Country}', 'Admin\City\CityController@storeCity')->name('StoreCity.store');
-
+    Route::get('Cities/{City}/delete', 'Admin\City\CityController@delete')->name('Cities.delete');
     //Hotels Controller
     Route::resource('Hotels', 'Admin\Hotel\HotelController');
     Route::get('/getCities/{id}','Admin\Hotel\HotelController@getCities' );
+
+    //Images Controller
+    Route::resource('Images', 'Admin\Hotel\HotelController');
 });
 
 //Route::get('/','Admin\CountryController\TestController@index' );

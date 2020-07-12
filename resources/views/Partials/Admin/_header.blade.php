@@ -12,6 +12,9 @@
             <ul class="nav navbar-nav">
                 <li><a href="index.php"  class="h"><span class="glyphicon glyphicon-home"style="color: orange;"></span>&nbsp;الرئيسية</i></a></li>
                 <li><a href="{{route('Main.index')}}"  class="h"><span class="glyphicon glyphicon-wrench"style="color: orange;"></span>&nbsp;إدارة  الموقع</i></a></li>
+{{--
+                <li><a href="{{route('Main.index')}}"  class="h"><span class="glyphicon glyphicon-picture"style="color: orange;"></span>&nbsp;إدارة  الصور</i></a></li>
+--}}
                 <li><a href="" class="h"><span class="glyphicon glyphicon-user"style="color: orange;"></span>&nbsp;أهـلا بـك</i></a></li>
                 <li><a href="logout.html" class="h"><span class="glyphicon glyphicon-log-out" style="color:orange;"></span>&nbsp;تسجيل الخروج  </i></a></li>
             </ul>

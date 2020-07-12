@@ -101,27 +101,24 @@ class CityController extends Controller
         $city->city_location = $request->input('location');
         $city->save();
 
+
+
         // Save multiple photos in the database
         if ($request->hasFile('images')) {
-            foreach ($cityImgs as $cityImg) {
-                try {
-                   // $cityImg->city()->detach();
-                   //File::delete(public_path('/images/'.$cityImg->image));
-                   File::delete(public_path('/images/'.$cityImg->image));
-
-                } catch (\Exception $exception) {
-                    dd($exception->getMessage());
-                }
+            foreach ($cityImgs as $cityImage) {
+                unlink(public_path('/images/' . $cityImage->img_path));
+                $cityImage->delete();
             }
             foreach ($request->images as $image) {
                 $imgName = $image->getClientOriginalName();
                 // $imgSize = $image->getClientSize();
-                $imgPath = $image->storeAs('cities', $imgName, 'images');
+                $imgPath = $image->storeAs('hotels', $imgName, 'images');
                 $image = new CityImage();
                 $image->img_path = $imgPath;
                 $image->city_id = $city->id;
                 $image->save();
             }
+
         }
 
         return redirect()->route('Countries.show', $country->id);
@@ -134,14 +131,27 @@ class CityController extends Controller
         return redirect()->route('admin.companies.index');
     }
 
+    public function delete($city_id){
+        $city = City::findOrfail($city_id);
+        $cityImgs = CityImage::where('city_id',$city_id)
+            ->get();
+        return view('Admin.CityManagement.Delete',compact('city','cityImgs'));
+    }
     /**
      * Remove the specified resource from storage.
      *
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($city_id)
     {
-        //
+        $city = City::findOrfail($city_id);
+        $cityImgs = CityImage::where('city_id',$city_id)
+            ->get();
+        foreach ($cityImgs as $cityImage) {
+            unlink(public_path('/images/' . $cityImage->img_path));
+        }
+        $cityImage->delete();
+        $city->delete();
     }
 }
