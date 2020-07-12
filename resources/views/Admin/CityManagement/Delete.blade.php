@@ -56,20 +56,19 @@
 @endsection
 
 
-<form action="{{route('Cities.delete',$city->id)}}" method="POST" >
+<form action="{{route('Cities.destroy',$city->id)}}" method="POST" >
     {{csrf_field()}}
     @method('DELETE')
     <div class="p1"><label
                 style="font-size: 40px; margin-top:9%; color: white; font-weight: bold; margin-right: 12%;"><span
-                    class="glyphicon glyphicon-globe" style="color: orange;"></span>&nbsp;إضـافـة مـديـنـة
-            جـديـدة</label></div>
+                    class="glyphicon glyphicon-globe" style="color: orange;"></span>&nbsp;حذف مدينة
+           </label></div>
     <br>
     <br>
     <div class="container">
         <div class="col-md-6 col-xs-12" style="float: right;">
             <label style=" font-size: 25px;
-    color:#64AEF7; font-weight: bold;"><span class="glyphicon glyphicon-download" style="color: orange;"></span>&nbsp;أضــف
-                مـديــنــة إلــى قــائـمـة الــمــدن الـمـتـاحـة</label>
+    color:#f73917; font-weight: bold;"><span class="glyphicon glyphicon-download" style="color:#f73917"></span>&nbsp; هل تـريـد بالتأكيد القيـام بعملـية حـذف مدينة ؟</label>
             <br>
             <br>
             <br>
@@ -95,7 +94,6 @@
                 </div>
                 <div class="form-group">
                     <label for="flag">صـور مـن الـمـديـنـة</label>
-                    <input id="file-input" type="file" name="images[]" multiple>
                     <div class="panel-body">
                         @foreach($cityImgs as $cityImg)
                             <img src="{{url('/images/'.$cityImg->img_path)}}" style="width: 150px;height: 140px;">
@@ -106,7 +104,7 @@
                 <br>
                 <button type="submit" class="btn btn-info" name="btnsave"
                         style="color: white; width: 100px;height: 40px; font-size: 20px;"><span
-                            class="glyphicon glyphicon-floppy-save" style="color: orange;"></span>&nbsp;تعديل
+                            class="glyphicon glyphicon-floppy-save" style="color: #ff3928;"></span>&nbsp;حذف
                 </button>
 
             </div>

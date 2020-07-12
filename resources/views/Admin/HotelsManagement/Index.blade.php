@@ -90,7 +90,7 @@
             <td>
                 <div class="btn-group btn-group-justified" role="group" aria-label="...">
                     <div class="btn-group" role="group">
-                        <a href="">  <button type="button" class="btn btn-success">إدارة  غـرف الفندق</button></a>
+                        <a href="{{route('Hotels.show',$value['hotel_id'])}}"> <button type="button" class="btn btn-success">إدارة  غـرف الفندق</button></a>
                     </div>
                     <div class="btn-group" role="group">
                         <a href="{{route('Hotels.edit',$value['hotel_id'])}}"><button type="button" class="btn btn-warning">تعديل</button></a>
@@ -104,4 +104,4 @@
     </table>
 </div>
 <br>
-
+@endsection

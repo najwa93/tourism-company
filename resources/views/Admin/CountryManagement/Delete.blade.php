@@ -82,8 +82,8 @@
         <br>
         <div class="col-md-6 col-xs-12" style="float: right;">
             <label style=" font-size: 25px;
-    color:#f73917; font-weight: bold;"><span class="glyphicon glyphicon-download" style="color: orange;"></span>&nbsp;
-                هل تريد بالتأكيد أن تقوم بعملية الحذف ؟</label>
+    color:#f73917; font-weight: bold;"><span class="glyphicon glyphicon-download" style="color:#f73917;"></span>&nbsp;
+                هل تريد بالتأكيد القيام بعملية حذف بلد ؟</label>
             <hr>
             <br>
             <br>
@@ -103,7 +103,6 @@
 
                     <div class="form-group">
                         <label for="flag">عـلــم الـبــلــد:</label>
-                        <input type="file" name="image">
                         <img src="{{url('/images/'.$country->img_path)}}" style="width: 150px;height: 140px;">
                     </div>
                     @error('image')

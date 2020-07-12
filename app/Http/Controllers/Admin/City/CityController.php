@@ -128,7 +128,7 @@ class CityController extends Controller
     {
         //abort_unless(\Gate::allows('company_create'), 403);
         $location = Location::create($request->all());
-        return redirect()->route('admin.companies.index');
+       // return redirect()->route('admin.companies.index');
     }
 
     public function delete($city_id){
@@ -146,12 +146,15 @@ class CityController extends Controller
     public function destroy($city_id)
     {
         $city = City::findOrfail($city_id);
+        $country = Country::where('id', $city->country_id)->first();
         $cityImgs = CityImage::where('city_id',$city_id)
             ->get();
         foreach ($cityImgs as $cityImage) {
             unlink(public_path('/images/' . $cityImage->img_path));
+            $cityImage->delete();
         }
-        $cityImage->delete();
         $city->delete();
+
+        return redirect()->route('Countries.show', $country->id);
     }
 }

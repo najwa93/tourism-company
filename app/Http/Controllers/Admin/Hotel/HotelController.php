@@ -89,7 +89,7 @@ class HotelController extends Controller
             }
         }
 
-        return redirect()->back();
+        return redirect()->route('Hotels.index');
     }
 
     /**
@@ -98,9 +98,11 @@ class HotelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($hotel_id)
     {
-        //
+       $hotel = Hotel::findOrfail($hotel_id);
+
+       return view('Admin.HotelsManagement.Show',compact('hotel'));
     }
 
     /**
