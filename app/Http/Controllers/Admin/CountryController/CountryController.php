@@ -84,7 +84,7 @@ class CountryController extends Controller
                 array_push($allData,$data);
             }
 
-       // return $allData;
+        //return $allData;
         return view('Admin.CountryManagement.Show',compact(['allData','country']));
     }
 

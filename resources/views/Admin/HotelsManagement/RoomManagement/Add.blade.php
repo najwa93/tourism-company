@@ -99,9 +99,7 @@
                     <input type="text" class="form-control" name="about" id="usr" placeholder="أدخـل  مزايا تتمتع بها الغرفة" style="font-size: 20px; color: black;">
                 </div>
                 <div class="form-group">
-                    <input type="checkbox" class="switch-input"  name="available"  {{ old('available') ? 'checked="checked"' : '' }}/>
-
-
+                    <input type="checkbox" class="switch-input"  name="available"  />
                     <label class="form-check-label" for="exampleCheck1">الغرفة متاحة</label>
                 </div>
                 <br>

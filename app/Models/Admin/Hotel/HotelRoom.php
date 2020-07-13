@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class HotelRoom extends Model
 {
     protected $fillable = ['room_type_id'];
-    public function Hotel(){
+    public function hotel(){
         return $this->belongsTo(Hotel::class);
     }
 
-    public function roomType(){
+    public function room_type(){
         return $this->belongsTo(RoomType::class,'room_type_id');
     }
 }

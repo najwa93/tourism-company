@@ -42,11 +42,11 @@ class RoomController extends Controller
         $hotelRoom->details = $request->input('about');
         $hotelRoom->name = $request->input('name');
         $hotelRoom->night_price = $request->input('price');
-        $hotelRoom->is_available = $request->input('available');
+        $hotelRoom->is_available = $request->input('available')?true:false;
         $hotelRoom->save();
 
-       // return redirect()->route('Hotels.show', $hotel->id);
-        return redirect()->back();
+        return redirect()->route('Hotels.show', $hotel->id);
+
     }
 
 
@@ -67,9 +67,13 @@ class RoomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($room_id)
     {
-        //
+        $room = HotelRoom::with('room_type')->first();
+        $hotel_id = Hotel::where('id',$room->hotel_id)->first();
+        $roomTypes = RoomType::all();
+        //return $room->room_type->name;
+        return view('Admin.HotelsManagement.RoomManagement.Update',compact(['room','roomTypes']));
     }
 
     /**

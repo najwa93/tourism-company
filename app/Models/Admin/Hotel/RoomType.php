@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class RoomType extends Model
 {
-    public function hotelRoom(){
+    public function hotel_room(){
         return $this->hasMany(HotelRoom::class);
     }
 }

@@ -78,21 +78,22 @@
         </tr>
         </thead>
         <tbody  style="text-align: center;"  dir="ltr">
+        @foreach($allData as $value)
         <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{$value['hotel_room']}}</td>
+            <td>{{$value['hotel_room_type']}}</td>
+            <td>{{$value['customers_count']}}</td>
+            <td>{{$value['details']}}</td>
+            <td>{{$value['night_price']}}</td>
             <td>
                 <div class="btn-group btn-group-justified" role="group" aria-label="...">
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-warning">تعديل</button>
+                        <a href="{{route('Rooms.edit',$value['hotel_room_id'])}}"><button type="button" class="btn btn-warning">تعديل</button></a>
                     </div>
                 </div>
             </td>
         </tr>
-
+        @endforeach
         </tbody>
     </table>
 </div>
