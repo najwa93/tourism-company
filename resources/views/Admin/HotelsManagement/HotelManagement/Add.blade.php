@@ -1,8 +1,8 @@
 
-@extends('Layouts/Admin_app')
+@extends('Layouts.Admin_app')
 
 @section('title')
-   تعديل فندق
+    إضافة فـنـدق جـديـد
 @endsection
 
 @section('styles')
@@ -56,7 +56,7 @@
     }
 @endsection
 
-
+@section('content')
 <div class="p1"><label style="font-size: 40px; margin-top:9%; color: white; font-weight: bold; margin-right: 12%;"><span class="glyphicon glyphicon-globe" style="color: orange;"></span>&nbsp;إضـافـة فـنـدق جـديـد</label></div>
 <br>
 <br>
@@ -67,20 +67,19 @@
         <hr>
         <br>
         <br>
-        <form action="{{route('Hotels.update',$hotel->id)}}" method="POST" enctype="multipart/form-data">
+        <form action="{{route('Hotels.store')}}" method="POST" enctype="multipart/form-data">
             {{csrf_field()}}
-            @method('PUT')
             <div style="font-size: 22px; font-weight: bold; color:#64AEF7;margin-right: 80px;">
                 <div class="form-group ">
                     <label for="usr">اســم الـفـنـدق</label>
-                    <input type="text" class="form-control" name="name" id="usr" placeholder="أدخــل اســم الـفـنـدق" value="{{$hotel->name}}" style="font-size: 20px; color: black;">
+                    <input type="text" class="form-control" name="name" id="usr" placeholder="أدخــل اســم الـفـنـدق" style="font-size: 20px; color: black;">
                 </div>
                 <div class="form-group">
                     <label for="usr">اســم الـبـلــد</label>
                     <select name="country" id="country" class="form-control">
                         <option value="">Select Country</option>
                         @foreach($countries as $key => $value)
-                            <option {{$key == $hotel->country_id?'selected="selected"':''}} value="{{$key}}">{{$value}}</option>
+                            <option value="{{$key}}">{{$value}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -88,47 +87,43 @@
                 <div class="form-group">
                     <label for="usr">اســم  الـمـديـنـة</label>
                     <select name="city" id="city" class="form-control">
-                       {{--<option value="{{$city->id}}">{{$city->name}}</option>--}}
-                        @foreach($cities as $city)
-                            <option {{$city->id == $hotel->city_id?'selected="selected"':''}} value="{{$city->id}}">{{$city->name}}</option>
-                        @endforeach
+                        <option value="">City</option>
+
                     </select>
                 </div>
 
+             {{--   <div class="form-group ">
+                    <label for="usr">اســم الـبـلــد</label>
+                    <input type="text" class="form-control" name="countryname" id="usr" placeholder="أدخــل اســم الـبـلـد" style="font-size: 20px; color: black;">
+                </div>
+                <div class="form-group ">
+                    <label for="usr">اســم  الـمـديـنـة</label>
+                    <input type="text" class="form-control" name="cityname" id="usr" placeholder="أدخــل اســم الـمـديـنـة" style="font-size: 20px; color: black;">
+                </div>--}}
                 <div class="form-group ">
                     <label for="usr">عـدد الـنـجـوم</label>
-                    <input type="number" class="form-control" name="stars" id="usr" placeholder="عـدد الـنـجـوم" value="{{$hotel->stars}}" style="font-size: 20px; color: black;">
+                    <input type="number" class="form-control" name="stars" id="usr" min="1" max="5" placeholder="عـدد الـنـجـوم" style="font-size: 20px; color: black;">
                 </div>
                 <div class="form-group ">
                     <label for="usr">عــن الـفـنـدق</label>
-                    <textarea class="form-control" name="abouthotel" placeholder="أدخــل مـعـلـومـات عـن الـفـنـدق" style="text-align: right; font-size:20px; color: black;" rows="4">{{$hotel->details}}</textarea>
+                    <textarea class="form-control" name="abouthotel" placeholder="أدخــل مـعـلـومـات عـن الـفـنـدق" style="text-align: right; font-size:20px; color: black;" rows="4"></textarea>
                 </div>
                 <div class="form-group ">
                     <label for="usr">الـمـوقـع الإلـكـتـرونـي</label>
-                    <input type="email" class="form-control" name="email" id="usr"placeholder="أدخــل  الـمـوقـع الإلـكـتـرونـي" value="{{$hotel->email}}"  style="font-size: 20px; color: black;">
+                    <input type="email" class="form-control" name="email" id="usr"placeholder="أدخــل  الـمـوقـع الإلـكـتـرونـي" style="font-size: 20px; color: black;">
                 </div>
 
                 <div class="form-group ">
                     <label for="usr">رقــم الـهـاتــف</label>
-                    <input type="text" class="form-control" name="phone" id="usr" placeholder="رقــم الـهـاتــف"  value="{{$hotel->phone_number}}" style="font-size: 20px; color: black;">
+                    <input type="text" class="form-control" name="phone" id="usr" placeholder="رقــم الـهـاتــف" style="font-size: 20px; color: black;">
                 </div>
                 <div class="form-group ">
                     <label for="usr">مـوقــع الـفـنـدق</label>
-                    <input type="text" class="form-control" name="location" id="usr" placeholder="أدخـل مـوقـع  الـفـنـدق مــن خـرائــط غـوغـل" value="{{$hotel->location}}" style="font-size: 20px; color: black;">
+                    <input type="text" class="form-control" name="location" id="usr" placeholder="أدخـل مـوقـع  الـفـنـدق مــن خـرائــط غـوغـل" style="font-size: 20px; color: black;">
                 </div>
                 <div class="form-group">
                     <label for="flag">صـور  مـن الـفـنـدق</label>
                     <input id="file-input" type="file" name="images[]" multiple>
-                    <div class="panel-body">
-                        @foreach($hotelImgs as $hotelImg)
-                            <img src="{{url('/images/'.$hotelImg->img_path)}}" style="width: 150px;height: 140px;">
-                        @endforeach
-                    </div>
-
-                   {{-- @foreach($hotelImgs as $hotelImg)
-
-                       --}}{{-- <input  type="checkbox" name="photos[]" value="{{$photo->id}}" />--}}{{--
-                    @endforeach--}}
                 </div>
                 <br>
                 <button type="submit" class="btn btn-info" name="btnsave" style="color: white; width: 100px;height: 40px; font-size: 20px;"><span class="glyphicon glyphicon-floppy-save" style="color: orange;"></span>&nbsp;حــفــظ</button>
@@ -139,5 +134,5 @@
 </div>
 <br>
 <br>
-
+@endsection
 

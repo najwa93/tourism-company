@@ -32,7 +32,7 @@ class HotelController extends Controller
             array_push($allData, $data);
         }
         //return $allData;
-        return view('Admin.HotelsManagement.Index', compact('allData'));
+        return view('Admin.HotelsManagement.HotelManagement.Index', compact('allData'));
     }
 
     /**
@@ -45,7 +45,7 @@ class HotelController extends Controller
         $countries = Country::all()->pluck('name', 'id');
         //return $countries;
 
-        return view('Admin.HotelsManagement.Add', compact('countries'));
+        return view('Admin.HotelsManagement.HotelManagement.Add', compact('countries'));
     }
 
     public function getCities($id)
@@ -119,7 +119,7 @@ class HotelController extends Controller
         }
 
         // return $allData;
-        return view('Admin.HotelsManagement.Show', compact(['hotel', 'allData']));
+        return view('Admin.HotelsManagement.HotelManagement.Show', compact(['hotel', 'allData']));
     }
 
     /**
@@ -140,7 +140,7 @@ class HotelController extends Controller
             ->get();
         $hotelImgs = HotelImage::where('hotel_id', $hotel->id)
             ->get();
-        return view('Admin.HotelsManagement.Update', compact(['hotel', 'countries', 'cities', 'hotelImgs']));
+        return view('Admin.HotelsManagement.HotelManagement.Update', compact(['hotel', 'countries', 'cities', 'hotelImgs']));
     }
 
     /**

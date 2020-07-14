@@ -41,6 +41,11 @@ Route::prefix('Admin')->group(function () {
         Route::post('storeRoom/{Hotel}', 'Admin\Hotel\RoomController@storeRoom')->name('StoreRoom.store');
     });
 
+   //Flights Controller
+    Route::resource('Flights', 'Admin\Flight\FlightController');
+    Route::prefix('Flights')->group(function () {
+        Route::resource('FlightCompany', 'Admin\Flight\FlightCompanyController');
+    });
 
     //Images Controller
    // Route::resource('Images', 'Admin\Hotel\HotelController');

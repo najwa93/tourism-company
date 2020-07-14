@@ -69,11 +69,13 @@ class RoomController extends Controller
      */
     public function edit($room_id)
     {
-        $room = HotelRoom::with('room_type')->first();
-        $hotel_id = Hotel::where('id',$room->hotel_id)->first();
+        $hotelRoom = HotelRoom::where('id',$room_id)
+        ->with('room_type')
+            ->first();
+        $hotel_id = Hotel::where('id',$hotelRoom->hotel_id)->first();
         $roomTypes = RoomType::all();
         //return $room->room_type->name;
-        return view('Admin.HotelsManagement.RoomManagement.Update',compact(['room','roomTypes']));
+        return view('Admin.HotelsManagement.RoomManagement.Update',compact(['hotelRoom','roomTypes']));
     }
 
     /**
@@ -83,9 +85,21 @@ class RoomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $room_id)
     {
-        //
+        $hotelRoom = HotelRoom::findOrfail($room_id);
+        $hotel = Hotel::where('id', $hotelRoom->hotel_id)->first();
+        $hotel->room_type_id = $request->type;
+        // return $hotelRoom;
+        $hotelRoom->hotel_id = $hotel->id;
+        $hotelRoom->customers_count = $request->input('custcount');
+        $hotelRoom->details = $request->input('about');
+        $hotelRoom->name = $request->input('name');
+        $hotelRoom->night_price = $request->input('price');
+        $hotelRoom->is_available = $request->input('available')?true:false;
+        $hotelRoom->save();
+
+        return redirect()->route('Hotels.show', $hotel->id);
     }
 
     /**
