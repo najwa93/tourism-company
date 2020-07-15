@@ -81,6 +81,34 @@
                 ('select[name="city"]').empty();
             }
         })
+
+        $('select[name="destcountry"]').on('change',function () {
+            var country_id = $(this).val();
+
+            if(country_id){
+                //console.log(country_id);
+                $.ajax({
+                    url: '/Admin/getDestCities/' + country_id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        // console.log(data);
+                        $('select[name="destcity"]').empty();
+                        // loop through the data
+                        $.each(data,function (key,value) {
+                            //  console.log(key);
+                            $('select[name="destcity"]').append('<option value="'+key+'">' + value + '</option>');
+                            /*$('select[name="city"]').on('change',function () {
+                                var city_id = $(this).val();
+                                console.log(city_id);
+                            })*/
+                        })
+                    }
+                })
+            }else {
+                ('select[name="destcity"]').empty();
+            }
+        })
     })
 </script>
 

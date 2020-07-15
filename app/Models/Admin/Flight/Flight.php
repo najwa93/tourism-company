@@ -3,6 +3,7 @@
 namespace App\Models\Admin\Flight;
 
 use App\Models\Admin\City\City;
+use App\Models\Admin\Offer\Offer;
 use Illuminate\Database\Eloquent\Model;
 
 class Flight extends Model
@@ -17,5 +18,9 @@ class Flight extends Model
 
     public function destination_city(){
         return $this->belongsTo(City::class,'destination_city_id');
+    }
+
+    public function offer(){
+        return $this->hasOne(Offer::class);
     }
 }

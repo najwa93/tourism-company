@@ -5,6 +5,7 @@ namespace App\Models\Admin\City;
 use App\Models\Admin\Country\Country;
 use App\Models\Admin\Flight\Flight;
 use App\Models\Admin\Hotel\Hotel;
+use App\Models\Admin\Offer\Offer;
 use Illuminate\Database\Eloquent\Model;
 
 class City extends Model
@@ -24,6 +25,10 @@ class City extends Model
 
     public function flight(){
         return $this->hasMany(Flight::class);
+    }
+
+    public function offer(){
+        return $this->hasOne(Offer::class);
     }
 
 }

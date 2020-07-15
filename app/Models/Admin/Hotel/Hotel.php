@@ -4,6 +4,7 @@ namespace App\Models\Admin\Hotel;
 
 use App\Models\Admin\City\City;
 use App\Models\Admin\Country\Country;
+use App\Models\Admin\Offer\Offer;
 use Illuminate\Database\Eloquent\Model;
 
 class Hotel extends Model
@@ -26,5 +27,10 @@ class Hotel extends Model
     public function hotel_room(){
         return $this->hasMany(HotelRoom::class);
     }
+
+    public function offer(){
+        return $this->hasOne(Offer::class);
+    }
+
 
 }

@@ -49,8 +49,11 @@ Route::prefix('Admin')->group(function () {
         Route::get('FlightCompany/{flightCompany}/delete', 'Admin\Flight\FlightCompanyController@delete')->name('FlightCompany.delete');
     });
 
-    //Images Controller
-   // Route::resource('Images', 'Admin\Hotel\HotelController');
+    //Offers Controller
+    Route::resource('Offers', 'Admin\Offer\OfferController');
+    Route::get('/getCities/{id}','Admin\Offer\OfferController@getCities' );
+    Route::get('/getDestCities/{id}','Admin\Offer\OfferController@getDestCities' );
+    Route::get('showOfferDetails','Admin\Offer\OfferController@showOfferDetails' )->name('showOfferDetails');
 });
 
 //Route::get('/','Admin\CountryController\TestController@index' );
