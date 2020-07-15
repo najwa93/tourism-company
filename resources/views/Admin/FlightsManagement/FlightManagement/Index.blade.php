@@ -121,7 +121,7 @@
                     <td>{{$value['source_city']}}</td>
                     <td>{{$value['destination_city']}}</td>
                     <td>{{$value['date']}}</td>
-                    <td>{{$value['time']}}</td>
+                    <td>{{$value['updated_time']}}</td>
                     <td>{{$value['flight_company']}}</td>
                     <td>{{$value['economy_seats_count']}}</td>
                     <td>{{$value['first_class_seats_count']}}</td>
@@ -130,7 +130,7 @@
                     <td>
                         <div class="btn-group btn-group-justified" role="group" aria-label="...">
                             <div class="btn-group" role="group">
-                                <a href="man-room.php">
+                                <a href="{{route('Flights.delete',$value['flight_id'])}}">
                                     <button type="button" class="btn btn-danger">حذف</button>
                                 </a>
                             </div>
@@ -193,12 +193,12 @@
                     <td>
                         <div class="btn-group btn-group-justified" role="group" aria-label="...">
                             <div class="btn-group" role="group">
-                                <a href="man-room.php">
+                                <a href="{{route('FlightCompany.delete',$flightCompany->id)}}">
                                     <button type="button" class="btn btn-danger">حذف</button>
                                 </a>
                             </div>
                             <div class="btn-group" role="group">
-                                <a href="{{route('Flights.edit',$flightCompany->id)}}">
+                                <a href="{{route('FlightCompany.edit',$flightCompany->id)}}">
                                  <button type="button" class="btn btn-warning">تعديل</button>
                                 </a>
                             </div>

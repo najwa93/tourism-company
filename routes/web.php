@@ -43,8 +43,10 @@ Route::prefix('Admin')->group(function () {
 
    //Flights Controller
     Route::resource('Flights', 'Admin\Flight\FlightController');
+    Route::get('Flights/{flight}/delete', 'Admin\Flight\FlightController@delete')->name('Flights.delete');
     Route::prefix('Flights')->group(function () {
         Route::resource('FlightCompany', 'Admin\Flight\FlightCompanyController');
+        Route::get('FlightCompany/{flightCompany}/delete', 'Admin\Flight\FlightCompanyController@delete')->name('FlightCompany.delete');
     });
 
     //Images Controller

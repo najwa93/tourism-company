@@ -63,9 +63,12 @@ class FlightCompanyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($flight_company_id)
     {
-        //
+        $flightCompany = FlightCompany::where('id',$flight_company_id)
+            ->first();
+
+        return view('Admin.FlightsManagement.FlightCompanyManagement.Update',compact(['flightCompany']));
     }
 
     /**
@@ -75,9 +78,17 @@ class FlightCompanyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $flight_company_id)
     {
-        //
+        $flightCompany = FlightCompany::where('id',$flight_company_id)
+            ->first();
+        $flightCompany->name = $request->input('name');
+        $flightCompany->email = $request->input('email');
+        $flightCompany->phone_number = $request->input('phone_number');
+
+        $flightCompany->save();
+
+        return redirect()->route('Flights.index');
     }
 
     /**
@@ -86,8 +97,21 @@ class FlightCompanyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+
+    public function delete($flight_company_id){
+        $flightCompany = FlightCompany::where('id',$flight_company_id)
+            ->first();
+
+        return view('Admin.FlightsManagement.FlightCompanyManagement.Delete',compact(['flightCompany']));
+    }
+
+    public function destroy($flight_company_id)
     {
-        //
+        $flight_company = FlightCompany::where('id',$flight_company_id)
+            ->first();
+
+        $flight_company->delete();
+
+        return redirect()->route('Flights.index');
     }
 }

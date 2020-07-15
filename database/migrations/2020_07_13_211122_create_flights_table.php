@@ -22,6 +22,7 @@ class CreateFlightsTable extends Migration
             $table->string('flight_duration');
             $table->string('date');
             $table->string('time');
+            $table->string('updated_time');
 
             $table->integer('source_city_id')->unsigned()->nullable();
             $table->foreign('source_city_id')->references('id')->on('cities')->onDelete('cascade');

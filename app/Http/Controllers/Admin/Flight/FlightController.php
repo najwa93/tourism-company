@@ -29,7 +29,7 @@ class FlightController extends Controller
         foreach ($flights as $flight) {
             $data['flight_id'] = $flight['id'];
             $data['date'] = $flight['date'];
-            $data['time'] = $flight['time'];
+            $data['updated_time'] = $flight['updated_time'];
             $data['first_class_seats_count'] = $flight['first_class_seats_count'];
             $data['economy_seats_count'] = $flight['economy_seats_count'];
             $data['economy_ticket_price'] = $flight['economy_ticket_price'];
@@ -72,9 +72,10 @@ class FlightController extends Controller
         $flight->first_class_seats_count = $request->input('first_class_seats_count');
         $flight->flight_duration = $request->input('duration');
         $flight->date = $request->input('date');
-        $time = $request->input('time');
-        $converted_time = date("h:ia", strtotime($time));
-        $flight->time =$converted_time;
+        //$time = $request->input('time');
+        //$converted_time = date("h:ia", strtotime($time));
+        $flight->time = $request->input('time');
+        $flight->updated_time = date("h:ia", strtotime($flight->time));
         $flight->economy_ticket_price = $request->input('economy_ticket_price');
         $flight->first_class_ticket_price = $request->input('first_class_ticket_price');
 
@@ -103,8 +104,14 @@ class FlightController extends Controller
      */
     public function edit($flight_id)
     {
-        $flight = Flight::findOrfail($flight_id);
-        return view('Admin.FlightsManagement.FlightManagement.Update',compact(['flight']));
+        $flight = Flight::where('id',$flight_id)
+            ->with('destination_city')
+            ->with('flight_company')
+            ->first();;
+        //return $flight;
+        $cities = City::all()->pluck('name','id');
+        $flightCompanies = FlightCompany::all()->pluck('name','id');
+        return view('Admin.FlightsManagement.FlightManagement.Update',compact(['flight','cities','flightCompanies']));
     }
 
     /**
@@ -114,9 +121,39 @@ class FlightController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $flight_id)
     {
-        //
+        $flight = Flight::where('id',$flight_id)
+            ->first();
+
+        $flight->source_city_id = $request->input('source_city');
+        $flight->destination_city_id = $request->input('dist_city');
+        $flight->flight_company_id = $request->input('flight_company');
+        $flight->economy_seats_count = $request->input('economy_seats_count');
+        $flight->first_class_seats_count = $request->input('first_class_seats_count');
+        $flight->flight_duration = $request->input('duration');
+        $flight->date = $request->input('date');
+        $time = $request->input('time');
+        $flight->time = $request->input('time');
+        $flight->updated_time = date("h:ia", strtotime($flight->time));
+        $flight->economy_ticket_price = $request->input('economy_ticket_price');
+        $flight->first_class_ticket_price = $request->input('first_class_ticket_price');
+
+        $flight->save();
+
+        return redirect()->route('Flights.index');
+    }
+
+    public function delete($flight_id){
+        $flight = Flight::where('id',$flight_id)
+            ->with('destination_city')
+            ->with('flight_company')
+            ->first();
+
+        return $flight;
+        $cities = City::all()->pluck('name','id');
+        $flightCompanies = FlightCompany::all()->pluck('name','id');
+        return view('Admin.FlightsManagement.FlightManagement.Delete',compact(['flight','cities','flightCompanies']));
     }
 
     /**
@@ -125,8 +162,11 @@ class FlightController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($flight_id)
     {
-        //
+        $flight = Flight::where('id',$flight_id)
+            ->first();
+        $flight->delete();
+        return redirect()->route('Flights.index');
     }
 }

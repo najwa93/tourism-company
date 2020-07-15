@@ -1,7 +1,7 @@
 
 @extends('Layouts.Admin_app')
 @section('title')
-     تـعديـل رحلـة طـيـران
+     حـذف رحلـة طـيـران
 @endsection
 @section('styles')
     *{
@@ -55,19 +55,19 @@
 @endsection
 
 @section('content')
-    <div class="p1"><label style="font-size: 40px; margin-top:9%; color: white; font-weight: bold; margin-right: 12%;"><span class="glyphicon glyphicon-globe" style="color: orange;"></span>&nbsp;تـعديـل رحلة طيـران جـديـدة</label></div>
+    <div class="p1"><label style="font-size: 40px; margin-top:9%; color: white; font-weight: bold; margin-right: 12%;"><span class="glyphicon glyphicon-globe" style="color: orange;"></span>&nbsp;حـذف رحلة طيـران </label></div>
     <br>
     <br>
     <div class="container">
 
         <label style=" font-size: 25px;
-    color:#64AEF7; font-weight: bold;"><span class="glyphicon glyphicon-list" style="color: orange;"></span>&nbsp;تـعديـل رحـلة طـيران </label>
+    color:#f73917; font-weight: bold;"><span class="glyphicon glyphicon-list" style="color: orange;"></span>&nbsp;هل تريد بالتأكيد القيام بعملية حـذف رحـلة طـيران ؟</label>
         <hr>
         <br>
         <br>
-        <form action="{{route('Flights.update',$flight->id)}}" method="post">
+        <form action="{{route('Flights.destroy',$flight->id)}}" method="post">
             {{csrf_field()}}
-            @method('PUT')
+            @method('DELETE')
             <div class="col-md-6 col-xs-12" style="float: right;">
                 <div style="font-size: 22px; font-weight: bold; color:#64AEF7;margin-right: 80px;">
                     <div class="form-group ">
@@ -123,8 +123,10 @@
                         <input type="text" class="form-control" id="usr" name="first_class_ticket_price" value="{{$flight->first_class_ticket_price}}" placeholder="سعر التذكرة الدرجة السياحية" style="font-size: 20px; color: black;">
                     </div>
                     <br>
-                    <button type="submit" class="btn btn-info" style="color: white; width: 100px;height: 40px; font-size: 20px;"><span class="glyphicon glyphicon-floppy-save" style="color: orange;"></span>&nbsp;تـعديـل</button>
-
+                    <button type="submit" class="btn btn-info" name="btnc"
+                            style="color: white; width: 100px;height: 40px; font-size: 20px;"><span
+                                class="glyphicon glyphicon-floppy-save" style="color: #ff3928;"></span>&nbsp;حذف
+                    </button>
                 </div>
             </div>
         </form>

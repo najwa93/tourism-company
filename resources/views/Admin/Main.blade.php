@@ -118,7 +118,7 @@
     <br>
     <div class="row">
         <div class=" col-md-4 col-xs-12" style="float: right;"><a href="man-users.php"><button class="btn info"><span class="glyphicon glyphicon-user"></span><br>إدارة المستخدمين</button></a></div>
-        <div class=" col-md-4 col-xs-12" style="float: right;"><a href="man-offer.php"><button class="btn success"><span class="glyphicon glyphicon-gift"></span><br>العروض السياحية</button></a></div>
+        <div class=" col-md-4 col-xs-12" style="float: right;"><a href="{{route('Offers.index')}}"><button class="btn success"><span class="glyphicon glyphicon-gift"></span><br>العروض السياحية</button></a></div>
         <div class=" col-md-4 col-xs-12" style="float: right;"><a href="man-support.php"><button class="btn danger"><span class="glyphicon glyphicon-envelope"></span><br>الرسـائل</button></a></div>
         <br>
     </div>
