@@ -2,23 +2,32 @@
 
 namespace App\Models\Admin\Offer;
 
-use App\Models\Admin\City\City;
-use App\Models\Admin\Country\Country;
 use App\Models\Admin\Flight\Flight;
+use App\Models\Admin\Flight\FlightDegree;
 use App\Models\Admin\Hotel\Hotel;
 use Illuminate\Database\Eloquent\Model;
 
 class Offer extends Model
 {
+
+     public $timestamps = false;
     public function flight(){
-        return $this->belongsTo(Flight::class);
+        return $this->belongsTo(Flight::class,'flight_id');
+    }
+
+    public function returned_flight(){
+        return $this->belongsTo(Flight::class,'returned_flight_id');
     }
 
     public function hotel(){
         return $this->belongsTo(Hotel::class);
     }
 
-    public function source_city(){
+    public function flight_degree(){
+        return $this->belongsTo(FlightDegree::class);
+    }
+
+    /*public function source_city(){
         return $this->belongsTo(City::class,'source_city_id');
     }
 
@@ -32,7 +41,6 @@ class Offer extends Model
 
     public function destination_country(){
         return $this->belongsTo(City::class,'destination_country_id');
-    }
-
+    }*/
 
 }

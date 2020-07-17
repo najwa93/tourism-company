@@ -132,7 +132,7 @@ class CountryController extends Controller
 
         $country->save();
 
-        return redirect()->back();
+        return redirect()->route('Countries.index');
     }
 
     public function delete($country_id){

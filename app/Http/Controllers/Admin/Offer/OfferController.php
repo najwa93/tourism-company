@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin\Offer;
 use App\Models\Admin\City\City;
 use App\Models\Admin\Country\Country;
 use App\Models\Admin\Flight\Flight;
+use App\Models\Admin\Flight\FlightDegree;
+use App\Models\Admin\Hotel\Hotel;
 use App\Models\Admin\Offer\Offer;
 use function Couchbase\defaultDecoder;
 use Illuminate\Http\Request;
@@ -19,7 +21,21 @@ class OfferController extends Controller
      */
     public function index()
     {
-        //
+        $offers = Offer::with('flight.source_city')
+            ->with('flight.destination_city')
+            ->get();
+
+        //return $offers;
+        $data = [];
+        $allData = [];
+        foreach ($offers->toArray() as $offer) {
+            $data['offer_id'] = $offer['id'];
+            $data['source_city'] = $offer['flight']['source_city']['name'];
+            $data['destination_city'] = $offer['flight']['destination_city']['name'];
+            array_push($allData, $data);
+        }
+
+        return view('Admin.OffersManagement.Index',compact('allData'));
     }
 
     public function getCities($id)
@@ -36,8 +52,7 @@ class OfferController extends Controller
         $cities = City::where('country_id', $id)->pluck('name', 'id');
 
         return json_encode($cities);
-        // return $city;
-        //  return view('welcome',compact('countries'));
+
     }
 
 
@@ -48,8 +63,7 @@ class OfferController extends Controller
         ->get();
 
         return $cities;
-        // return $city;
-        //  return view('welcome',compact('countries'));
+
     }
 
     /**
@@ -66,6 +80,7 @@ class OfferController extends Controller
 
     public function completeOffer(Request $request)
     {
+        $flightDegrees = FlightDegree::all();
         $s_city = $request->input('city');
         $dest_city = $request->input('destcity');
 
@@ -80,11 +95,63 @@ class OfferController extends Controller
             ->with('flight_company')
         ->get();
 
+        $return_search_flights = Flight::where([['source_city_id',$destination_city->id],['destination_city_id',$source_city->id]])
+            ->with('source_city')
+            ->with('destination_city')
+            ->with('flight_company')
+            ->get();
+
+        $hotels = Hotel::where('city_id',$destination_city->id)
+            ->with(['hotel_room' =>function($query){
+                $query->where('is_available',1);
+            }])
+            ->with('city')
+            ->get();
+
+       // return $hotels;
+        $hotelData = [];
+        $allHotelData = [];
+        foreach ($hotels as $hotel) {
+             $hotelData ['hotel_id'] = $hotel['id'];
+             $hotelData ['hotel'] = $hotel['name'];
+             $hotelData ['city'] = $hotel['city']->name;
+             $hotelData ['country'] = $hotel['country']->name;
+            foreach ($hotel['hotel_room'] as $value) {
+                 $hotelData['hotel_room_id'] = $value->id;
+                 $hotelData['hotel_room'] = $value->name;
+                 $hotelData['customers_count'] = $value->customers_count;
+                 $hotelData['details'] = $value->details;
+                 $hotelData['night_price'] = $value->night_price;
+                 $hotelData['hotel_room_type'] = $value->room_type->name;
+                array_push($allHotelData,  $hotelData);
+            }
+           // return $allHotelData;
+           // array_push($allHotelData,  $hotelData );
+        }
+
+
+        //return all flight for return journey
+        $returnedData = [];
+        $allReturnedData = [];
+        foreach ($return_search_flights as $search_flight){
+            $returnedData['flight_id'] = $search_flight['id'];
+            $returnedData['date'] = $search_flight['date'];
+            $returnedData['updated_time'] = $search_flight['updated_time'];
+            $returnedData['first_class_seats_count'] = $search_flight['first_class_seats_count'];
+            $returnedData['economy_seats_count'] = $search_flight['economy_seats_count'];
+            $returnedData['economy_ticket_price'] = $search_flight['economy_ticket_price'];
+            $returnedData['first_class_ticket_price'] = $search_flight['first_class_ticket_price'];
+            $returnedData['source_city'] = $search_flight['source_city']->name;
+            $returnedData['destination_city'] = $search_flight['destination_city']->name;
+            $returnedData['flight_company'] = $search_flight['flight_company']->name;
+            array_push($allReturnedData, $returnedData);
+        }
         /*$search_flights = Flight::where('source_city_id',$source_city->id)
         ->where('destination_city_id',$destination_city->id)
             ->get();*/
         //dd($search_flights);
 
+        //return all flight for going flight
         if (count($search_flights)>0){
             $data = [];
             $allData = [];
@@ -101,9 +168,9 @@ class OfferController extends Controller
                 $data['flight_company'] = $search_flight['flight_company']->name;
                 array_push($allData, $data);
             }
-            return view('Admin.OffersManagement.AddOfferDetails',compact(['allData']));
+            return view('Admin.OffersManagement.AddOfferDetails',compact(['allData','allReturnedData','allHotelData','flightDegrees']));
         }else{
-            echo "<h1>No Results</h1>";
+            echo "<h1>لايوجـد نتـائـج</h1>";
         }
 
     }
@@ -116,29 +183,25 @@ class OfferController extends Controller
      */
     public function store(Request $request)
     {
-     /*   $source_country = $request->input('country');
-        $source_city = $request->input('city');
-        $s_city = City::where('id',$source_city)->first();
-        $q_city = City::where('name','LIKE','%'.$s_city->name.'%')->get();
-       // dd($q_city);
-        if (count($q_city)>0){
-            return view('Admin.OffersManagement.Add',compact('q_city'));
-        }
 
-        $dest_city = $request->input('destcity');
-        dd($source_city);*/
+        $offer = new Offer();
+        $offer->customers_count = $request->input('customers_count');
+        $offer->seats_number = $request->input('seats_count');
+        $offer->flight_degree_id = $request->input('flight_degree');
+        $offer->offer_duration = $request->input('offer_duration');
+        $offer->details = $request->input('offer_duration');
+        $offer->price = $request->input('price');
+       // $offer->flight_status = $request->input('flight_degree');
+        $flightVal =  $request->input('flight');
+        $offer->flight_id = $flightVal;
+        $returnedFlightVal =  $request->input('returned_flight');
+        $offer->returned_flight_id = $returnedFlightVal;
+        $hoteltVal =  $request->input('hotel');
+        $offer->hotel_id = $hoteltVal;
+        //$offer->status = $request->input('flight') == 'true' ? 1 : 0;
+        $offer->save();
 
-
-        //return view('Admin.OffersManagement.Add',compact('q_city'));
-      /* $offer = new Offer();
-        $offer->source_city_id = $request->input('city');
-        $offer->source_country_id = $request->input('country');
-        $offer->destination_city_id = $request->input('destcity');
-        $offer->destination_country_id = $request->input('destcountry');
-       $offer->city_id = $request->city;
-        $offer->save();*/
-
-        //return redirect()->back();
+        return redirect()->route('Offers.create');
     }
 
     /**
@@ -158,9 +221,76 @@ class OfferController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($offer_id)
     {
-        //
+        $flightDegrees = FlightDegree::all();
+        $editedOffer = Offer::findOrfail($offer_id);
+        $offer = Offer::where('id',$offer_id)
+            ->with('flight.flight_company')
+            ->with('flight.source_city')
+            ->with('flight.destination_city')
+            ->with('returned_flight.flight_company')
+            ->with('returned_flight.source_city')
+            ->with('returned_flight.destination_city')
+            ->with('hotel.hotel_room.room_type')
+            ->with('hotel.city')
+            ->with('hotel.country')
+                ->get();
+     // return $offer;
+        $data = [];
+        $allData = [];
+        foreach ($offer as $value){
+            $data['offer_id'] = $value['id'];
+            $data['status'] = $value['status'];
+            $data['customers_count'] = $value['customers_count'];
+            $data['seats_number'] = $value['seats_number'];
+            $data['price'] = $value['price'];
+            $data['offer_duration'] = $value['offer_duration'];
+            $data['details'] = $value['details'];
+
+            // flight details
+            $data['flight_id'] = $value['flight']['id'];
+            $data['flight_source_city'] = $value['flight']['source_city']['name'];
+            $data['flight_destination_city'] = $value['flight']['destination_city']['name'];
+            $data['flight_date'] = $value['flight']['date'];
+            $data['flight_time'] = $value['flight']['time'];
+            $data['flight_company'] = $value['flight']['flight_company']['name'];
+            $data['flight_economy_seats_count'] = $value['flight']['economy_seats_count'];
+            $data['flight_first_class_seats_count'] = $value['flight']['first_class_seats_count'];
+            $data['flight_economy_ticket_price'] = $value['flight']['economy_ticket_price'];
+            $data['flight_first_class_ticket_price'] = $value['flight']['first_class_ticket_price'];
+
+
+            // return flight details
+            $data['returned_flight_id'] = $value['returned_flight']['id'];
+            $data['returned_flight_source_city'] = $value['returned_flight']['source_city']['name'];
+            $data['returned_flight_destination_city'] = $value['returned_flight']['destination_city']['name'];
+            $data['returned_flight_date'] = $value['returned_flight']['date'];
+            $data['returned_flight_time'] = $value['returned_flight']['time'];
+            $data['returned_flight_company'] = $value['returned_flight']['flight_company']['name'];
+            $data['returned_flight_economy_seats_count'] = $value['returned_flight']['economy_seats_count'];
+            $data['returned_flight_first_class_seats_count'] = $value['returned_flight']['first_class_seats_count'];
+            $data['returned_flight_economy_ticket_price'] = $value['returned_flight']['economy_ticket_price'];
+            $data['returned_flight_first_class_ticket_price'] = $value['returned_flight']['first_class_ticket_price'];
+
+            // hotel
+            $data['hotel_id'] = $value['hotel']['id'];
+            $data['hotel_name'] = $value['hotel']['name'];
+            $data['hotel_city'] = $value['hotel']['city']['name'];
+            $data['hotel_country'] = $value['hotel']['country']['name'];
+            foreach ($value['hotel']['hotel_room'] as $hotelRoom) {
+                $data['hotelRoom_name'] = $hotelRoom['name'];
+                $data['hotelRoom_customers_count'] = $hotelRoom['customers_count'];
+                $data['hotelRoom_night_price'] = $hotelRoom['night_price'];
+                $data['hotelRoom_type'] = $hotelRoom['room_type']['name'];
+
+            }
+            array_push($allData,$data);
+        }
+       //return $allData;
+
+        return view('Admin.OffersManagement.Update',compact('editedOffer','allData','flightDegrees'));
+
     }
 
     /**
@@ -170,19 +300,111 @@ class OfferController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $offer_id)
     {
-        //
+        $editedOffer = Offer::findOrfail($offer_id);
+        $editedOffer->customers_count = $request->input('customers_count');
+        $editedOffer->seats_number = $request->input('seats_count');
+        $editedOffer->flight_degree_id = $request->input('flight_degree');
+        $editedOffer->offer_duration = $request->input('offer_duration');
+        $editedOffer->details = $request->input('offer_duration');
+        $editedOffer->price = $request->input('price');
+
+        $editedOffer->save();
+
+        return redirect()->route('Offers.index');
     }
 
+    public function delete($offer_id){
+        $flightDegrees = FlightDegree::all();
+        $editedOffer = Offer::findOrfail($offer_id);
+        $offer = Offer::where('id',$offer_id)
+            ->with('flight.flight_company')
+            ->with('flight.source_city')
+            ->with('flight.destination_city')
+            ->with('returned_flight.flight_company')
+            ->with('returned_flight.source_city')
+            ->with('returned_flight.destination_city')
+            ->with('hotel.hotel_room.room_type')
+            ->with('hotel.city')
+            ->with('hotel.country')
+            ->get();
+        // return $offer;
+        $data = [];
+        $allData = [];
+        foreach ($offer as $value){
+            $data['offer_id'] = $value['id'];
+            $data['status'] = $value['status'];
+            $data['customers_count'] = $value['customers_count'];
+            $data['seats_number'] = $value['seats_number'];
+            $data['price'] = $value['price'];
+            $data['offer_duration'] = $value['offer_duration'];
+            $data['details'] = $value['details'];
+
+            // flight details
+            $data['flight_id'] = $value['flight']['id'];
+            $data['flight_source_city'] = $value['flight']['source_city']['name'];
+            $data['flight_destination_city'] = $value['flight']['destination_city']['name'];
+            $data['flight_date'] = $value['flight']['date'];
+            $data['flight_time'] = $value['flight']['time'];
+            $data['flight_company'] = $value['flight']['flight_company']['name'];
+            $data['flight_economy_seats_count'] = $value['flight']['economy_seats_count'];
+            $data['flight_first_class_seats_count'] = $value['flight']['first_class_seats_count'];
+            $data['flight_economy_ticket_price'] = $value['flight']['economy_ticket_price'];
+            $data['flight_first_class_ticket_price'] = $value['flight']['first_class_ticket_price'];
+
+
+            // return flight details
+            $data['returned_flight_id'] = $value['returned_flight']['id'];
+            $data['returned_flight_source_city'] = $value['returned_flight']['source_city']['name'];
+            $data['returned_flight_destination_city'] = $value['returned_flight']['destination_city']['name'];
+            $data['returned_flight_date'] = $value['returned_flight']['date'];
+            $data['returned_flight_time'] = $value['returned_flight']['time'];
+            $data['returned_flight_company'] = $value['returned_flight']['flight_company']['name'];
+            $data['returned_flight_economy_seats_count'] = $value['returned_flight']['economy_seats_count'];
+            $data['returned_flight_first_class_seats_count'] = $value['returned_flight']['first_class_seats_count'];
+            $data['returned_flight_economy_ticket_price'] = $value['returned_flight']['economy_ticket_price'];
+            $data['returned_flight_first_class_ticket_price'] = $value['returned_flight']['first_class_ticket_price'];
+
+            // hotel
+            $data['hotel_id'] = $value['hotel']['id'];
+            $data['hotel_name'] = $value['hotel']['name'];
+            $data['hotel_city'] = $value['hotel']['city']['name'];
+            $data['hotel_country'] = $value['hotel']['country']['name'];
+            foreach ($value['hotel']['hotel_room'] as $hotelRoom) {
+                $data['hotelRoom_name'] = $hotelRoom['name'];
+                $data['hotelRoom_customers_count'] = $hotelRoom['customers_count'];
+                $data['hotelRoom_night_price'] = $hotelRoom['night_price'];
+                $data['hotelRoom_type'] = $hotelRoom['room_type']['name'];
+
+            }
+            array_push($allData,$data);
+        }
+
+        return view('Admin.OffersManagement.Delete',compact('editedOffer','allData','flightDegrees'));
+    }
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($offer_id)
     {
-        //
+        $offer = Offer::where('id',$offer_id)
+            ->with('flight.flight_company')
+            ->with('flight.source_city')
+            ->with('flight.destination_city')
+            ->with('returned_flight.flight_company')
+            ->with('returned_flight.source_city')
+            ->with('returned_flight.destination_city')
+            ->with('hotel.hotel_room.room_type')
+            ->with('hotel.city')
+            ->with('hotel.country')
+            ->first();
+
+        $offer->delete();
+
+        return redirect()->route('Offers.index');
     }
 }
