@@ -12,7 +12,9 @@
 */
 
 
-
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Route::prefix('Web')->group(function () {
     Route::resource('Users', 'Web\WebController');
