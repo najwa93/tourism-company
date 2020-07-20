@@ -62,3 +62,7 @@ Route::prefix('Admin')->group(function () {
 
 //Route::get('/','Admin\CountryController\TestController@index' );
 //Route::get('/getCities/{id}','Admin\CountryController\TestController@getStates' );
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
