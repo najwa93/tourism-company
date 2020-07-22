@@ -13,7 +13,7 @@ class RegisterController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
-    | Register Controller
+    | Auth Controller
     |--------------------------------------------------------------------------
     |
     | This controller handles the registration of new users as well as their
@@ -29,8 +29,16 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = 'home_page';
 
+    /*public function redirectPath()
+    {
+        if (method_exists($this, 'redirectTo')) {
+            return $this->redirectTo();
+        }
+
+        return property_exists($this, 'redirectTo') ? $this->redirectTo : '/home';
+    }*/
     /**
      * Create a new controller instance.
      *
@@ -57,6 +65,7 @@ class RegisterController extends Controller
             'last_name' => ['required', 'string', 'max:255'],
             'country' => ['required'],
             'phone_number' => ['required', 'max:255'],
+            'gender' => ['required'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -77,8 +86,10 @@ class RegisterController extends Controller
             'last_name' => $data['last_name'],
             'phone_number' => $data['phone_number'],
             'country' => $data['country'],
+            'gender' => $data['gender'] ,
             'password' => Hash::make($data['password']),
         ]);
+
     }
 
 

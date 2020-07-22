@@ -1,52 +1,6 @@
 @extends('layouts.Web_app')
-<style type="text/css">
-    * {
-        margin: 0;
-        padding: 0;
-    }
 
-    body {
-    }
 
-    .header {
-        width: 100%;
-        height: 52px;
-    }
-
-    .navbar {
-        background-color: #64AEF7;
-        z-index: 9999;
-        border: 0;
-        font-size: 20px !important;
-        line-height: 1.5 !important;
-        border-radius: 0;
-    }
-
-    .navbar li a, .navbar .navbar-brand {
-        color: white !important;
-    }
-
-    .navbar-nav li a:hover, .navbar-nav li.active a {
-        color: #64AEF7 !important;
-        background-color: #fff !important;
-    }
-
-    .navbar-default .navbar-toggle {
-        border-color: transparent;
-        color: #fff !important;
-    }
-
-    @media screen and (max-width: 800px) {
-        .col-sm-4 {
-            text-align: center;
-            margin: 25px 0;
-        }
-    }
-
-    .panel {
-        font-size: 18px;
-    }
-</style>
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -155,11 +109,14 @@
 
                                 <div class="col-md-8">
                                     <div class="form-check">
-                                        <input type="radio" class="form-check-input" id="female" name="radio">
-                                        <label class="form-check-label" for="female">أنثى</label>
+                                        <input type="radio" name="gender" value="male"> Male<br>
+                                        <input type="radio" name="gender" value="female"> Female<br>
 
-                                        <input type="radio" class="form-check-input" id="male" name="radio" >
-                                        <label class="form-check-label" for="male">ذكر</label>
+                                        @error('gender')
+                                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>

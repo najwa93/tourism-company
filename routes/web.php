@@ -60,7 +60,8 @@ Route::prefix('Admin')->group(function () {
     Route::get('Offers/{offer}/delete', 'Admin\Offer\OfferController@delete')->name('Offers.delete');
 });
 
-//Route::get('/','Admin\CountryController\TestController@index' );
+//Home page Controller
+ Route::resource('home_page','Web\WebController' );
 //Route::get('/getCities/{id}','Admin\CountryController\TestController@getStates' );
 
 Auth::routes();

@@ -14,7 +14,7 @@ class WebController extends Controller
      */
     public function index()
     {
-        return view('Layouts.Web_app');
+        return view('Web.Main_view');
     }
 
     /**
