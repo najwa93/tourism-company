@@ -14,6 +14,11 @@ use App\Http\Controllers\Controller;
 
 class OfferController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('Role:Role_Admin,Role_Offer_Manager');
+    }
+
     /**
      * Display a listing of the resource.
      *

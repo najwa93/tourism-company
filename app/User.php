@@ -38,7 +38,29 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+   /* public function isAdmin()
+    {
+        if($this->role_id === 5)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }*/
+
+   public function hasRole($role){
+       $user_role = Role::where('name',$role)->first();
+       //dd($user_role);
+       if ($this->role()->where('name', $role)->first()){
+           return true;
+       }else{
+           return false;
+       }
+   }
+
     public function role(){
-        return $this->belongsToMany(Role::class);
+        return $this->belongsTo(Role::class,'role_id');
     }
 }

@@ -33,7 +33,7 @@ Route::prefix('Admin')->group(function () {
     Route::get('getCity/{Country}', 'Admin\City\CityController@getCity')->name('GetCity.create');
     Route::post('storeCity/{Country}', 'Admin\City\CityController@storeCity')->name('StoreCity.store');
     Route::get('Cities/{City}/delete', 'Admin\City\CityController@delete')->name('Cities.delete');
-    Route::get('/getCities/{id}','Admin\Hotel\HotelController@getCities' );
+    Route::get('Hotel/getCities/{id}','Admin\Hotel\HotelController@getCities' );
 
     //Hotels Controller
     Route::resource('Hotels', 'Admin\Hotel\HotelController');
@@ -43,7 +43,7 @@ Route::prefix('Admin')->group(function () {
         Route::post('storeRoom/{Hotel}', 'Admin\Hotel\RoomController@storeRoom')->name('StoreRoom.store');
     });
 
-   //Flights Controller
+    //Flights Controller
     Route::resource('Flights', 'Admin\Flight\FlightController');
     Route::get('Flights/{flight}/delete', 'Admin\Flight\FlightController@delete')->name('Flights.delete');
     Route::prefix('Flights')->group(function () {
@@ -61,7 +61,7 @@ Route::prefix('Admin')->group(function () {
 });
 
 //Home page Controller
- Route::resource('home_page','Web\WebController' );
+Route::resource('home_page','Web\WebController' );
 //Route::get('/getCities/{id}','Admin\CountryController\TestController@getStates' );
 
 Auth::routes();

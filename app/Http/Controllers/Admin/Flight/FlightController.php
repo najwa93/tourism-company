@@ -10,6 +10,11 @@ use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 class FlightController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('Role:Role_Admin,Role_Flight_Manager');
+    }
+
     /**
      * Display a listing of the resource.
      *

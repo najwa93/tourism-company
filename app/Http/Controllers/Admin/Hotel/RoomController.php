@@ -17,7 +17,7 @@ class RoomController extends Controller
      */
     public function index()
     {
-       // return view('Admin.HotelsManagement.show');
+       // return view('Role.HotelsManagement.show');
     }
 
     // get cities with related country
