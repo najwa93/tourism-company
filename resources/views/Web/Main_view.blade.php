@@ -97,6 +97,13 @@
         color: #fff !important;
     }
 
+    .navbar li a.dropdown-item{
+        color:#428bca !important;
+        margin-right:12px;
+        font-size:18px;
+        font-weight:bold;
+    }
+
     @media screen and (max-width: 800px) {
         .col-sm-4 {
             text-align: center;

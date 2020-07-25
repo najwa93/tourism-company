@@ -60,6 +60,10 @@ class User extends Authenticatable
        }
    }
 
+   /*public function assignRole($role){
+       return $this->role()->save($role);
+   }*/
+
     public function role(){
         return $this->belongsTo(Role::class,'role_id');
     }

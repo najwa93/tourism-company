@@ -14,28 +14,20 @@
             <ul class="nav navbar-nav">
                 <li class="nav-item dropdown">
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        <span class="glyphicon glyphicon-user" style="color: orange;"></span>
                         {{ Auth::user()->user_name }} <span class="caret"></span>
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                           onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                            تسجيل الخروج
-                        </a>
-
+                        <a class="dropdown-item signout" href="{{ route('logout') }}"
+                           onclick="event.preventDefault();document.getElementById('logout-form').submit();" >تسجيل الخروج</a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf
                         </form>
                     </div>
                 </li>
 
-                <li><a href="{{route('home_page.index')}}" class="h"><span class="glyphicon glyphicon-home"
-                                                                           style="color: orange;"></span>&nbsp;الرئيسية</i>
-                    </a></li>
-                <li><a href="{{route('Main.index')}}" class="h"><span class="glyphicon glyphicon-wrench"
-                                                                      style="color: orange;"></span>&nbsp;إدارة
-                        الموقع</i></a></li>
+                <li><a href="{{route('Main.index')}}" class="h"><span class="glyphicon glyphicon-wrench" style="color: orange;"></span>&nbsp;إدارة الموقع</i></a></li>
                 {{--
                                 <li><a href="{{route('Main.index')}}"  class="h"><span class="glyphicon glyphicon-picture"style="color: orange;"></span>&nbsp;إدارة  الصور</i></a></li>
                 --}}

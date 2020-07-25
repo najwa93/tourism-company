@@ -18,6 +18,8 @@ Route::get('/', function () {
 
 Route::prefix('Web')->group(function () {
     Route::resource('Users', 'Web\WebController');
+    Route::get('{user}/editUser', 'Web\WebController@editUser');
+    Route::post('editUser/{user}', 'Web\WebController@updateUser');
 });
 
 

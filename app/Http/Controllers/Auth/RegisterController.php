@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Middleware\Role;
 use App\Models\Admin\Country\Country;
 use App\User;
 use App\Http\Controllers\Controller;
@@ -78,7 +79,8 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        //$role = \App\Models\User\Role::where('name', 'Role_User')->first();
+        $user =  User::create([
             // 'name' => $data['name'],
             'email' => $data['email'],
             'first_name' => $data['first_name'],
@@ -89,6 +91,9 @@ class RegisterController extends Controller
             'gender' => $data['gender'] ,
             'password' => Hash::make($data['password']),
         ]);
+        $user->role_id = 8;
+        $user->save();
+        return $user;
 
     }
 

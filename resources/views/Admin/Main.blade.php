@@ -23,6 +23,14 @@
     .navbar li a, .navbar .navbar-brand {
     color: white !important;
     }
+
+    .navbar li a.dropdown-item{
+        color:#428bca !important;
+        margin-right:12px;
+        font-size:18px;
+        font-weight:bold;
+    }
+
     .navbar-nav li a:hover, .navbar-nav li.active a {
     color: #64AEF7 !important;
     background-color: #fff !important;
@@ -102,30 +110,70 @@
     margin: 25px 0;
     }
     }
-    @endsection
+@endsection
 @section('content')
-<div class="well"  style="font-size: 25px;font-weight: bold; color: #64AEF7; text-align: center;"><span class="glyphicon glyphicon-king" style="color: orange;"></span>&nbsp; خـيارات المـديـر</div>
-<div class="container">
-    <br>
-    <br>
-    <div class="row">
-        <div class=" col-md-4 col-xs-12"  style="float: right;"><a href="{{route('Countries.index')}}"><button class="btn success"><span class="glyphicon glyphicon-globe"></span><br>إدارة البلدان</button></a></div>
-        <div class=" col-md-4 col-xs-12" style="float: right;"><a href="{{route('Hotels.index')}}"><button class="btn warning"><span class="glyphicon glyphicon-cutlery"></span><br>إدارة الفنادق</button></a></div>
-        <div class=" col-md-4 col-xs-12"  style="float: right;"><a href="{{route('Flights.index')}}"><button class="btn info"><span class="glyphicon glyphicon-plane"></span><br>إدارة الرحلات الجوية</button></a></div>
+    <div class="well" style="font-size: 25px;font-weight: bold; color: #64AEF7; text-align: center;"><span
+                class="glyphicon glyphicon-king" style="color: orange;"></span>&nbsp; خـيارات المـديـر
+    </div>
+    <div class="container">
+        <br>
+        <br>
+        <div class="row">
+            @if(\Illuminate\Support\Facades\Auth::user()->role_id == 7 or \Illuminate\Support\Facades\Auth::user()->role_id == 1)
 
+                <div class=" col-md-4 col-xs-12" style="float: right;"><a href="{{route('Countries.index')}}">
+                        <button class="btn success"><span class="glyphicon glyphicon-globe"></span><br>إدارة البلدان
+                        </button>
+                    </a></div>
+            @endif
+
+            @if(\Illuminate\Support\Facades\Auth::user()->role_id == 3 or \Illuminate\Support\Facades\Auth::user()->role_id == 1)
+                <div class=" col-md-4 col-xs-12" style="float: right;"><a href="{{route('Hotels.index')}}">
+                        <button class="btn warning"><span class="glyphicon glyphicon-cutlery"></span><br>إدارة الفنادق
+                        </button>
+                    </a></div>
+            @endif
+
+            @if(\Illuminate\Support\Facades\Auth::user()->role_id == 2 or \Illuminate\Support\Facades\Auth::user()->role_id == 1)
+                <div class=" col-md-4 col-xs-12" style="float: right;"><a href="{{route('Flights.index')}}">
+                        <button class="btn info"><span class="glyphicon glyphicon-plane"></span><br>إدارة الرحلات الجوية
+                        </button>
+                    </a>
+                </div>
+            @endif
+            <br>
+        </div>
+        <br>
+        <div class="row">
+            @if(\Illuminate\Support\Facades\Auth::user()->role_id == 1 )
+                <div class=" col-md-4 col-xs-12" style="float: right;"><a href="man-users.php">
+                        <button class="btn info"><span class="glyphicon glyphicon-user"></span><br>إدارة المستخدمين
+                        </button>
+                    </a>
+                </div>
+            @endif
+
+            @if(\Illuminate\Support\Facades\Auth::user()->role_id == 4 or \Illuminate\Support\Facades\Auth::user()->role_id == 1)
+                <div class=" col-md-4 col-xs-12" style="float: right;"><a href="{{route('Offers.index')}}">
+                        <button class="btn success"><span class="glyphicon glyphicon-gift"></span><br>العروض السياحية
+                        </button>
+                    </a>
+                </div>
+            @endif
+
+            @if(\Illuminate\Support\Facades\Auth::user()->role_id == 5 or \Illuminate\Support\Facades\Auth::user()->role_id == 1)
+                <div class=" col-md-4 col-xs-12" style="float: right;"><a href="man-support.php">
+                        <button class="btn danger"><span class="glyphicon glyphicon-envelope"></span><br>الرسـائل
+                        </button>
+                    </a>
+                </div>
+            @endif
+            <br>
+        </div>
+        <br>
         <br>
     </div>
-    <br>
-    <div class="row">
-        <div class=" col-md-4 col-xs-12" style="float: right;"><a href="man-users.php"><button class="btn info"><span class="glyphicon glyphicon-user"></span><br>إدارة المستخدمين</button></a></div>
-        <div class=" col-md-4 col-xs-12" style="float: right;"><a href="{{route('Offers.index')}}"><button class="btn success"><span class="glyphicon glyphicon-gift"></span><br>العروض السياحية</button></a></div>
-        <div class=" col-md-4 col-xs-12" style="float: right;"><a href="man-support.php"><button class="btn danger"><span class="glyphicon glyphicon-envelope"></span><br>الرسـائل</button></a></div>
-        <br>
     </div>
-    <br>
-    <br>
-</div>
-</div>
 
-    @endsection
+@endsection
 

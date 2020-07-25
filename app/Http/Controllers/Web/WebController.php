@@ -72,6 +72,17 @@ class WebController extends Controller
         //
     }
 
+    // edit users
+    public function editUser($id)
+    {
+        //
+    }
+
+    // update users
+    public function updateUser(Request $request, $id)
+    {
+        //
+    }
     /**
      * Remove the specified resource from storage.
      *
