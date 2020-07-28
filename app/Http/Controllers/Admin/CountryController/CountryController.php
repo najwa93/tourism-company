@@ -12,7 +12,7 @@ class CountryController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('Role:Role_Admin,Role_Country_Manager');
+        $this->middleware('Role:Admin');
     }
     /**
      * Display a listing of the resource.

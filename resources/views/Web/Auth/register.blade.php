@@ -127,7 +127,7 @@
                                        class="col-md-12 col-form-label text-md-right">{{ __('اختر البلد') }}</label>
 
                                 <div class="col-md-8">
-                                    <select name="country" id="country" class="form-control">
+                                    <select name="country_id" id="country_id" class="form-control">
                                         <option value="">اختر البلد</option>
                                         @foreach($countries as $key => $value)
                                         <option value="{{$key}}">{{$value}}</option>

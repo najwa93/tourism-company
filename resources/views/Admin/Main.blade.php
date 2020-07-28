@@ -119,7 +119,8 @@
         <br>
         <br>
         <div class="row">
-            @if(\Illuminate\Support\Facades\Auth::user()->role_id == 7 or \Illuminate\Support\Facades\Auth::user()->role_id == 1)
+
+            @if( \Illuminate\Support\Facades\Auth::user()->role->name == 'Admin' )
 
                 <div class=" col-md-4 col-xs-12" style="float: right;"><a href="{{route('Countries.index')}}">
                         <button class="btn success"><span class="glyphicon glyphicon-globe"></span><br>إدارة البلدان
@@ -127,14 +128,14 @@
                     </a></div>
             @endif
 
-            @if(\Illuminate\Support\Facades\Auth::user()->role_id == 3 or \Illuminate\Support\Facades\Auth::user()->role_id == 1)
+            @if( \Illuminate\Support\Facades\Auth::user()->role->name == 'Admin' or  \Illuminate\Support\Facades\Auth::user()->role->name == 'Hotel_Manager'  )
                 <div class=" col-md-4 col-xs-12" style="float: right;"><a href="{{route('Hotels.index')}}">
                         <button class="btn warning"><span class="glyphicon glyphicon-cutlery"></span><br>إدارة الفنادق
                         </button>
                     </a></div>
             @endif
 
-            @if(\Illuminate\Support\Facades\Auth::user()->role_id == 2 or \Illuminate\Support\Facades\Auth::user()->role_id == 1)
+                @if( \Illuminate\Support\Facades\Auth::user()->role->name == 'Admin' or  \Illuminate\Support\Facades\Auth::user()->role->name == 'Flight_Manager'  )
                 <div class=" col-md-4 col-xs-12" style="float: right;"><a href="{{route('Flights.index')}}">
                         <button class="btn info"><span class="glyphicon glyphicon-plane"></span><br>إدارة الرحلات الجوية
                         </button>
@@ -144,16 +145,17 @@
             <br>
         </div>
         <br>
+
         <div class="row">
-            @if(\Illuminate\Support\Facades\Auth::user()->role_id == 1 )
-                <div class=" col-md-4 col-xs-12" style="float: right;"><a href="man-users.php">
+            @if( \Illuminate\Support\Facades\Auth::user()->role->name == 'Admin')
+                <div class=" col-md-4 col-xs-12" style="float: right;"><a href="{{route('Users.index')}}">
                         <button class="btn info"><span class="glyphicon glyphicon-user"></span><br>إدارة المستخدمين
                         </button>
                     </a>
                 </div>
             @endif
 
-            @if(\Illuminate\Support\Facades\Auth::user()->role_id == 4 or \Illuminate\Support\Facades\Auth::user()->role_id == 1)
+                @if( \Illuminate\Support\Facades\Auth::user()->role->name == 'Admin' or  \Illuminate\Support\Facades\Auth::user()->role->name == 'Offer_Manager'  )
                 <div class=" col-md-4 col-xs-12" style="float: right;"><a href="{{route('Offers.index')}}">
                         <button class="btn success"><span class="glyphicon glyphicon-gift"></span><br>العروض السياحية
                         </button>
@@ -161,19 +163,19 @@
                 </div>
             @endif
 
-            @if(\Illuminate\Support\Facades\Auth::user()->role_id == 5 or \Illuminate\Support\Facades\Auth::user()->role_id == 1)
-                <div class=" col-md-4 col-xs-12" style="float: right;"><a href="man-support.php">
-                        <button class="btn danger"><span class="glyphicon glyphicon-envelope"></span><br>الرسـائل
-                        </button>
-                    </a>
-                </div>
-            @endif
-            <br>
+    @if( \Illuminate\Support\Facades\Auth::user()->role->name == 'Admin')
+        <div class=" col-md-4 col-xs-12" style="float: right;"><a href="man-support.php">
+                <button class="btn danger"><span class="glyphicon glyphicon-envelope"></span><br>الرسـائل
+                </button>
+            </a>
         </div>
-        <br>
-        <br>
-    </div>
-    </div>
+    @endif
+    <br>
+</div>
+<br>
+<br>
+</div>
+</div>
 
 @endsection
 

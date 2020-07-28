@@ -12,7 +12,7 @@ class FlightController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('Role:Role_Admin,Role_Flight_Manager');
+        $this->middleware('Role:Admin,Flight_Manager');
     }
 
     /**

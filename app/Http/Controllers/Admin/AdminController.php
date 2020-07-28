@@ -10,7 +10,7 @@ class AdminController extends Controller
 
     public function __construct()
     {
-        $this->middleware('Role:Role_Admin,Role_Hotel_Manager,Role_Flight_Manager,Role_Offer_Manager,Role_Support,Role_Country_Manager');
+        $this->middleware('Role:Admin,Hotel_Manager,Flight_Manager,Offer_Manager,Support,Country_Manager');
     }
 
     /**

@@ -7,7 +7,7 @@
 
 <body>
 
- @include('Partials.Admin._header')
+ @include('Partials.Web._header')
  @yield('content')
  @include('Partials.Web._footer')
  @include('Partials.Admin._javascript')

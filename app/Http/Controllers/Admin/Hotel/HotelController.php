@@ -15,7 +15,7 @@ class HotelController extends Controller
 
     public function __construct()
     {
-        $this->middleware('Role:Role_Admin,Role_Hotel_Manager');
+        $this->middleware('Role:Admin,Hotel_Manager');
     }
 
     /**

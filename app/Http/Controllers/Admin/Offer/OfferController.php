@@ -16,7 +16,7 @@ class OfferController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('Role:Role_Admin,Role_Offer_Manager');
+        $this->middleware('Role:Admin,Offer_Manager');
     }
 
     /**

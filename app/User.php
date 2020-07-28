@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Admin\Country\Country;
 use App\Models\User\Role;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -17,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','first_name','user_name','last_name','phone_number','country','gender'
+        'name', 'email', 'password','first_name','user_name','last_name','phone_number','country_id','gender'
     ];
 
     /**
@@ -66,5 +67,9 @@ class User extends Authenticatable
 
     public function role(){
         return $this->belongsTo(Role::class,'role_id');
+    }
+
+    public function country(){
+        return $this->belongsTo(Country::class,'country_id');
     }
 }

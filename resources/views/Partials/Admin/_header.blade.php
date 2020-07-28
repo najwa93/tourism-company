@@ -1,3 +1,4 @@
+{{--
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header navbar-left">
@@ -23,15 +24,19 @@
                            onclick="event.preventDefault();document.getElementById('logout-form').submit();" >تسجيل الخروج</a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf
-                        </form>
+                        </form><br/>
+                        <a class="dropdown-item signout" href="{{ route('editUserProfile') }}">تعديل الملف الشخصي</a>
                     </div>
                 </li>
 
                 <li><a href="{{route('Main.index')}}" class="h"><span class="glyphicon glyphicon-wrench" style="color: orange;"></span>&nbsp;إدارة الموقع</i></a></li>
-                {{--
-                                <li><a href="{{route('Main.index')}}"  class="h"><span class="glyphicon glyphicon-picture"style="color: orange;"></span>&nbsp;إدارة  الصور</i></a></li>
                 --}}
-               {{-- @auth
+{{--
+                                <li><a href="{{route('Main.index')}}"  class="h"><span class="glyphicon glyphicon-picture"style="color: orange;"></span>&nbsp;إدارة  الصور</i></a></li>
+                --}}{{--
+
+               --}}
+{{-- @auth
                     <li>
                         <a href="{{route('logout')}}" class="" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();"><span
@@ -49,7 +54,8 @@
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                         {{ Auth::user()->user_name }} <span class="caret"></span>
                     </a>
-                </li>--}}
+                </li>--}}{{--
+
             </ul>
         </div>
-</nav>
+</nav>--}}

@@ -24,8 +24,8 @@ class EditUsersTable extends Migration
             $table->string('phone_number')->nullable()->after('gender');
 
             $table->boolean('is_active')->nullable()->after('phone_number');
-            $table->integer('country')->unsigned()->nullable()->after('is_active');
-            $table->foreign('country')->references('id')->on('countries')->onDelete('cascade');
+            $table->integer('country_id')->unsigned()->nullable()->after('is_active');
+            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
 
         });
     }
