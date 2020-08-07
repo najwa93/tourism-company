@@ -18,10 +18,15 @@ Route::get('/', function () {
 
 Auth::routes();
 
+//Home page Controller
+Route::resource('home_page','Web\WebController' );
 Route::prefix('Web')->group(function () {
     Route::resource('Users', 'Web\WebController');
     Route::get('editUserProfile', 'Web\WebController@editUserProfile')->name('editUserProfile');
     Route::post('updateUserProfile', 'Web\WebController@updateUserProfile')->name('updateUserProfile');
+    Route::post('searchHotels', 'Web\WebController@searchHotels')->name('searchHotels');
+    Route::get('hotelDetails/{hotel}', 'Web\WebController@hotelDetails')->name('hotelDetails');
+
 });
 
 
@@ -67,9 +72,6 @@ Route::prefix('Admin')->group(function () {
     Route::resource('Users', 'Admin\User\UserController');
 });
 
-//Home page Controller
-Route::resource('home_page','Web\WebController' );
+
 //Route::get('/getCities/{id}','Admin\CountryController\TestController@getStates' );
-
-
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');

@@ -97,11 +97,11 @@
         color: #fff !important;
     }
 
-    .navbar li a.dropdown-item{
-        color:#428bca !important;
-        margin-right:12px;
-        font-size:18px;
-        font-weight:bold;
+    .navbar li a.dropdown-item {
+        color: #428bca !important;
+        margin-right: 12px;
+        font-size: 18px;
+        font-weight: bold;
     }
 
     @media screen and (max-width: 800px) {
@@ -276,45 +276,45 @@
 </style>
 @section('content')
     {{--<form method="POST" action="{{ route('login') }}">--}}
-        {{--@csrf--}}
-        {{--<div class="modal fade" id="myModal" role="dialog" style="margin-top: 40px;">--}}
-            {{--<div class="modal-dialog">--}}
-                {{--<div class="modal-content">--}}
-                    {{--<div class="modal-header" style="background-color: #64AEF7; color: white; height: 60px;">--}}
-                        {{--<button type="button" class="close" data-dismiss="modal" style="float: left;text-align: left;">--}}
-                            {{--X--}}
-                        {{--</button>--}}
-                        {{--<center><label style="font-size: 26px; margin-top: -5px;">تسـجيل الدخـول</label></center>--}}
-                    {{--</div>--}}
+    {{--@csrf--}}
+    {{--<div class="modal fade" id="myModal" role="dialog" style="margin-top: 40px;">--}}
+    {{--<div class="modal-dialog">--}}
+    {{--<div class="modal-content">--}}
+    {{--<div class="modal-header" style="background-color: #64AEF7; color: white; height: 60px;">--}}
+    {{--<button type="button" class="close" data-dismiss="modal" style="float: left;text-align: left;">--}}
+    {{--X--}}
+    {{--</button>--}}
+    {{--<center><label style="font-size: 26px; margin-top: -5px;">تسـجيل الدخـول</label></center>--}}
+    {{--</div>--}}
 
-                    {{--<form class="form-group">--}}
-                        {{--<div class="row">--}}
-                            {{--<div class="modal-body col-md-6 col-xs-12"--}}
-                                 {{--style=" float: right;padding-right: 22px; padding-left: 22px;">--}}
-                                {{--<label>اسـم المسـتخدم:</label><br>--}}
-                                {{--<input type="text" name="username" class="form-control"--}}
-                                       {{--placeholder="ادخـل اسـم المسـتخدم">--}}
-                                {{--<label>كلمـة المرور:</label><br>--}}
-                                {{--<input type="password" name="pw" class="form-control" placeholder="ادخل كلمـة المرور">--}}
-                                {{--<input type="submit" name="btnlogin" value="تسـجيل الدخول" class="btn btn-info"--}}
-                                       {{--style="color: white; width: 100px; font-size: 16px;margin-top: 6px;">--}}
-                                {{--<a href="index.php">--}}
-                                    {{--<button type="button" class="btn btn-warning"--}}
-                                            {{--style="color: white; width: 100px;font-size: 16px; margin-top: 6px;">إلـغـاء--}}
-                                    {{--</button>--}}
-                                {{--</a>--}}
+    {{--<form class="form-group">--}}
+    {{--<div class="row">--}}
+    {{--<div class="modal-body col-md-6 col-xs-12"--}}
+    {{--style=" float: right;padding-right: 22px; padding-left: 22px;">--}}
+    {{--<label>اسـم المسـتخدم:</label><br>--}}
+    {{--<input type="text" name="username" class="form-control"--}}
+    {{--placeholder="ادخـل اسـم المسـتخدم">--}}
+    {{--<label>كلمـة المرور:</label><br>--}}
+    {{--<input type="password" name="pw" class="form-control" placeholder="ادخل كلمـة المرور">--}}
+    {{--<input type="submit" name="btnlogin" value="تسـجيل الدخول" class="btn btn-info"--}}
+    {{--style="color: white; width: 100px; font-size: 16px;margin-top: 6px;">--}}
+    {{--<a href="index.php">--}}
+    {{--<button type="button" class="btn btn-warning"--}}
+    {{--style="color: white; width: 100px;font-size: 16px; margin-top: 6px;">إلـغـاء--}}
+    {{--</button>--}}
+    {{--</a>--}}
 
-                            {{--</div>--}}
-                    {{--</form>--}}
-                    {{--<div class="col-md-6 col-xs-12" style="float: right; padding-right: 30px;"><img--}}
-                                {{--src="{{asset('images/login1.png')}}" alt="human" style="width:200px;height: 200px;">--}}
-                    {{--</div>--}}
-                {{--</div>--}}
+    {{--</div>--}}
+    {{--</form>--}}
+    {{--<div class="col-md-6 col-xs-12" style="float: right; padding-right: 30px;"><img--}}
+    {{--src="{{asset('images/login1.png')}}" alt="human" style="width:200px;height: 200px;">--}}
+    {{--</div>--}}
+    {{--</div>--}}
     {{--</form>--}}
     {{--<hr>--}}
     {{--<div style="font-size: 15px; padding-bottom: 10px;padding-right: 10px;padding-top: -5px;"><i--}}
-                {{--class="glyphicon glyphicon-warning-sign" style="color: red;"></i>اذا لم تنشئ حساب لدينا <a--}}
-                {{--href="create-account.php"> اضغط هنا</a></div>--}}
+    {{--class="glyphicon glyphicon-warning-sign" style="color: red;"></i>اذا لم تنشئ حساب لدينا <a--}}
+    {{--href="create-account.php"> اضغط هنا</a></div>--}}
     {{--</div>--}}
     {{--</div>--}}
     {{--</div>--}}
@@ -344,154 +344,145 @@
                 </div>
 
 
-                <div id="hotel" class="tabcontent row" style="display: all;">
-                    <div style="text-align: right;">
-                        <label style="color:#64AEF7;"><span class="glyphicon glyphicon-map-marker"
-                                                            style="color: orange;"></span>البحـث باسـم المـدينة</label>
-                        <input type="text" class="form-control" id="usrname" placeholder="ادخـل اسـم المدينة...">
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-6 col-xs-12" style="float: right;">
-                            <label style="color:#64AEF7;"><span class="glyphicon glyphicon-calendar"
-                                                                style="color: orange;"></span>&nbsp;تاريـخ
-                                الوصـول</label><br>
-                            <input type="date" class="form-control" id="usrname" placeholder="تاريخ الوصولس">
+                <form method="post" action="{{route('searchHotels')}}">
+                    {{csrf_field()}}
+                    <div id="hotel" class="tabcontent row" style="display: all;">
+                        <div style="text-align: right;">
+                            <label style="color:#64AEF7;"><span class="glyphicon glyphicon-map-marker" style="color: orange;"></span>البحـث باسـم المـدينة</label>
+                            <input type="text" name="city" class="form-control" id="city" placeholder="ادخـل اسـم المدينة...">
+                            <div id="countryList"></div>
                         </div>
-                        <div class="col-md-6 col-xs-12" style="float: right;">
-                            <label style="color:#64AEF7;"><span class="glyphicon glyphicon-calendar"
-                                                                style="color: orange;"></span>&nbsp;تاريـخ المغادرة
-                            </label><br>
-                            <input type="date" class="form-control" id="usrname" placeholder="تـاريخ المغادرة">
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6 col-xs-12" style="float: right;">
+                                <label style="color:#64AEF7;"><span class="glyphicon glyphicon-calendar" style="color: orange;"></span>&nbsp;تاريـخ الوصـول</label><br>
+                                <input type="date" class="form-control" name="checkin" id="checkin" placeholder="تاريخ الوصولس">
+                            </div>
+                            <div class="col-md-6 col-xs-12" style="float: right;">
+                                <label style="color:#64AEF7;"><span class="glyphicon glyphicon-calendar" style="color: orange;"></span>&nbsp;تاريـخ المغادرة</label><br>
+                                <input type="date" class="form-control" name="checkout" id="checkout" placeholder="تـاريخ المغادرة">
+                            </div>
                         </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-6 col-xs-12" style="float: right;">
-                            <label style="color:#64AEF7;"><span class="glyphicon glyphicon-lamp"
-                                                                style="color: orange;"></span>&nbsp;عـدد الليالـي
-                            </label>
-                            <input type="number" class="form-control" id="usrname"
-                                   placeholder="ادخـل  عـدد الليـالـي ..">
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6 col-xs-12" style="float: right;">
+                                <label style="color:#64AEF7;"><span class="glyphicon glyphicon-lamp" style="color: orange;"></span>&nbsp;عـدد الليالـي</label>
+                                <input type="number" class="form-control" id="nights_count" min="1" max="100" placeholder="ادخـل  عـدد الليـالـي ..">
+                            </div>
+
+                            <div class="col-md-6 col-xs-12" style="float: right;">
+                                <label style="color:#64AEF7;"><span class="glyphicon glyphicon-user" style="color: orange;"></span>&nbsp;عـدد الأشـخاص
+                                </label>
+                                <input type="number" class="form-control" id="passengers_count" min="1" max="100" name="customers_count" placeholder="ادخـل  عـدد المسـافرين ..">
+                            </div>
                         </div>
-                        <div class="col-md-6 col-xs-12" style="float: right;">
-                            <label style="color:#64AEF7;"><span class="glyphicon glyphicon-user"
-                                                                style="color: orange;"></span>&nbsp;عـدد الأشـخاص
-                            </label>
-                            <input type="number" class="form-control" id="usrname"
-                                   placeholder="ادخـل  عـدد المسـافرين ..">
-                        </div>
-                    </div>
-                    <button type="button" class="btn btn-info"
-                            style="color: white; width: 120px;height: 35px; font-size: 20px; margin-top: 10px;"><span
-                                class="glyphicon glyphicon-search" style="color: orange;"></span>&nbsp;بـحـث
-                    </button>
-                    <br>
-                </div>
+                        <button type="submit" class="btn btn-info" style="color: white; width: 120px;height: 35px; font-size: 20px; margin-top: 10px;"><span class="glyphicon glyphicon-search" style="color: orange;"></span>&nbsp;بـحـث</button><br>
+
+                </form>
 
 
-                <div id="flight" class="tabcontent row" style="display: none;">
-                    <div class="row">
-                        <div class="col-md-6 col-xs-12" style="float: right;">
-                            <label style="color:#64AEF7;"><span class="glyphicon glyphicon-arrow-up"
-                                                                style="color: orange;"></span>&nbsp;يسـافر مـن
-                            </label><br>
-                            <input type="text" class="form-control" id="usrname" placeholder="ادخل مدينـة المصـدر">
+                {{--    <div id="flight" class="tabcontent row" style="display: none;">
+                        <div class="row">
+                            <div class="col-md-6 col-xs-12" style="float: right;">
+                                <label style="color:#64AEF7;"><span class="glyphicon glyphicon-arrow-up"
+                                                                    style="color: orange;"></span>&nbsp;يسـافر مـن
+                                </label><br>
+                                <input type="text" class="form-control" id="usrname" placeholder="ادخل مدينـة المصـدر">
+                            </div>
+                            <div class="col-md-6 col-xs-12" style="float: right;">
+                                <label style="color:#64AEF7;"><span class="glyphicon glyphicon-arrow-down"
+                                                                    style="color: orange;"></span>&nbsp;يسـافر
+                                    إلـى</label><br>
+                                <input type="text" class="form-control" id="usrname" placeholder="ادخل مدينة الوجهـة">
+                            </div>
                         </div>
-                        <div class="col-md-6 col-xs-12" style="float: right;">
-                            <label style="color:#64AEF7;"><span class="glyphicon glyphicon-arrow-down"
-                                                                style="color: orange;"></span>&nbsp;يسـافر
-                                إلـى</label><br>
-                            <input type="text" class="form-control" id="usrname" placeholder="ادخل مدينة الوجهـة">
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6 col-xs-12" style="float: right;">
+                                <label style="color:#64AEF7;"><span class="glyphicon glyphicon-calendar"
+                                                                    style="color: orange;"></span>&nbsp;تاريـخ السـفر
+                                </label><br>
+                                <input type="date" class="form-control" id="usrname" placeholder="">
+                            </div>
+                            <div class="col-md-6 col-xs-12" style="float: right;">
+                                <label style="color:#64AEF7;"><span class="glyphicon glyphicon-user"
+                                                                    style="color: orange;"></span>&nbsp;عـدد
+                                    المسـافريـن</label><br>
+                                <input type="number" class="form-control" id="usrname" placeholder="ادخل  عدد المسـافرين">
+                            </div>
                         </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-6 col-xs-12" style="float: right;">
-                            <label style="color:#64AEF7;"><span class="glyphicon glyphicon-calendar"
-                                                                style="color: orange;"></span>&nbsp;تاريـخ السـفر
-                            </label><br>
-                            <input type="date" class="form-control" id="usrname" placeholder="">
-                        </div>
-                        <div class="col-md-6 col-xs-12" style="float: right;">
-                            <label style="color:#64AEF7;"><span class="glyphicon glyphicon-user"
-                                                                style="color: orange;"></span>&nbsp;عـدد
-                                المسـافريـن</label><br>
-                            <input type="number" class="form-control" id="usrname" placeholder="ادخل  عدد المسـافرين">
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-6 col-xs-12" style="float: right;">
-                            <label style="color:#64AEF7;"><span class="glyphicon glyphicon-briefcase"
-                                                                style="color: orange;"></span>&nbsp;درجة الرحلـة
-                            </label><br>
-                            <select id="country" name="country" class="form-control">
-                                <option value="tour">الدرجة السياحية</option>
-                                <option value="">الدرجة الاقتصـادية</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6 col-xs-12" style="float: right; padding-top: 33px;">
-                            <button type="button" class="btn btn-info"
-                                    style="color: white; width: 120px;height: 34px; font-size: 20px; "><span
-                                        class="glyphicon glyphicon-search" style="color: orange;"></span>&nbsp;بـحـث
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div id="offer" class="tabcontent row" style="display: none;">
-                    <div class="row">
-                        <div class="col-md-4 col-xs-12" style="float: right;">
-                            <label style=" font-size: 22px; color:#64AEF7; font-weight: bold; "><span
-                                        class="glyphicon glyphicon-search" style="color: orange;"></span>&nbsp;&nbsp;
-                                الــبـحـث بـاســم الـمـديـنــة</label>
-                        </div>
-
-                        <div class="col-md-8 col-xs-12">
-                            <input type="text" class="form-control" id="myInput" onkeyup="myFunction()"
-                                   placeholder="الـبـحـث بـاسـم المدينـة...." style="text-align: right;">
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6 col-xs-12" style="float: right;">
+                                <label style="color:#64AEF7;"><span class="glyphicon glyphicon-briefcase"
+                                                                    style="color: orange;"></span>&nbsp;درجة الرحلـة
+                                </label><br>
+                                <select id="country" name="country" class="form-control">
+                                    <option value="tour">الدرجة السياحية</option>
+                                    <option value="">الدرجة الاقتصـادية</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 col-xs-12" style="float: right; padding-top: 33px;">
+                                <button type="button" class="btn btn-info"
+                                        style="color: white; width: 120px;height: 34px; font-size: 20px; "><span
+                                            class="glyphicon glyphicon-search" style="color: orange;"></span>&nbsp;بـحـث
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    <br>
-                    <table id="myTable" class="table-responsive">
-                        <tr class="header">
-                            <th style="width:20%;">البـلـد</th>
-                            <th style="width:20%;">المـدينـة</th>
-                            <th style="width:20%;">تـاريخ الرحـلـة</th>
-                            <th style="width:30%;"></th>
-                        </tr>
-                        <tr>
-                            <td>سوريا</td>
-                            <td>دمشق</td>
-                            <td>9 اب 2020</td>
 
-                            <td>
-                                <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                                    <div class="btn-group" role="group">
-                                        <button type="button" class="btn btn-warning">التفاصيل</button>
+
+                    <div id="offer" class="tabcontent row" style="display: none;">
+                        <div class="row">
+                            <div class="col-md-4 col-xs-12" style="float: right;">
+                                <label style=" font-size: 22px; color:#64AEF7; font-weight: bold; "><span
+                                            class="glyphicon glyphicon-search" style="color: orange;"></span>&nbsp;&nbsp;
+                                    الــبـحـث بـاســم الـمـديـنــة</label>
+                            </div>
+
+                            <div class="col-md-8 col-xs-12">
+                                <input type="text" class="form-control" id="myInput" onkeyup="myFunction()"
+                                       placeholder="الـبـحـث بـاسـم المدينـة...." style="text-align: right;">
+                            </div>
+                        </div>
+                        <br>
+                        <table id="myTable" class="table-responsive">
+                            <tr class="header">
+                                <th style="width:20%;">البـلـد</th>
+                                <th style="width:20%;">المـدينـة</th>
+                                <th style="width:20%;">تـاريخ الرحـلـة</th>
+                                <th style="width:30%;"></th>
+                            </tr>
+                            <tr>
+                                <td>سوريا</td>
+                                <td>دمشق</td>
+                                <td>9 اب 2020</td>
+
+                                <td>
+                                    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                                        <div class="btn-group" role="group">
+                                            <button type="button" class="btn btn-warning">التفاصيل</button>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
+                                </td>
 
-                        </tr>
-                        <tr>
-                            <td>سوريا</td>
-                            <td>اللاذقية</td>
-                            <td>9 ايلول 2020</td>
+                            </tr>
+                            <tr>
+                                <td>سوريا</td>
+                                <td>اللاذقية</td>
+                                <td>9 ايلول 2020</td>
 
-                            <td>
-                                <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                                    <div class="btn-group" role="group">
-                                        <button type="button" class="btn btn-warning">التفاصيل</button>
+                                <td>
+                                    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                                        <div class="btn-group" role="group">
+                                            <button type="button" class="btn btn-warning">التفاصيل</button>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
+                                </td>
 
-                        </tr>
-                    </table>
-                </div>
+                            </tr>
+                        </table>
+                    </div>--}}
             </div>
 
     </div>
@@ -674,5 +665,6 @@
     </div>
 
 @endsection
+
 
 

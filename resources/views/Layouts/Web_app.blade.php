@@ -18,7 +18,6 @@
             }
 
             .p1 {
-                background-image: url({{asset('images/Dubai.jpg')}});
                 background-size: cover;
                 height: 600px;
                 overflow-y: auto;
@@ -276,12 +275,10 @@
     @endsection
 
 
-    @include('Partials.Web._header')
+   @include('Partials.Web._header')
 
     @yield('content')
 
     @include('Partials.Web._footer')
-
+    @yield('jquery')
     @include('Partials.Web._javascript')
-
-    </html>

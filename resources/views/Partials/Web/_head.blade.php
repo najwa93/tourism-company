@@ -4,5 +4,10 @@
 <title>@yield('title')</title>
 
 <!-- Bootstrap -->
+
 <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
 <link href="{{asset('css/bootstrap-rtl.min.css')}}" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{{asset('slick/slick.css')}}"/>
+<link rel="stylesheet" type="text/css" href="{{asset('slick/slick-theme.css')}}"/>
+
+

@@ -1,11 +1,21 @@
 @extends('layouts.Web_app')
+<style>
+    body{
+       /* background-image: url("{{asset('images/test1.png')}}");*/
+    }
 
+    .card{
+        border:1px solid #ffffff;
+        margin-top: 30px;
+        padding:10px;
+    }
+</style>
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Login') }}</div>
+                    <div class="card-header">{{ __('تسجيل الدخول') }}</div>
 
                     <div class="card-body">
                         <form method="POST" action="{{ route('login') }}">
