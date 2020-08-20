@@ -2,50 +2,6 @@
 
 @section('styles')
 
-    *{
-    margin: 0;
-    padding: 0;
-    }
-    body{
-    }
-    .header{
-    width: 100%;
-    height:52px;
-    }
-    .navbar {
-    background-color:#64AEF7;
-    z-index: 9999;
-    border: 0;
-    font-size: 20px !important;
-    line-height: 1.5 !important;
-    border-radius: 0;
-    }
-    .navbar li a, .navbar .navbar-brand {
-    color: white !important;
-    }
-
-    .navbar li a.dropdown-item{
-        color:#428bca !important;
-        margin-right:12px;
-        font-size:18px;
-        font-weight:bold;
-    }
-
-    .navbar-nav li a:hover, .navbar-nav li.active a {
-    color: #64AEF7 !important;
-    background-color: #fff !important;
-    }
-    .navbar-default .navbar-toggle {
-    border-color: transparent;
-    color: #fff !important;
-    }
-    @media screen and (max-width: 800px) {
-    .col-sm-4 {
-    text-align: center;
-    margin: 25px 0;
-    }
-
-    }
     .btn {
     width: 370px;
     height: 166px;

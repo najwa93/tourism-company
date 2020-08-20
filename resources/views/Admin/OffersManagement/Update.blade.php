@@ -3,42 +3,6 @@
     تعديـل عـرض سـياحـي
 @endsection
 @section('styles')
-    *{
-    margin: 0;
-    padding: 0;
-    }
-    body{
-    }
-    .header{
-    width: 100%;
-    height:52px;
-    }
-    .navbar {
-    background-color:#64AEF7;
-    z-index: 9999;
-    border: 0;
-    font-size: 20px !important;
-    line-height: 1.5 !important;
-    border-radius: 0;
-    }
-    .navbar li a, .navbar .navbar-brand {
-    color: white !important;
-    }
-    .navbar-nav li a:hover, .navbar-nav li.active a {
-    color: #64AEF7 !important;
-    background-color: #fff !important;
-    }
-    .navbar-default .navbar-toggle {
-    border-color: transparent;
-    color: #fff !important;
-    }
-    @media screen and (max-width: 800px) {
-    .col-sm-4 {
-    text-align: center;
-    margin: 25px 0;
-    }
-
-    }
     .p1{
     background-image: url("{{asset('images/offer-travel.jpg')}}");
     width: 100%;
@@ -172,7 +136,8 @@
                 <tbody style="text-align: center;" dir="ltr">
                 @foreach($allData as $value)
                     <tr>
-                        <td><input type="radio" name="returned_flight" checked value="{{$value['returned_flight_id']}}"></td>
+                        <td><input type="radio" name="returned_flight" checked value="{{$value['returned_flight_id']}}">
+                        </td>
                         <td>{{$value['returned_flight_source_city']}}</td>
                         <td>{{$value['returned_flight_destination_city']}}</td>
                         <td>{{$value['returned_flight_date']}}</td>
@@ -194,14 +159,14 @@
                     <label style="color:#64AEF7;"><span class="glyphicon glyphicon-user" style="color: orange;"></span>&nbsp;عـدد
                         المقاعـد</label><br>
                     <input type="number" name="seats_count" min="1" max="500" class="form-control" id="usrname"
-                          value="{{$editedOffer->seats_number}}" placeholder="ادخل  عدد المقاعـد">
+                           value="{{$editedOffer->seats_number}}" placeholder="ادخل  عدد المقاعـد">
                 </div>
                 <div class="col-md-6 col-xs-12" style="float: right;">
                     <label style="color:#64AEF7;"><span class="glyphicon glyphicon-briefcase"
                                                         style="color: orange;"></span>&nbsp;درجة
                         الرحلـة </label><br>
                     <select id="country" name="flight_degree" class="form-control">
-                       @foreach($flightDegrees as $value)
+                        @foreach($flightDegrees as $value)
                             <option {{$value->id == $editedOffer->flight_degree_id?'selected="selected"':''}} value="{{$value->id}}">{{$value->name}}</option>
 
                             {{--
@@ -215,14 +180,14 @@
                     <label style="color:#64AEF7;"><span class="glyphicon glyphicon-gift" style="color: orange;"></span>&nbsp;مدة
                         العرض </label><br>
                     <input type="text" name="offer_duration" class="form-control"
-                          value="{{$editedOffer->offer_duration}}" placeholder="ادخل  مدة العرض ">
+                           value="{{$editedOffer->offer_duration}}" placeholder="ادخل  مدة العرض ">
                 </div>
 
                 <div class="col-md-6 col-xs-12" style="margin-top: 10px;">
                     <label style="color:#64AEF7;"><span class="glyphicon glyphicon-gift" style="color: orange;"></span>&nbsp;سعر
                         العرض </label><br>
                     <input type="text" name="price" class="form-control"
-                        value="{{$editedOffer->price}}"   placeholder="ادخل سعرالعرض ">
+                           value="{{$editedOffer->price}}" placeholder="ادخل سعرالعرض ">
                 </div>
 
             </div>
@@ -262,19 +227,19 @@
                 </tr>
                 </thead>
                 <tbody style="text-align: center;" dir="ltr">
-                 @foreach($allData as $value)
-                     <tr>
-                         <td><input type="radio" name="hotel" checked value="{{$value['hotel_id']}}"></td>
+                @foreach($allData as $value)
+                    <tr>
+                        <td><input type="radio" name="hotel" checked value="{{$value['hotel_id']}}"></td>
 
-                         <td>{{$value['hotel_name']}}</td>
-                         <td>{{$value['hotel_country']}}</td>
-                         <td>{{$value['hotel_city']}}</td>
-                         <td>{{$value['hotelRoom_name']}}</td>
-                         <td>{{$value['hotelRoom_type']}}</td>
-                         <td>{{$value['hotelRoom_customers_count']}}</td>
-                         <td>{{$value['hotelRoom_night_price']}}</td>
-                     </tr>
-                 @endforeach
+                        <td>{{$value['hotel_name']}}</td>
+                        <td>{{$value['hotel_country']}}</td>
+                        <td>{{$value['hotel_city']}}</td>
+                        <td>{{$value['hotelRoom_name']}}</td>
+                        <td>{{$value['hotelRoom_type']}}</td>
+                        <td>{{$value['hotelRoom_customers_count']}}</td>
+                        <td>{{$value['hotelRoom_night_price']}}</td>
+                    </tr>
+                @endforeach
 
                 </tbody>
             </table>
@@ -298,7 +263,8 @@
                     <div class="form-group ">
                         <label for="usr">التفاصيل</label>
                         <textarea class="form-control" name="details" placeholder="تفاصيل العرض"
-                                 style="text-align: right; font-size:20px; color: black;" rows="4"> {{$editedOffer->details}}"</textarea>
+                                  style="text-align: right; font-size:20px; color: black;" rows="4"> {{$editedOffer->details}}
+                            "</textarea>
                     </div>
                     <button type="submit" class="btn btn-info"
                             style="color: white; width: 100px;height: 40px; font-size: 20px;"><span

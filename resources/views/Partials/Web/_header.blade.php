@@ -18,11 +18,9 @@
                 <ul class="nav navbar-nav">
 
                     @guest
-                        <li><a href="{{route('home_page.index')}}" class="h"><span class="glyphicon glyphicon-home"
-                                                                                   style="color: orange;"></span>&nbsp;الـرئيسـيـة</a>
+                        <li><a href="{{route('home_page.index')}}" class="h"><span class="glyphicon glyphicon-home" style="color: orange;"></span>&nbsp;الـرئيسـيـة</a>
                         </li>
-                        <li><a href="#contact" class="h"><span class="glyphicon glyphicon-envelope"
-                                                               style="color: orange;"></span>&nbsp; @yield('contact')
+                        <li><a href="#contact" class="h"><span class="glyphicon glyphicon-envelope" style="color: orange;"></span>&nbsp; @yield('contact')
                             </a></li>
                     @endguest
 
@@ -42,7 +40,9 @@
                                 <span class="glyphicon glyphicon-user" style="color: orange;"></span>{{ Auth::user()->user_name }} <span class="caret"></span></a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                @if(Auth::user()->role_id != 1)
                                 <a class="dropdown-item signout" href="{{ route('editUserProfile') }}">الحجوزات</a><br/>
+                                @endif
                                 <a class="dropdown-item signout" href="{{ route('editUserProfile') }}">تعديل الملف الشخصي</a><br/>
                                 <a class="dropdown-item signout" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">تسجيل الخروج</a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

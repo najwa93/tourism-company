@@ -1,10 +1,18 @@
 @extends('layouts.Web_app')
 
+@section('styles')
+    .card{
+    background-image: url('{{asset("images/test.png")}}');
+    }
+    .img{
+    margin-top:50px;
+    }
+    @endsection
 
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-header"><h1>{{ __('مـرحبا بـك .. ادخل بياناتك  للتسجيل معنا في موقع ترافـل رو ') }}</h1></div>
 
@@ -190,6 +198,10 @@
                         </form>
                     </div>
                 </div>
+            </div>
+
+            <div class="col-md-6 img" >
+              <img src="{{asset('images/signup.png')}}"  />
             </div>
         </div>
     </div>

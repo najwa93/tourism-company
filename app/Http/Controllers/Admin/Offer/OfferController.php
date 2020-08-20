@@ -7,6 +7,7 @@ use App\Models\Admin\Country\Country;
 use App\Models\Admin\Flight\Flight;
 use App\Models\Admin\Flight\FlightDegree;
 use App\Models\Admin\Hotel\Hotel;
+use App\Models\Admin\Hotel\HotelRoom;
 use App\Models\Admin\Offer\Offer;
 use function Couchbase\defaultDecoder;
 use Illuminate\Http\Request;
@@ -201,8 +202,9 @@ class OfferController extends Controller
         $offer->flight_id = $flightVal;
         $returnedFlightVal =  $request->input('returned_flight');
         $offer->returned_flight_id = $returnedFlightVal;
-        $hoteltVal =  $request->input('hotel');
-        $offer->hotel_id = $hoteltVal;
+        $roomId =  $request->input('room');
+       // $room = HotelRoom::where('id',$roomId)->first();
+        $offer->room_id = $roomId;
         //$offer->status = $request->input('flight') == 'true' ? 1 : 0;
         $offer->save();
 

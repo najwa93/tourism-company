@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Web\OfferReservation;
 use App\Models\Admin\City\City;
 use App\Models\Admin\Flight\Flight;
 use App\Models\Admin\Hotel\Hotel;
+use App\Models\Admin\Hotel\HotelRoom;
 use App\Models\Admin\Offer\Offer;
+use App\Models\User\FlightReservation\FlightReservation;
+use App\Models\User\HotelReservation\HotelReservation;
 use App\Models\User\OfferReservation\OfferReservation;
 use function foo\func;
 use Illuminate\Http\Request;
@@ -69,12 +72,15 @@ class OfferReservationController extends Controller
     }
 
     // offer details
-    public function offerDetails(Request $request, $offerId, $flightId)
+    public function offerDetails( $offerId, $flightId)
     {
         $offer = Offer::where('id',$offerId)->first();
         $flight = Flight::where('id',$flightId)->first();
+        //return $flight->destination_city->name;
         $returned_flight = Flight::where('id',$offer->returned_flight_id)->first();
-        $hotel = Hotel::where('id',$offer->hotel_id)->first();
+        $room = HotelRoom::where('id',$offer->room_id)->first();
+        $hotel = Hotel::where('id',$room->hotel_id)->first();
+       //return $hotel;
         //return $returned_flight;
         //return $offer_data;
         return view('Web.Search.Offer.searchOfferDetails', compact('offer','flight','returned_flight','hotel'));
@@ -90,10 +96,40 @@ class OfferReservationController extends Controller
         }
     }
 
-    public function completeOfferReservation(Request $request,$offerId,$flightId){
+    public function completeOfferReservation($offerId,$flightId){
         //$user = Auth::user();
         $offer = Offer::where('id',$offerId)->first();
         $flight = Flight::where('id',$flightId)->first();
+
+        $flightReservation = new FlightReservation();
+        $flightReservation->user_id = Auth::user()->id;
+
+        $flightReservation->flight_id = $flight->id;
+        $flightReservation->seats_count = $offer->seats_number;
+        $flightReservation->date = $flight->date;
+        $flightReservation->time = $flight->time;
+
+        if ($offer->flight_degree_id == 1){
+            $flightReservation->reservation_price = $flight->first_class_ticket_price;
+            $flightReservation->flight_degree_id = 1;
+        }else{
+            $flightReservation->reservation_price = $flight->economy_ticket_price;
+            $flightReservation->flight_degree_id = 2;
+        }
+
+        $flightReservation->save();
+
+        $hotelReservation = new HotelReservation();
+        $hotelReservation->user_id = Auth::user()->id;
+        $room = HotelRoom::where('id',$offer->room_id)->first();
+        $hotel = Hotel::where('id',$room->hotel_id)->first();
+        $hotelReservation->hotel_id =$hotel->id;
+        $hotelReservation->room_id =$room->id;
+        $hotelReservation->offer_id = $offer->id;
+        $hotelReservation->is_booked = true;
+        $hotelReservation->reservation_cost = $room->night_price;
+        $hotelReservation->save();
+
 
         $offerReservation = new OfferReservation();
         $offerReservation->user_id = Auth::user()->id;

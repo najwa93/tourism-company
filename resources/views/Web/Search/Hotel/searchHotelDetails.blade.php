@@ -1,6 +1,6 @@
 @extends('Layouts.Web_app')
 
-<style>
+@section('styles')
     .panel-body h4 {
         font-weight: bold;
     }
@@ -12,7 +12,7 @@
     .modal-style{
         margin-top: 100px;
     }
-</style>
+@endsection
 @section('content')
     <div class="container">
             {{csrf_field()}}
@@ -177,6 +177,7 @@
                 {{--</div>--}}
             {{--</div>--}}
             {{--@endguest--}}
+
 @endsection
 
 @include('Partials.Web._jquery')

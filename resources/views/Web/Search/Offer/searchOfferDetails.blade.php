@@ -1,6 +1,6 @@
 @extends('Layouts.Web_app')
 
-<style>
+@section('styles')
     .panel-body h4 {
         font-weight: bold;
     }
@@ -12,7 +12,7 @@
     .modal-style{
         margin-top: 100px;
     }
-</style>
+@endsection
 @section('content')
     <div class="container">
 
@@ -22,7 +22,7 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <h4><span>   إلى المدينة :</span> {{$flight->destination_city->name}}</h4>
-                        <h4><span>   اسم الفندق :</span> {{$offer->hotel->name}}</h4>
+                        <h4><span>   اسم الفندق :</span> {{$hotel->name}}</h4>
                         <h3><span> مدة الرحلة :</span> {{$flight->flight_duration}}</h3>
                     </div>
                 </div>

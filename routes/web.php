@@ -18,7 +18,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-//Home page Controller
+//User Routes
 Route::resource('home_page','Web\WebController' );
 Route::prefix('Web')->group(function () {
     Route::resource('Users', 'Web\WebController');
@@ -40,9 +40,12 @@ Route::prefix('Web')->group(function () {
     Route::get('offerDetails/{offer}/{flight}', 'Web\OfferReservation\OfferReservationController@offerDetails')->name('offerDetails');
     Route::get('reserveOffer/{offer}/{flight}', 'Web\OfferReservation\OfferReservationController@offerReservation')->name('offerReservation');
     Route::post('completeOfferReservation/{offer}/{flight}', 'Web\OfferReservation\OfferReservationController@completeOfferReservation')->name('completeOfferReservation');
+
+    Route::get('showUserReservations}', 'Web\WebController@showUserReservations')->name('showUserReservations');
+
 });
 
-
+// Admin Routes
 Route::prefix('Admin')->group(function () {
     Route::resource('Main', 'Admin\AdminController');
 

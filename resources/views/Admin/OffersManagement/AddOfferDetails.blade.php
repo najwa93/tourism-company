@@ -3,42 +3,7 @@
     إضـافة عـرض سـياحـي
 @endsection
 @section('styles')
-    *{
-    margin: 0;
-    padding: 0;
-    }
-    body{
-    }
-    .header{
-    width: 100%;
-    height:52px;
-    }
-    .navbar {
-    background-color:#64AEF7;
-    z-index: 9999;
-    border: 0;
-    font-size: 20px !important;
-    line-height: 1.5 !important;
-    border-radius: 0;
-    }
-    .navbar li a, .navbar .navbar-brand {
-    color: white !important;
-    }
-    .navbar-nav li a:hover, .navbar-nav li.active a {
-    color: #64AEF7 !important;
-    background-color: #fff !important;
-    }
-    .navbar-default .navbar-toggle {
-    border-color: transparent;
-    color: #fff !important;
-    }
-    @media screen and (max-width: 800px) {
-    .col-sm-4 {
-    text-align: center;
-    margin: 25px 0;
-    }
 
-    }
     .p1{
     background-image: url("{{asset('images/offer-travel.jpg')}}");
     width: 100%;
@@ -252,7 +217,7 @@
             <tbody style="text-align: center;" dir="ltr">
             @foreach($allHotelData as $value)
                 <tr>
-                    <td><input type="radio" name="hotel" value="{{$value['hotel_id']}}"></td>
+                    <td><input type="radio" name="room" value="{{$value['hotel_room_id']}}"></td>
 
                     <td>{{$value['hotel']}}</td>
                     <td>{{$value['country']}}</td>
@@ -262,6 +227,8 @@
                     <td>{{$value['customers_count']}}</td>
                     <td>{{$value['night_price']}}</td>
                 </tr>
+
+
             @endforeach
 
             </tbody>
