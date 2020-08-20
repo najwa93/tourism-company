@@ -137,6 +137,7 @@
                             </div>
 
 
+
                             <div class="form-group row">
                                 <label for="password"
                                        class="col-md-12 col-form-label text-md-right">{{ __('كلمة المرور') }}</label>
@@ -164,6 +165,7 @@
                                            placeholder="أعد إدخال كلمة المرور">
                                 </div>
                             </div>
+
 
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">

@@ -10,4 +10,5 @@ class FlightDegree extends Model
     public function offer(){
         return $this->hasMany(Offer::class);
 }
+
 }

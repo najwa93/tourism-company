@@ -30,7 +30,6 @@ class RoomController extends Controller
         return view('Admin.HotelsManagement.RoomManagement.Add',compact(['hotel','roomTypes']));
     }
 
-    // get cities wuth related country
     public function storeRoom(Request $request, $hotel_id)
     {
         $hotel = Hotel::findOrfail($hotel_id);

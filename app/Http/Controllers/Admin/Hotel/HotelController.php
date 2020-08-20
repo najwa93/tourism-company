@@ -106,7 +106,7 @@ class HotelController extends Controller
      */
     public function show($hotel_id)
     {
-        $hotel = Hotel::findOrfail($hotel_id)
+        $hotel = Hotel::where('id',$hotel_id)
             ->with('hotel_room.room_type')
             ->first();
 

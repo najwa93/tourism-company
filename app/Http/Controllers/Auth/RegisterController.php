@@ -80,7 +80,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         //$role = \App\Models\User\Role::where('name', 'Role_User')->first();
-        $user =  User::create([
+        $user = User::create([
             // 'name' => $data['name'],
             'email' => $data['email'],
             'first_name' => $data['first_name'],
@@ -88,7 +88,7 @@ class RegisterController extends Controller
             'last_name' => $data['last_name'],
             'phone_number' => $data['phone_number'],
             'country_id' => $data['country_id'],
-            'gender' => $data['gender'] ,
+            'gender' => $data['gender'],
             'password' => Hash::make($data['password']),
         ]);
         $user->role_id = 8;

@@ -1,4 +1,4 @@
-<body>
+
 <header class="header">
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
@@ -42,12 +42,14 @@
                                 <span class="glyphicon glyphicon-user" style="color: orange;"></span>{{ Auth::user()->user_name }} <span class="caret"></span></a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item signout" href="{{ route('editUserProfile') }}">الحجوزات</a><br/>
+                                <a class="dropdown-item signout" href="{{ route('editUserProfile') }}">تعديل الملف الشخصي</a><br/>
                                 <a class="dropdown-item signout" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">تسجيل الخروج</a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                     @csrf
                                 </form>
                                 <br>
-                                <a class="dropdown-item signout" href="{{ route('editUserProfile') }}">تعديل الملف الشخصي</a>
+
                             </div>
 
                         </li>

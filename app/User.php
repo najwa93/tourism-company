@@ -3,6 +3,9 @@
 namespace App;
 
 use App\Models\Admin\Country\Country;
+use App\Models\User\FlightReservation\FlightReservation;
+use App\Models\User\HotelReservation\HotelReservation;
+use App\Models\User\OfferReservation\OfferReservation;
 use App\Models\User\Role;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -72,4 +75,20 @@ class User extends Authenticatable
     public function country(){
         return $this->belongsTo(Country::class,'country_id');
     }
+
+    //hotel Reservation
+    public function hotel_reservation(){
+        return $this->hasMany(HotelReservation::class);
+    }
+
+    //flight Reservation
+    public function flight_reservation(){
+        return $this->hasMany(FlightReservation::class);
+    }
+
+    public function offer_reservation(){
+        return $this->hasOne(OfferReservation::class);
+    }
+
+
 }

@@ -24,9 +24,22 @@ Route::prefix('Web')->group(function () {
     Route::resource('Users', 'Web\WebController');
     Route::get('editUserProfile', 'Web\WebController@editUserProfile')->name('editUserProfile');
     Route::post('updateUserProfile', 'Web\WebController@updateUserProfile')->name('updateUserProfile');
-    Route::post('searchHotels', 'Web\WebController@searchHotels')->name('searchHotels');
-    Route::get('hotelDetails/{hotel}', 'Web\WebController@hotelDetails')->name('hotelDetails');
+    //hotel reservation
+    Route::get('searchHotels', 'Web\WebController@searchHotels')->name('searchHotels');
+    Route::get('hotelDetails/{hotel}/{room}', 'Web\WebController@hotelDetails')->name('hotelDetails');
+    Route::get('reserveHotel/{hotel}/{room}', 'Web\WebController@hotelReservation')->name('hotelReservation');
+    Route::post('completeHotelReservation/{hotel}/{room}', 'Web\WebController@completeHotelReservation')->name('completeHotelReservation');
 
+    //flight reservation
+    Route::get('searchFlights', 'Web\FlightReservation\FlightReservationController@searchFlights')->name('searchFlights');
+    Route::get('flightDetails/{flight}', 'Web\FlightReservation\FlightReservationController@flightDetails')->name('flightDetails');
+    Route::post('completeFlightReservation/{flight}', 'Web\FlightReservation\FlightReservationController@completeFlightReservation')->name('completeFlightReservation');
+
+    //Offer reservation
+    Route::get('searchOffers', 'Web\OfferReservation\OfferReservationController@searchOffers')->name('searchOffers');
+    Route::get('offerDetails/{offer}/{flight}', 'Web\OfferReservation\OfferReservationController@offerDetails')->name('offerDetails');
+    Route::get('reserveOffer/{offer}/{flight}', 'Web\OfferReservation\OfferReservationController@offerReservation')->name('offerReservation');
+    Route::post('completeOfferReservation/{offer}/{flight}', 'Web\OfferReservation\OfferReservationController@completeOfferReservation')->name('completeOfferReservation');
 });
 
 
@@ -35,6 +48,7 @@ Route::prefix('Admin')->group(function () {
 
     //Countries Management
     Route::resource('Countries', 'Admin\CountryController\CountryController');
+    //Route::post('Countries', 'Admin\CountryController\CountryController');
     Route::get('Countries/{Country}/delete', 'Admin\CountryController\CountryController@delete')->name('Countries.delete');
 
     //Cities Management

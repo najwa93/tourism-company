@@ -214,29 +214,25 @@
 
 @section('content')
     <div class="p1">
-       {{-- <label style="font-size: 40px;  color: white; font-weight: bold; margin-right: 12%;">&nbspالفنادق المتوفرة</label>--}}
-        <div class="well" style="font-size: 25px;font-weight: bold; color: #64AEF7; text-align: center;"><span class="glyphicon glyphicon-user" style="color: orange;"></span>&nbsp;قائمة الفنادق
+        <div class="well" style="font-size: 25px;font-weight: bold; color: #64AEF7; text-align: center;"><span class="glyphicon glyphicon-user" style="color: orange;"></span>&nbsp;قائمة رحلات الطيران
         </div>
         <div class="container" style="color: #64AEF7; font-size: 20px;">
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th scope="col">اسم الفندق</th>
-                    <th scope="col">النوع</th>
-                    <th scope="col">عدد الأشخاص</th>
-                    <th scope="col">التفاصيل</th>
-                    <th scope="col">تكلفة الليلة</th>
+                    <th scope="col">البلد</th>
+                    <th scope="col">المدينة</th>
+                    <th scope="col">التاريخ</th>
+                    <th>التفاصيل</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($hotel_data as $hotel)
+                @foreach($offer_data as $offer)
                     <tr>
-                        <td>{{$hotel['hotel_name']}}</td>
-                        <td>{{$hotel['room_type']}}</td>
-                        <td>{{$hotel['customers_count']}}</td>
-                        <td>{{$hotel['room_details']}}</td>
-                        <td>{{$hotel['night_price']}}</td>
-                        <th scope="col"><a href="{{url('Web/hotelDetails/'.$hotel['hotel_id'].'/'. $hotel['room_id'] )}}"> <button type="submit" class="btn btn-warning" style="color: white; width: 120px;height: 35px; font-size: 20px;padding: 4px ">&nbsp;التفاصيل</button></a><br>
+                        <td>{{$offer['country']}}</td>
+                        <td>{{$offer['destination_city']}}</td>
+                        <td>{{$offer['date']}}</td>
+                        <th scope="col"><a href="{{route('offerDetails',['offer' => $offer['offer_id'],'flight' => $offer['flight_id']])}}"><button type="button" class="btn btn-warning" style="color: white; width: 120px;height: 35px; font-size: 20px;padding: 4px ">&nbsp;التفاصيل</button></a><br>
                     </tr>
                 @endforeach
                 </tbody>
@@ -246,5 +242,4 @@
         </div>
     </div>
     <br>
-
 @endsection

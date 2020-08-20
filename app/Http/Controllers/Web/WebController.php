@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Web;
 
 use App\Models\Admin\Country\Country;
+use App\Models\Admin\Flight\FlightDegree;
 use App\Models\Admin\Hotel\Hotel;
 use App\Models\Admin\Hotel\HotelRoom;
+use App\Models\Admin\Hotel\RoomType;
+use App\Models\User\HotelReservation\HotelReservation;
 use App\User;
 use function foo\func;
 use Illuminate\Http\Request;
@@ -12,9 +15,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class WebController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth',['only' => ['hotelReservation']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -23,7 +32,9 @@ class WebController extends Controller
     public function index()
     {
 
-        return view('Web.Main_view');
+        $flight_degrees = FlightDegree::all()->pluck('name','id');
+
+        return view('Web.Main_view',compact('flight_degrees'));
     }
 
     /**
@@ -141,20 +152,21 @@ class WebController extends Controller
 
     // search hotels function
     public function searchHotels(Request $request){
+
+        $request->session()->put('checkin',$request->input('checkin'));
+        $request->session()->put('checkout',$request->input('checkout'));
+        //return($request->session()->get('checkin'));
         $city = $request->input('city');
         $customers_count = $request->input('customers_count');
-        $hotels = Hotel::with(['hotel_room' => function($query) use($customers_count){
+        $hotels = Hotel::whereHas('city', function($query) use($city){
+            $query->where('name','like','%'.$city.'%');
+        })
+        ->whereHas('hotel_room', function($query) use($customers_count){
             $query->where('is_available','=',1);
             $query->where('customers_count','=',$customers_count);
-            }])
-            /*->with(['room_type.hotel_room' => function($query){
-                $query->where('is_available',1);
-            }])*/
-            ->whereHas('city', function ($query) use($city) {
-                $query->where('name','like','%' .$city . '%');
             })
             ->get();
-        //return $hotels;
+       // return $hotels;
         $data = [];
         $hotel_data = [];
         foreach ($hotels as $hotel){
@@ -169,17 +181,21 @@ class WebController extends Controller
                 array_push($hotel_data,$data);
             }
         }
-      //return $hotel_data;
+    // return $hotel_data;
 
         return view('Web.Search.Hotel.searchHotel',compact('hotel_data'));
     }
 
     // hotel details
-    public function hotelDetails($roomId){
+    public function hotelDetails($hotelId,$roomId){
+     $user = Auth::user();
      $room = HotelRoom::where('id',$roomId)->first();
-     $hotel = Hotel::where('id',$room->hotel_id)
+     $hotel = Hotel::where('id',$hotelId)
           ->with('hotelImage')
           ->first();
+
+     //return $hotel;
+       // $request->session()->put('room',$room->id);
      //return $hotel;
      /*$hotel_data = [];
      $hotelArr = [];
@@ -192,7 +208,40 @@ class WebController extends Controller
      }
 */
     // return $hotel;
-     return view('Web.Search.Hotel.searchHotelDetails',compact('hotel','room'));
+     return view('Web.Search.Hotel.searchHotelDetails',compact('hotel','room','user'));
+    }
+
+    public function hotelReservation($hotelId,$roomId){
+        if (Auth::user()){
+            $user = Auth::user();
+            $room = HotelRoom::where('id',$roomId)->first();
+            $hotel = Hotel::where('id',$hotelId)->first();
+            return view('Web.Search.Hotel.completeReservation',compact('room','hotel','user'));
+        }else{
+            return redirect()->intended('hotelDetails');
+        }
+    }
+
+    public function completeHotelReservation(Request $request,$hotelId,$roomId){
+            $user = Auth::user();
+            $room = HotelRoom::where('id',$roomId)->first();
+            $room->is_available = 0;
+            $room->save();
+            $hotelReservation = new HotelReservation();
+            $hotelReservation->user_id = Auth::user()->id;
+            $hotelReservation->hotel_id = $hotelId;
+            $hotelReservation->room_id = $roomId;
+            $checkin = Session::get('checkin');
+            $checkout = Session::get('checkout');
+            $hotelReservation->check_in_date = $checkin;
+            $hotelReservation->check_out_date = $checkout;
+            $hotelReservation->is_booked = true;
+            $hotelReservation->reservation_cost = $room->night_price;
+            $hotelReservation->save();
+            $user->credit = $request->input('credit');
+            $user->credit_number = $request->input('credit_number');
+            $user->save();
+            return redirect()->back();
     }
     /**
      * Remove the specified resource from storage.

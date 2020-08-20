@@ -128,7 +128,7 @@
                                     <select name="country" id="country" class="form-control">
                                         <option value="">اختر البلد</option>
                                         @foreach($countries as $key => $value)
-                                            <option  {{$key == $user->country?'selected':''}} value="{{$key}}">{{$value}}</option>
+                                            <option  {{$key == $user->country_id?'selected':''}} value="{{$key}}">{{$value}}</option>
                                         @endforeach
                                     </select><br>
                                 </div>

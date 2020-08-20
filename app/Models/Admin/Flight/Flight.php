@@ -23,4 +23,5 @@ class Flight extends Model
     public function offer(){
         return $this->hasOne(Offer::class);
     }
+
 }

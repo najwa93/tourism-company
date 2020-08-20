@@ -270,15 +270,18 @@
         </style>
     </head>
 
+    <body>
     @section('contact')
         تواصل  معنـا
     @endsection
 
 
-   @include('Partials.Web._header')
+    @include('Partials.Web._header')
 
     @yield('content')
 
     @include('Partials.Web._footer')
-    @yield('jquery')
-    @include('Partials.Web._javascript')
+
+
+    </body>
+    </html>
