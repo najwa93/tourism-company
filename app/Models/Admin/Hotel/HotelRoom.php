@@ -2,6 +2,7 @@
 
 namespace App\Models\Admin\Hotel;
 
+use App\Models\User\HotelReservation\HotelReservation;
 use Illuminate\Database\Eloquent\Model;
 
 class HotelRoom extends Model
@@ -13,5 +14,9 @@ class HotelRoom extends Model
 
     public function room_type(){
         return $this->belongsTo(RoomType::class,'room_type_id');
+    }
+
+    public function hotelReservation(){
+        return $this->hasMany(HotelReservation::class);
     }
 }

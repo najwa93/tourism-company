@@ -96,8 +96,8 @@ class OfferReservationController extends Controller
         }
     }
 
-    public function completeOfferReservation($offerId,$flightId){
-        //$user = Auth::user();
+    public function completeOfferReservation(Request $request,$offerId,$flightId){
+        $user = Auth::user();
         $offer = Offer::where('id',$offerId)->first();
         $flight = Flight::where('id',$flightId)->first();
 
@@ -138,6 +138,9 @@ class OfferReservationController extends Controller
         $offerReservation->time = $flight->time;
         $offerReservation->save();
 
+        $user->credit = $request->input('credit');
+        $user->credit_number = $request->input('credit_number');
+        $user->save();
         return redirect()->back();
     }
     /**

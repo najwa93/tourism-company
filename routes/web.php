@@ -41,7 +41,10 @@ Route::prefix('Web')->group(function () {
     Route::get('reserveOffer/{offer}/{flight}', 'Web\OfferReservation\OfferReservationController@offerReservation')->name('offerReservation');
     Route::post('completeOfferReservation/{offer}/{flight}', 'Web\OfferReservation\OfferReservationController@completeOfferReservation')->name('completeOfferReservation');
 
-    Route::get('showUserReservations}', 'Web\WebController@showUserReservations')->name('showUserReservations');
+    Route::get('showUserReservations', 'Web\WebController@showUserReservations')->name('showUserReservations');
+    Route::get('deleteHotelReservations/{reservation}', 'Web\WebController@deleteHotelReservation')->name('deleteHotelReservation');
+    Route::get('deleteFlightReservations/{reservation}', 'Web\WebController@deleteFlightReservation')->name('deleteFlightReservation');
+
 
 });
 

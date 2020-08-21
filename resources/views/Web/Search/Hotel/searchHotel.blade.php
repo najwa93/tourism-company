@@ -76,5 +76,7 @@
         </div>
     </div>
     <br>
-    @include('Partials.Web._javascript')
+
 @endsection
+
+@include('Partials.Web._javascript')

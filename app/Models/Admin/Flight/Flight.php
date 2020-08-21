@@ -4,6 +4,7 @@ namespace App\Models\Admin\Flight;
 
 use App\Models\Admin\City\City;
 use App\Models\Admin\Offer\Offer;
+use App\Models\User\FlightReservation\FlightReservation;
 use Illuminate\Database\Eloquent\Model;
 
 class Flight extends Model
@@ -22,6 +23,10 @@ class Flight extends Model
 
     public function offer(){
         return $this->hasOne(Offer::class);
+    }
+
+    public function flight_reservation(){
+        return $this->hasMany(FlightReservation::class);
     }
 
 }

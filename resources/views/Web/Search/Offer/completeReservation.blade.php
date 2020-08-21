@@ -157,6 +157,7 @@
             </div>
         </div>
     </div>
+
 @endsection
 
-
+@include('Partials.Web._javascript')

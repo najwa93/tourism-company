@@ -1,5 +1,4 @@
 @extends('Layouts.Web_app')
-@section('styles')
 
 @section('styles')
 
@@ -45,11 +44,6 @@
 @endsection
 
 
-
-
-
-@endsection
-
 @section('content')
     <div class="p1">
         <div class="well" style="font-size: 25px;font-weight: bold; color: #64AEF7; text-align: center;"><span class="glyphicon glyphicon-user" style="color: orange;"></span>&nbsp;قائمة رحلات الطيران
@@ -85,5 +79,6 @@
     </div>
     <br>
 
-    @include('Partials.Web._javascript')
+
 @endsection
+@include('Partials.Web._javascript')
