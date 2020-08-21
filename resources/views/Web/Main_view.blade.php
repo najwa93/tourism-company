@@ -404,15 +404,18 @@ class="car_icn"></i>
 <br>
 <!--contact-->
 <div class="container contact-form" id="contact">
+
     <div style="text-align: center; font-weight: bold; color: #64AEF7; font-size: 25px;">
         <span>تــواصـــل مــعــنـــا</span><br>
     </div>
     <hr>
+    <form method="post" action="{{route('webUsers.store')}}">
+        {{csrf_field()}}
     <div class="row">
         <div class="col-md-6 col-xs-12" style="float: right;">
             <div>
                 <h3 style="text-align: right;">اسم المستخدم</h3>
-                <input style="text-align: right;" id="" type="text" name="email" class="form-control" placeholder="الاسم">
+                <input style="text-align: right;" id="name" type="text" name="name" class="form-control" placeholder="الاسم">
             </div>
             <div>
                 <h3 style="text-align: right;">البريد الإلكتروني</h3>
@@ -420,11 +423,11 @@ class="car_icn"></i>
             </div>
             <br>
             <div>
-                <textarea class="form-control" style="text-align: right; resize: none;" rows="4"></textarea>
+                <textarea class="form-control" name="message" style="text-align: right; resize: none;" rows="4"></textarea>
             </div>
             <br>
             <div class="form-group">
-                <button  class="btn btn-info btn-block" style="font-size: 18px;">
+                <button type="submit" class="btn btn-info btn-block" style="font-size: 18px;">
                     <span class="glyphicon glyphicon-send" style="color: orange;"></span>&nbsp;إرسال
                 </button>
             </div>
@@ -440,14 +443,15 @@ class="car_icn"></i>
             <h2>البريد الإلكتروني</h2>
             <h3><span class="glyphicon glyphicon-envelope" style="color: orange;"></span>&nbsp;TravelRo@Email.com</h3>
             <hr>
-            <!--<h3>تابعنا عبر مواقع التواصل الاجتماعي</h3>
+            <h3>تابعنا عبر مواقع التواصل الاجتماعي</h3>
              <div class="social-icon">
-               <button type="button"><i class="fa fa-twitter twitter"></i></button>
-               <button type="button"><i class="fa fa-facebook fb"></i></button>
-             <button type="button"><i class="fa fa-google google"></i></button>
-           </div>-->
+               <i class="fa fa-twitter twitter"></i>
+               <i class="fa fa-facebook fb"></i>
+             <i class="fa fa-google google"></i>
+           </div>
         </div>
     </div>
+    </form>
 </div>
 <br>
 </div>

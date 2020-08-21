@@ -9,6 +9,7 @@ use App\Models\Admin\Hotel\HotelRoom;
 use App\Models\Admin\Hotel\RoomType;
 use App\Models\User\FlightReservation\FlightReservation;
 use App\Models\User\HotelReservation\HotelReservation;
+use App\Models\User\Messages\Message;
 use App\User;
 use function foo\func;
 use Illuminate\Http\Request;
@@ -22,7 +23,7 @@ class WebController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['only' => ['hotelReservation']]);
+        $this->middleware('auth', ['only' => ['hotelReservation','store']]);
     }
 
     /**
@@ -56,7 +57,17 @@ class WebController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+
+        $message = new Message();
+        $message->user_id = $user->id;
+        $message->user_name = $request->input('name');
+        $message->email = $request->input('email');
+        $message->message = $request->input('message');
+
+        $message->save();
+        return redirect()->back();
+
     }
 
     /**

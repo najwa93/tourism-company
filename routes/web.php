@@ -21,7 +21,7 @@ Auth::routes();
 //User Routes
 Route::resource('home_page','Web\WebController' );
 Route::prefix('Web')->group(function () {
-    Route::resource('Users', 'Web\WebController');
+    Route::resource('webUsers', 'Web\WebController');
     Route::get('editUserProfile', 'Web\WebController@editUserProfile')->name('editUserProfile');
     Route::post('updateUserProfile', 'Web\WebController@updateUserProfile')->name('updateUserProfile');
     //hotel reservation
@@ -90,6 +90,9 @@ Route::prefix('Admin')->group(function () {
 
     //User Management
     Route::resource('Users', 'Admin\User\UserController');
+
+    //Support Management
+    Route::resource('Support', 'Admin\Support\SupportController');
 });
 
 

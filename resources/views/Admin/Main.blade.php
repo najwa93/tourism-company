@@ -120,7 +120,7 @@
             @endif
 
     @if( \Illuminate\Support\Facades\Auth::user()->role->name == 'Admin')
-        <div class=" col-md-4 col-xs-12" style="float: right;"><a href="man-support.php">
+        <div class=" col-md-4 col-xs-12" style="float: right;"><a href="{{route('Support.index')}}">
                 <button class="btn danger"><span class="glyphicon glyphicon-envelope"></span><br>الرسـائل
                 </button>
             </a>

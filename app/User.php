@@ -5,6 +5,7 @@ namespace App;
 use App\Models\Admin\Country\Country;
 use App\Models\User\FlightReservation\FlightReservation;
 use App\Models\User\HotelReservation\HotelReservation;
+use App\Models\User\Messages\Message;
 use App\Models\User\OfferReservation\OfferReservation;
 use App\Models\User\Role;
 use Illuminate\Notifications\Notifiable;
@@ -86,9 +87,15 @@ class User extends Authenticatable
         return $this->hasMany(FlightReservation::class);
     }
 
+    //offer Reservation
     public function offer_reservation(){
         return $this->hasOne(OfferReservation::class);
     }
+
+    public function message(){
+        return $this->hasOne(Message::class);
+    }
+
 
 
 }
