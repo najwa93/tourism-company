@@ -45,6 +45,7 @@ Route::prefix('Web')->group(function () {
     Route::get('deleteHotelReservations/{reservation}', 'Web\WebController@deleteHotelReservation')->name('deleteHotelReservation');
     Route::get('deleteFlightReservations/{reservation}', 'Web\WebController@deleteFlightReservation')->name('deleteFlightReservation');
 
+    Route::post('sendMessage', 'Web\WebController@send')->name('sendMessage');
 
 });
 
@@ -93,6 +94,7 @@ Route::prefix('Admin')->group(function () {
 
     //Support Management
     Route::resource('Support', 'Admin\Support\SupportController');
+    Route::get('index_messages/[type}', 'Admin\Support\SupportController@index_messages')->name('messages');
 });
 
 

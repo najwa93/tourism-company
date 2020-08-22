@@ -20,7 +20,7 @@ class EditUsersTable extends Migration
             $table->string('user_name')->nullable()->after('password');
             $table->string('first_name')->nullable()->after('user_name');
             $table->string('last_name')->nullable()->after('first_name');
-            $table->string('gender')->after('last_name');
+            $table->string('gender')->after('last_name')->nullable();
             $table->string('phone_number')->nullable()->after('gender');
 
             $table->boolean('is_active')->nullable()->after('phone_number');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Support;
 use App\Models\User\Messages\Message;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class SupportController extends Controller
 {
@@ -13,9 +14,21 @@ class SupportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+  /*  public function index()
     {
-        $messages = Message::all();
+        $user = Auth::user();
+        $messages = $user->notifications;
+      //  $messages = Message::all();
+      //  return $messages;
+        return view('Admin.SupportManagement.Index',compact('messages'));
+    }*/
+
+    public function index_messages()
+    {
+        $user = Auth::user();
+        $messages = $user->notifications;
+        //  $messages = Message::all();
+        //  return $messages;
         return view('Admin.SupportManagement.Index',compact('messages'));
     }
 
@@ -38,6 +51,7 @@ class SupportController extends Controller
     public function store(Request $request)
     {
         //
+
     }
 
     /**
@@ -48,9 +62,9 @@ class SupportController extends Controller
      */
     public function show($messageId)
     {
-        $message = Message::findOrdail($messageId);
+        $message = Message::findOrfail($messageId);
 
-        return $message;
+       // return $message;
         return view('Admin.SupportManagement.Show',compact('message'));
     }
 

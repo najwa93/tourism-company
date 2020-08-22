@@ -5,7 +5,7 @@
 @section('styles')
 
     .p1{
-    background-image: url('images/message1.jpg');
+    background-image: url("{{asset('images/message1.jpg')}}");
     width: 100%;
     height: 300px;
     background-size:cover;
@@ -15,6 +15,10 @@
     background-repeat: no-repeat;
     margin-top: -1px;
     opacity: 0.9;
+    }
+
+    label{
+      margin-bottom:20px;
     }
     @endsection
 
@@ -26,15 +30,15 @@
 <div class="container">
     <div style="font-size: 22px; font-weight: bold; color:#64AEF7;margin-right: 80px;">
 
-        <label for="usr">البريد الالكتروني :</label>
+        <label for="usr" style="color: #263859;">البريد الالكتروني :</label>
         <span>{{$message->user->email}}</span>
 
         <br>
-        <label for="usr">التـاريخ والوقـت  :</label>
+        <label for="usr" style="color: #263859;">التـاريخ والوقـت  :</label>
         <span>{{$message->user->created_at}}</span>
         <br>
-        <label for="usr">الرسـالة :</label>
-        <span>{{$message->user->message}}</span>
+        <label for="usr" style="color: #263859;">الرسـالة :</label>
+        <span>{{$message->user->message->message}}</span>
         <br><br>
         <label for="usr">الرد على الرسـالة :</label>
         <br>

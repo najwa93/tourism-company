@@ -6,6 +6,8 @@
 <!-- Bootstrap -->
 <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
 <link href="{{asset('css/bootstrap-rtl.min.css')}}" rel="stylesheet">
+<link href="{{asset('css/all.css')}}" rel="stylesheet">
+
 <style>
     *{
         margin: 0;

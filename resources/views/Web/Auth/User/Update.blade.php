@@ -193,3 +193,4 @@
 @endsection
 
 
+@include('Partials.Web._javascript')

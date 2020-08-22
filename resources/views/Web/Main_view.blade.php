@@ -409,7 +409,7 @@ class="car_icn"></i>
         <span>تــواصـــل مــعــنـــا</span><br>
     </div>
     <hr>
-    <form method="post" action="{{route('webUsers.store')}}">
+    <form method="post" action="{{route('sendMessage')}}">
         {{csrf_field()}}
     <div class="row">
         <div class="col-md-6 col-xs-12" style="float: right;">

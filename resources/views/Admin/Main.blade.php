@@ -69,7 +69,7 @@
 @endsection
 @section('content')
     <div class="well" style="font-size: 25px;font-weight: bold; color: #64AEF7; text-align: center;"><span
-                class="glyphicon glyphicon-king" style="color: orange;"></span>&nbsp; خـيارات المـديـر
+                class="glyphicon glyphicon-tower" style="color: orange;"></span>&nbsp; خـيارات المـديـر
     </div>
     <div class="container">
         <br>
@@ -119,8 +119,8 @@
                 </div>
             @endif
 
-    @if( \Illuminate\Support\Facades\Auth::user()->role->name == 'Admin')
-        <div class=" col-md-4 col-xs-12" style="float: right;"><a href="{{route('Support.index')}}">
+    @if( \Illuminate\Support\Facades\Auth::user()->role->name == 'Admin' or \Illuminate\Support\Facades\Auth::user()->role->name == 'Support')
+        <div class=" col-md-4 col-xs-12" style="float: right;"><a href="{{route('messages')}}">
                 <button class="btn danger"><span class="glyphicon glyphicon-envelope"></span><br>الرسـائل
                 </button>
             </a>

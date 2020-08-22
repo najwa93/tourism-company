@@ -10,6 +10,7 @@ use App\Models\Admin\Hotel\RoomType;
 use App\Models\User\FlightReservation\FlightReservation;
 use App\Models\User\HotelReservation\HotelReservation;
 use App\Models\User\Messages\Message;
+use App\Notifications\Msg;
 use App\User;
 use function foo\func;
 use Illuminate\Http\Request;
@@ -17,13 +18,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Session;
 
 class WebController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['only' => ['hotelReservation','store']]);
+        $this->middleware('auth', ['only' => ['hotelReservation']]);
     }
 
     /**
@@ -57,7 +59,7 @@ class WebController extends Controller
      */
     public function store(Request $request)
     {
-        $user = Auth::user();
+   /*     $user = Auth::user();
 
         $message = new Message();
         $message->user_id = $user->id;
@@ -66,6 +68,28 @@ class WebController extends Controller
         $message->message = $request->input('message');
 
         $message->save();
+        return redirect()->back();*/
+
+    }
+
+    //send database notification
+    public function send(Request $request)
+    {
+        //$user = Auth::user();
+        $user = User::whereHas('role', function($query){
+            $query->where('name','Admin')->orWhere('name','Support');
+        })->get();
+
+       // return $user;
+        $message = new Message();
+       // $message->user_id = $user->id;
+        $message->user_name = $request->input('name');
+        $message->email = $request->input('email');
+        $message->message = $request->input('message');
+
+        $message->save();
+
+        Notification::send($user,new Msg($message));
         return redirect()->back();
 
     }

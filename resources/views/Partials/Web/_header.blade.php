@@ -18,23 +18,21 @@
                 <ul class="nav navbar-nav">
 
                     @guest
-                        <li><a href="{{route('home_page.index')}}" class="h"><span class="glyphicon glyphicon-home" style="color: orange;"></span>&nbsp;الـرئيسـيـة</a>
-                        </li>
-                        <li><a href="#contact" class="h"><span class="glyphicon glyphicon-envelope" style="color: orange;"></span>&nbsp; @yield('contact')
-                            </a></li>
-                    @endguest
-
+                    <li><a href="{{route('home_page.index')}}" class="h"><span class="glyphicon glyphicon-home" style="color: orange;"></span>&nbsp;الـرئيسـيـة</a>
+                    </li>
+                        <li><a href="#contact" class="h"><span class="glyphicon glyphicon-envelope" style="color: orange;"></span>&nbsp; @yield('contact')</a></li>
+                        @endguest
 
                     @auth
                         @if(Auth::user()->role_id != 8)
+                            <li><a href="{{route('home_page.index')}}" class="h"><span class="glyphicon glyphicon-home" style="color: orange;"></span>&nbsp;الـرئيسـيـة</a></li>
                             <li><a href="{{route('Main.index')}}" class="h"><span class="glyphicon glyphicon-wrench" style="color: orange;"></span>&nbsp;إدارة الموقع</a></li>
-
-                            @else
-                            <li><a href="{{route('home_page.index')}}" class="h"><span class="glyphicon glyphicon-home"
-                                                                                       style="color: orange;"></span>&nbsp;الـرئيسـيـة</a>
-                            </li>
-                            <li><a href="#contact" class="h"><span class="glyphicon glyphicon-envelope" style="color: orange;"></span>&nbsp; @yield('contact')</a></li>
+                        @endif
+                            @if(Auth::user()->role_id != 1)
+                                <li><a href="{{route('home_page.index')}}" class="h"><span class="glyphicon glyphicon-home" style="color: orange;"></span>&nbsp;الـرئيسـيـة</a></li>
+                                <li><a href="#contact" class="h"><span class="glyphicon glyphicon-envelope" style="color: orange;"></span>&nbsp; @yield('contact')</a></li>
                             @endif
+
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 <span class="glyphicon glyphicon-user" style="color: orange;"></span>{{ Auth::user()->user_name }} <span class="caret"></span></a>

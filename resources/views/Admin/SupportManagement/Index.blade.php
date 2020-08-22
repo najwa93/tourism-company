@@ -5,7 +5,7 @@
 @section('styles')
 
     .p1{
-    background-image: url("{{asset('images/message1.jpg')}}");
+    background-image:
     width: 100%;
     height: 300px;
     background-size:cover;
@@ -29,6 +29,7 @@
     <table class="table table-striped table-bordered">
         <thead>
         <tr>
+            <td  class="text-center col-xs-4" style="font-size: 18px;width: 200px; color: white; background-color: #64AEF7;"></td>
             <td  class="text-center col-xs-4" style="font-size: 18px;width: 200px; color: white; background-color: #64AEF7;">البريد الإلكتروني</td>
             <td  class="text-center col-xs-4" style="font-size: 18px;width: 200px; color: white; background-color: #64AEF7;">التاريخ والوقت</td>
             <td  class="text-center col-xs-4" style="font-size: 18px;width: 200px; color: white; background-color: #64AEF7;">الحالة</td>
@@ -39,22 +40,25 @@
         <tbody  style="text-align: center;"  dir="ltr">
         @foreach($messages as $message)
         <tr>
-            <td>{{$message->user->email}}</td>
-            <td>{{$message->user->created_at}}</td>
-            @if($message->user->is_read == 0)
+            <td><i class="fas fa-envelope{{is_null($message->read_at?'':'o')}} fa-2x"></i></td>
+            <td>{{$message->data['email']}}</td>
+            <td>{{$message->created_at}}</td>
+            <td>{{$message->read_at}}</td>
+           {{-- @if($message->user->is_read == 0)
             <td>{{$message->user->is_read = "غيرمقروءة"}}</td>
             @else
                 <td>{{$message->user->is_read = "مقروءة"}}</td>
-            @endif
+            @endif--}}
             <td>
-                <div class="btn-group btn-group-justified" role="group" aria-label="...">
+
                     <div class="btn-group" role="group">
-                        <a href="">  <button type="button" class="btn btn-danger">حذف</button></a>
+                        <a href=""><button type="button" class="btn btn-danger">حذف</button></a>
                     </div>
                     <div class="btn-group" role="group">
-                        <a href="{{route('webUsers.show',$message->id)}}"><button type="button" class="btn btn-success">قراءة الرسالة</button></a>
+                        <a href=""><button type="button" class="btn btn-success">عرض الرسالة كتقييم</button></a>
+                        <a href="{{route('Support.show',$message->id)}}"><button type="button" class="btn btn-primary">قراءة الرسالة</button></a>
                     </div>
-                </div>
+
             </td>
         </tr>
         @endforeach
