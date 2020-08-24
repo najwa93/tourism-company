@@ -8,6 +8,7 @@ use App\Models\User\HotelReservation\HotelReservation;
 use App\Models\User\Messages\Message;
 use App\Models\User\OfferReservation\OfferReservation;
 use App\Models\User\Role;
+use App\Models\User\Subscribe\Subscribe;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -93,9 +94,11 @@ class User extends Authenticatable
     }
 
     public function message(){
-        return $this->hasOne(Message::class);
+        return $this->hasMany(Message::class);
     }
 
-
+    public function subscribe(){
+        return $this->hasOne(Subscribe::class);
+    }
 
 }

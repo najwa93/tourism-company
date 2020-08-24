@@ -31,7 +31,7 @@ class CreateFlightsTable extends Migration
             $table->foreign('destination_city_id')->references('id')->on('cities')->onDelete('cascade');
 
             $table->integer('flight_company_id')->unsigned()->nullable();
-            $table->foreign('flight_company_id')->references('id')->on('cities')->onDelete('cascade');
+            $table->foreign('flight_company_id')->references('id')->on('flight_companies')->onDelete('cascade');
             $table->timestamps();
         });
     }

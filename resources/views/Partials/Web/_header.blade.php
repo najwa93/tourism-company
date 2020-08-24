@@ -17,22 +17,17 @@
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
 
-                    @guest
-                    <li><a href="{{route('home_page.index')}}" class="h"><span class="glyphicon glyphicon-home" style="color: orange;"></span>&nbsp;الـرئيسـيـة</a>
-                    </li>
-                        <li><a href="#contact" class="h"><span class="glyphicon glyphicon-envelope" style="color: orange;"></span>&nbsp; @yield('contact')</a></li>
-                        @endguest
 
+                    <li><a href="{{route('home_page.index')}}" class="h"><span class="glyphicon glyphicon-home" style="color: orange;"></span>&nbsp;الـرئيسـيـة</a>
                     @auth
                         @if(Auth::user()->role_id != 8)
-                            <li><a href="{{route('home_page.index')}}" class="h"><span class="glyphicon glyphicon-home" style="color: orange;"></span>&nbsp;الـرئيسـيـة</a></li>
                             <li><a href="{{route('Main.index')}}" class="h"><span class="glyphicon glyphicon-wrench" style="color: orange;"></span>&nbsp;إدارة الموقع</a></li>
                         @endif
-                            @if(Auth::user()->role_id != 1)
-                                <li><a href="{{route('home_page.index')}}" class="h"><span class="glyphicon glyphicon-home" style="color: orange;"></span>&nbsp;الـرئيسـيـة</a></li>
-                                <li><a href="#contact" class="h"><span class="glyphicon glyphicon-envelope" style="color: orange;"></span>&nbsp; @yield('contact')</a></li>
-                            @endif
 
+                        @if(Auth::user()->role_id == 8)
+                                <li><a href="#contact" class="h"><span class="glyphicon glyphicon-envelope" style="color: orange;"></span>&nbsp; @yield('contact')</a></li>
+
+                            @endif
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 <span class="glyphicon glyphicon-user" style="color: orange;"></span>{{ Auth::user()->user_name }} <span class="caret"></span></a>
@@ -51,10 +46,11 @@
                             </div>
 
                         </li>
-
                     @else
                         <li><a href="{{route('register')}}" class=""><span class="glyphicon glyphicon-user" style="color: orange;"></span>&nbsp; إنشاء حسـاب</a></li>
                         <li><a href="{{route('login')}}" class="h"><span class="glyphicon glyphicon-log-in" style="color:orange;"></span>&nbsp;تسجيل الدخول</a>
+                        <li><a href="#contact" class="h"><span class="glyphicon glyphicon-envelope" style="color: orange;"></span>&nbsp; @yield('contact')</a></li>
+
                         </li>
                     @endauth
 

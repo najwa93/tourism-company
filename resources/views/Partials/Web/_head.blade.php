@@ -79,9 +79,12 @@
         font-weight: bold;
     }
 
-    .cc div:hover {
-        padding: 5px;
-        transition: all 1s;
+    .cc{
+        padding: 10px;
+    }
+    .cc .features:hover {
+        transform: scale(1.1);
+        transition: 0.3s;
     }
 
     .hh {

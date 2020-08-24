@@ -10,6 +10,8 @@ use App\Models\Admin\Hotel\RoomType;
 use App\Models\User\FlightReservation\FlightReservation;
 use App\Models\User\HotelReservation\HotelReservation;
 use App\Models\User\Messages\Message;
+use App\Models\User\Messages\MessageReply;
+use App\Models\User\Subscribe\Subscribe;
 use App\Notifications\Msg;
 use App\User;
 use function foo\func;
@@ -25,7 +27,7 @@ class WebController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['only' => ['hotelReservation']]);
+        $this->middleware('auth', ['only' => ['hotelReservation', 'subscribe']]);
     }
 
     /**
@@ -37,8 +39,15 @@ class WebController extends Controller
     {
 
         $flight_degrees = FlightDegree::all()->pluck('name', 'id');
+        $rated_messages = Message::where('show_as_rate', 1)->get();
 
-        return view('Web.Main_view', compact('flight_degrees'));
+        if ($rated_messages == null){
+            $rated_messages = null;
+        }
+
+        //return $rated_messages;
+
+        return view('Web.Main_view', compact('flight_degrees', 'rated_messages'));
     }
 
     /**
@@ -59,39 +68,67 @@ class WebController extends Controller
      */
     public function store(Request $request)
     {
-   /*     $user = Auth::user();
+        /*     $user = Auth::user();
 
-        $message = new Message();
-        $message->user_id = $user->id;
-        $message->user_name = $request->input('name');
-        $message->email = $request->input('email');
-        $message->message = $request->input('message');
+             $message = new Message();
+             $message->user_id = $user->id;
+             $message->user_name = $request->input('name');
+             $message->email = $request->input('email');
+             $message->message = $request->input('message');
 
-        $message->save();
-        return redirect()->back();*/
+             $message->save();
+             return redirect()->back();*/
 
     }
 
     //send database notification
     public function send(Request $request)
     {
-        //$user = Auth::user();
-        $user = User::whereHas('role', function($query){
-            $query->where('name','Admin')->orWhere('name','Support');
-        })->get();
+        $user = Auth::user();
+        $msg = new Message();
+        if ($user != null) {
+            $msg->user_id = $user->id;
+        }
+        $msg->email = $request->input('email');
+        $msg->user_name = $request->input('name');
+        $msg->message = $request->input('message');
+        $msg->is_read = 0;
+        $msg->show_as_rate = 0;
+        $msg->save();
+        /* $user = User::whereHas('role', function($query){
+             $query->where('name','Admin')->orWhere('name','Support');
+         })->get();
+         $message = new Message();
 
-       // return $user;
-        $message = new Message();
-       // $message->user_id = $user->id;
-        $message->user_name = $request->input('name');
-        $message->email = $request->input('email');
-        $message->message = $request->input('message');
+         $message->user_name = $request->input('name');
+         $message->email = $request->input('email');
+         $message->message = $request->input('message');
 
-        $message->save();
+         $message->save();
 
-        Notification::send($user,new Msg($message));
+         Notification::send($user,new Msg($message));*/
         return redirect()->back();
 
+    }
+
+    public function subscribe(Request $request)
+    {
+        $this->validate($request, ['email' => 'string', 'email', 'max:255', 'unique:users']);
+
+        $user = Auth::user();
+
+        $email = $request->input('email');
+        $checkUser = Subscribe::where('email','=',$email)->first();
+        if ($checkUser == null){
+        $subscriber = new Subscribe();
+        $subscriber->user_id = $user->id;
+        $subscriber->email = $email;
+        $subscriber->save();
+        }else{
+            return redirect()->back()->with('warning','تم الاشتراك مسبقاً');
+        }
+        return redirect()->back();
+        //return view('Admin.SupportManagement.Index',compact('rated_messages'));
     }
 
     /**
@@ -297,29 +334,29 @@ class WebController extends Controller
     {
         $user = Auth::user();
 
-        $user_reservation = User::where('id',$user->id)
+        $user_reservation = User::where('id', $user->id)
             ->with('hotel_reservation')
             ->with('flight_reservation')
             ->get();
-       // return $user_reservation;
+        // return $user_reservation;
         $hotel_reservation_data = [];
         $flight_reservation_data = [];
         $allData = [];
         $hotel = [];
         $flight = [];
-        foreach ($user_reservation as $value){
-            foreach ($value->hotel_reservation as $hotelReserv){
-            $hotel['hotel_reservation_id'] = $hotelReserv->id;
-            $hotel['hotel_id'] = $hotelReserv->hotel_id;
-            $hotel['hotel'] = $hotelReserv->hotel->name;
-            $hotel['room_type'] = $hotelReserv->room->room_type->name;
-            $hotel['room_details'] = $hotelReserv->room->details;
-            $hotel['night_price'] = $hotelReserv->reservation_cost;
-            $hotel['customers_count'] = $hotelReserv->room->customers_count;
-            array_push($hotel_reservation_data,$hotel);
+        foreach ($user_reservation as $value) {
+            foreach ($value->hotel_reservation as $hotelReserv) {
+                $hotel['hotel_reservation_id'] = $hotelReserv->id;
+                $hotel['hotel_id'] = $hotelReserv->hotel_id;
+                $hotel['hotel'] = $hotelReserv->hotel->name;
+                $hotel['room_type'] = $hotelReserv->room->room_type->name;
+                $hotel['room_details'] = $hotelReserv->room->details;
+                $hotel['night_price'] = $hotelReserv->reservation_cost;
+                $hotel['customers_count'] = $hotelReserv->room->customers_count;
+                array_push($hotel_reservation_data, $hotel);
             }
-         $allData['hotelReservation'] = $hotel_reservation_data;
-            foreach ($value->flight_reservation as $flightReserv){
+            $allData['hotelReservation'] = $hotel_reservation_data;
+            foreach ($value->flight_reservation as $flightReserv) {
                 $flight['flight_reservation_id'] = $flightReserv->id;
                 $flight['flight_id'] = $flightReserv->flight_id;
                 $flight['source_city'] = $flightReserv->flight->source_city->name;
@@ -327,12 +364,12 @@ class WebController extends Controller
                 $flight['date'] = $flightReserv->flight->date;
                 $flight['time'] = $flightReserv->flight->time;
                 $flight['flight_degree'] = $flightReserv->flight_degree->name;
-                array_push($flight_reservation_data,$flight);
+                array_push($flight_reservation_data, $flight);
             }
             $allData['flightReservation'] = $flight_reservation_data;
         }
-   //return $allData;
-        return view('Web.reservations.userReservation',compact('user','allData'));
+        //return $allData;
+        return view('Web.reservations.userReservation', compact('user', 'allData'));
     }
 
     public function deleteHotelReservation($hotelReservationid)
@@ -341,7 +378,7 @@ class WebController extends Controller
 
         $roomId = $hotelReservation->room_id;
 
-        $room = HotelRoom::where('id',$roomId)->first();
+        $room = HotelRoom::where('id', $roomId)->first();
 
         $room->is_available = true;
         $room->save();

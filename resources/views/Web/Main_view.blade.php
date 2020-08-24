@@ -190,49 +190,7 @@
 </center>
 </div>
 
-<!-- Wrapper for slides -->
-<!--<div>
-  <img class="la" src="image/latravel1.jpg" width="100%" alt="latravel1">
-</div>
-     <section
-class="main" style="background:url(image/latravel1.jpg.jpg); )
-no-repeat top center; background-size:cover; ">
-<div
-class="la" ng-show="showTabs"><h1>مرحبا بضيوف ترافل يلا</h1><h3>احــجز الفنـــدق وتــذكرة الطـــيران والســيارة المناسبة لك واحصل علي أقــــوي عــــروض السفر <br>والسياحة حول العالم من خلال موقع ترافل يلا</h3></div><div
-data-abide-error class="alert callout" style="display: none;"><p><i
-class="fa fa-exclamation" aria-hidden="true"></i> يوجد خطأ في بياناتك.</p></div><div
-class="row"><ul
-class="tabs"  ng-show="showTabs" data-active-collapse="true" data-tabs id="collapsing-tabs"><li
-class="tabs-title  is-active ">
-<a
-href="#Hotel" aria-selected="true">
-<i
-class="hotel_icn"></i>
-حجز فنادق
-</a></li><li
-class="tabs-title">
-<a
-href="#airlineTickets">
-<i
-class="flight_icn"></i>
-رحلات طيران
-</a></li><li
-class="tabs-title packagesBtn" >
-<a
-href="#hotelsAndFlights">
-<i
-class="packages_icn"></i>
-<span>فنادق</span>
-<span>+ طيران</span>
-</a></li><li
-class="tabs-title">
-<a
-href="#cars">
-<i
-class="car_icn"></i>
-إيجار سيارات
-</a></li></ul> </div>-->
-<!-- Left and right controls -->
+
 <br>
 <center>
 
@@ -242,14 +200,25 @@ class="car_icn"></i>
                 <label style=" font-size: 25px; color:white; font-weight: bold; ">سـجـل مـعـنـا لـتـصـلـك عـروضـنـا</label>
             </div>
 
-            <div class="col-md-6 col-xs-12" dir="ltr" style="padding-left: 20px;">
+            <div class="col-md-6 col-xs-12"  style="padding-left: 20px;">
+                <form method="post" action="{{route('subscribe')}}">
+                    {{csrf_field()}}
                 <div class="input-group">
-          <span class="input-group-btn">
-        <button class="btn btn-default " type="button" style=" font-weight: bold;color:#64AEF7;">اشــتـراك   &nbsp; <span class="glyphicon glyphicon-ok" style="color: orange;"></span></button>
-      </span>
-                    <input type="text" class="form-control" placeholder="أدخل بريدك الإلكتروني " style="text-align: right; font-size: 18px;">
+                    <input type="email" class="form-control" name="email"  placeholder="أدخل بريدك الإلكتروني " style="text-align: right; font-size: 18px;">
+
+                    <span class="input-group-btn">
+                  <button class="btn btn-default subscribe" type="submit" style=" font-weight: bold;color:#64AEF7;margin-right: 4px">Subscribe<span class="glyphicon glyphicon-ok" style="color: orange;"></span></button>
+                </span>
                 </div>
+                    @if ($message = Session::get('warning'))
+                        <div class="alert alert-warning" role="alert">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            <span style="font-size: 15px;text-align: center;font-weight: bold">{{ $message }}</span>
+                        </div>
+                    @endif
+                </form>
             </div>
+
         </div>
     </div>
     <!--   <input type="submit" name="" style="color: white; background-color: rgb(10,20,150) ; width: 200px; height: 35px; border:1px normal orange; border-radius:4px; " value="أدخل بريدك الإلكتروني">
@@ -264,15 +233,15 @@ class="car_icn"></i>
 </div>
 <div class="container cc" style="text-align:right; font-size: 20px;">
     <div class="row" style="color: #64AEF7;">
-        <div class="col-md-4 col-xs-12" style=" border: 1px solid white; background-color:rgba(8,6,5,0.05); float: right;">
+        <div class="col-md-4 col-xs-12 features" style=" border: 1px solid white; background-color:rgba(8,6,5,0.05); float: right;">
             <h2><span class="glyphicon glyphicon-plane" style="color: orange;"></span>&nbsp;رحلات طيران منافسة </h2>
             <p >احجز تذكرة الطيران الخاصة بك بسهولة لجميع الخطوط الجوية لجميع أنحاء العالم</p>
         </div>
-        <div class="col-md-4 col-xs-12" style=" border: 1px solid white; background-color: rgba(8,6,5,0.05); float: right;">
+        <div class="col-md-4 col-xs-12 features" style=" border: 1px solid white; background-color: rgba(8,6,5,0.05); float: right;">
             <h2><span class="glyphicon glyphicon-cutlery" style="color: orange;"></span>&nbsp;أفضل فنادق العالم </h2>
             <p >نوفر لك أفضل الأسعار لأكثر الفنادق حول العالم  وذات رفاهية عالية</p>
         </div>
-        <div class="col-md-4 col-xs-12" style=" border: 1px solid white; background-color:rgba(8,6,5,0.05);">
+        <div class="col-md-4 col-xs-12 features" style=" border: 1px solid white; background-color:rgba(8,6,5,0.05);">
             <h2><span class="glyphicon glyphicon-gift" style="color: orange;"></span>&nbsp;عروض سياحية مميزة </h2>
             <p>تأمين كافـة الوسائل  التي تساعدك في قضاء رحلة  ممتعة وبأسعار مناسبة</p>
         </div>
@@ -305,64 +274,13 @@ class="car_icn"></i>
 </div>
 <br>
 
-<!---
-<div style="text-align:right; ">
- <a class="btn" style=" font-size: 24px;  color: white;
-  background-color:blue;  padding-right:20px;  padding-left: 60px;margin: 10px;  margin-right: 90px;">حجز رحلات الطيران  &nbsp; <i  class="glyphicon glyphicon-plane"></i></a><br>
-<p style="font-size: 22px; padding-right: 90px;">يمكنكم الاستفادة من نظام حجوزات الطيران الخاصة بنا وحجز المقاعد  في رحلة مباشرة عبر النقر على الزر التالي   <br>
-  <a href="" class="btn btn-info" style="">رحلات  الطيران</a></p>
-</div>
-<br>
-<br>
-<div style="text-align:right; ">
- <a class="btn" style=" font-size: 24px;  color: white;
-  background-color:blue;  padding-right:20px;  padding-left:60px; margin: 10px; margin-right: 90px;">العروض السياحية  &nbsp; <i  class="glyphicon glyphicon-gift"></i></a><br>
-<p style="font-size: 22px; padding-right: 90px;">نسعد بأن نقدم لكم  حزمة سياحية متكاملة تتضمن رحلتي الذهاب والإياب  مع حجز في أجمل الفنادق في المدينة المسافر إليها وكل  ذلك بسعر مناسب<br></p>
-<table class="table table-bordered table-striped table-hover" style="width: 1260px;">
-  <tr>
-    <td class="text-center bg-primary" style="font-size: 18px;"></td>
-    <td class="text-center bg-primary" style="font-size: 18px;">السعر الجديد</td>
-    <td class="text-center bg-primary" style="font-size: 18px;">السعر القديم</td>
-    <td class="text-center bg-primary" style="font-size: 18px;">مدة الرحلة</td>
-    <td class="text-center bg-primary" style="font-size: 18px;">تاريخ الرحلة</td>
-    <td class="text-center bg-primary" style="font-size: 18px;">المدينة</td>
-    <td class="text-center bg-primary" style="font-size: 18px;">البلد</td>
 
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-   <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-   <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-</table>
-</div>-->
 
 <div class="container">
     <div style="text-align: center; margin-bottom:-10px; color: #64AEF7">
         <h1>تـقـيـيـم الـمـسـتـخـدمـيـن</h1><br>
-    </div>  <div id="myCarousel" class="carousel slide" data-ride="carousel" style="background-color:#64AEF7;">
+    </div>
+    <div id="myCarousel" class="carousel slide" data-ride="carousel" style="background-color:#64AEF7;">
         <!-- Indicators -->
         <ol class="carousel-indicators">
             <li data-target="#myCarousel" data-slide-to="2" class="active"></li>
@@ -372,20 +290,22 @@ class="car_icn"></i>
 
         <!-- Wrapper for slides -->
         <div class="carousel-inner" style="height: 200px; ">
-            <div class="item active">
+           {{-- <div class="item active">
                 <p>موقع رائع يتيح  حجز الفنادق وتذاكر الطيران أون لاين بسهولة</p>
                 <h3>"أحمد مصطفى"</h3>
-            </div>
+            </div>--}}
 
-            <div class="item">
-                <p>شكراً لتوفير هكذا موقع لأنه يوفّر الكثير من الجهد عن طريق الحجز مباشرة  من المنزل</p>
-                <h3>"فاطمة الحامد"</h3>
+            @foreach($rated_messages as $msg)
+                {{--<div class="item active">
+                    <p>موقع رائع يتيح  حجز الفنادق وتذاكر الطيران أون لاين بسهولة</p>
+                    <h3>"أحمد مصطفى"</h3>
+                </div>--}}
+            <div class="item {{$loop->first?'active':''}}">
+                <span style="padding:5px;word-wrap: break-word;">{{$msg->message}}</span>
+                <h3>{{$msg->user_name}}</h3>
             </div>
+            @endforeach
 
-            <div class="item">
-                <h3>موقع رائع وسهل الاستخدام يقدم أجمل العروض السياحية </h3>
-                <p>"علي ياسيين"</p>
-            </div>
         </div>
 
         <!-- Left and right controls -->
@@ -458,3 +378,10 @@ class="car_icn"></i>
 @endsection
 
 @include('Partials.Web._javascript')
+<script>
+    $('.subscribe').on('click', function() {
+        if($(this).text() == 'Subscribe') {
+            $(this).text('s');
+        }
+    });
+</script>
