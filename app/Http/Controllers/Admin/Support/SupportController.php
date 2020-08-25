@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Support;
 
 use App\Models\User\Messages\Message;
 use App\Models\User\Messages\MessageReply;
+use App\Models\User\Subscribe\Subscribe;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -29,11 +30,14 @@ class SupportController extends Controller
 
     public function index_messages()
     {
+
+        //return $users;
         $user = Auth::user();
         $messages = Message::all();
+        $subscribers = Subscribe::all();
         //  $messages = Message::all();
         // return $messages;
-        return view('Admin.SupportManagement.Index', compact('messages'));
+        return view('Admin.SupportManagement.Index', compact('messages','subscribers'));
     }
 
     /**
@@ -98,6 +102,7 @@ class SupportController extends Controller
         $message_reply->message_id = $msg->id;
         $msgReply = $request->input('message');
         $message_reply->message_reply = $msgReply;
+        $message_reply->read_by_user = false;
         $message_reply->save();
         $data = ['replyMsg' => $msgReply];
 
@@ -130,6 +135,31 @@ class SupportController extends Controller
         return redirect()->route('messages');
     }
 
+
+    public function send_email_for_users(Request $request)
+    {
+        $replyMsg = $request->input('msg-users');
+        $data = ['replyMsg' => $replyMsg];
+
+        $users = User::where('role_id','!=',1)
+            ->where('role_id','!=',9)
+            ->get();
+
+        //return $users;
+
+        foreach ($users as $user){
+            Mail::send('emails.replyMsg', $data, function ($message) use ($user) {
+                $message->to($user->email);
+                //$message->from('travelRoCompany@gmail.com');
+                $message->subject("TravelRo Company");
+            });
+        }
+
+        //$msg->markAsRead();
+
+        //return $message;
+        return redirect()->route('messages');
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -165,6 +195,12 @@ class SupportController extends Controller
         $message = Message::where('id',$meesageId)->first();
         $message->message_reply()->delete();
         $message->delete();
+        return redirect()->back()->with('success', 'تمت عملية الحذف بنجاح');
+    }
+
+    public function deleteSubscribe($email){
+        $subscriber = Subscribe::where('email','=',$email)->first();
+        $subscriber->delete();
         return redirect()->back()->with('success', 'تمت عملية الحذف بنجاح');
     }
 }

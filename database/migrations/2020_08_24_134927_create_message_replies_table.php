@@ -22,6 +22,7 @@ class CreateMessageRepliesTable extends Migration
 
             $table->integer('message_id')->unsigned()->nullable();
             $table->foreign('message_id')->references('id')->on('messages')->onDelete('cascade');
+            $table->boolean('read_by_user')->default(0);
             $table->timestamps();
         });
     }

@@ -24,36 +24,7 @@
 
 
 @section('content')
-{{--<form action="index.php" method="POST">
-    <div class="modal fade" id="myModal" role="dialog" style="margin-top: 40px;">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header" style="background-color: #64AEF7; color: white; height: 60px;">
-                    <button type="button" class="close" data-dismiss="modal" style="float: left;text-align: left;">X</button>
-                    <center><label style="font-size: 26px; margin-top: -5px;">تسـجيل الدخـول</label></center>
-                </div>
 
-                <form class="form-group" >
-                    <div class="row">
-                        <div class="modal-body col-md-6 col-xs-12" style=" float: right;padding-right: 22px; padding-left: 22px;">
-                            <label>اسـم المسـتخدم:</label><br>
-                            <input type="text" name="username" class="form-control" placeholder="ادخـل اسـم المسـتخدم">
-                            <label>كلمـة المرور:</label><br>
-                            <input type="password" name="pw" class="form-control" placeholder="ادخل كلمـة المرور">
-                            <input type="submit" name="btnlogin" value="تسـجيل الدخول" class="btn btn-info" style="color: white; width: 100px; font-size: 16px;margin-top: 6px;">
-                            <a href="index.php"><button type="button" class="btn btn-warning" style="color: white; width: 100px;font-size: 16px; margin-top: 6px;">إلـغـاء</button></a>
-
-                        </div>
-                </form>
-                <div class="col-md-6 col-xs-12" style="float: right; padding-right: 30px;"> <img src="image/login1.png"  alt="human" style="width:200px;height: 200px;"></div>
-            </div>   </form>
-<hr>
-<div style="font-size: 15px; padding-bottom: 10px;padding-right: 10px;padding-top: -5px;" > <i class="glyphicon glyphicon-warning-sign" style="color: red;"></i>اذا لم  تنشئ حساب لدينا  <a href="create-account.php"> اضغط هنا</a></div>
-</div>
-</div>
-</div>
-
---}}
 <div class ="p1">
     <center>
         <div class="p2">
@@ -149,40 +120,7 @@
                         <button type="submit" class="btn btn-info" style="color: white; width: 120px;height: 34px; font-size: 20px; "><span class="glyphicon glyphicon-search" style="color: orange;"></span>&nbsp;بـحـث</button></div></div>
             </div>
             </form>
-             {{--   <table id="myTable" class="table-responsive">
-                    <tr class="header">
-                        <th style="width:20%;">البـلـد</th>
-                        <th style="width:20%;">المـدينـة</th>
-                        <th style="width:20%;">تـاريخ الرحـلـة</th>
-                        <th style="width:30%;"></th>
-                    </tr>
-                    <tr>
-                        <td>سوريا</td>
-                        <td>دمشق</td>
-                        <td>9 اب 2020</td>
 
-                        <td>   <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                                <div class="btn-group" role="group">
-                                    <button type="button" class="btn btn-warning">التفاصيل</button>
-                                </div>
-                            </div>
-                        </td>
-
-                    </tr>
-                    <tr>
-                        <td>سوريا</td>
-                        <td>اللاذقية</td>
-                        <td>9 ايلول 2020</td>
-
-                        <td>   <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                                <div class="btn-group" role="group">
-                                    <button type="button" class="btn btn-warning">التفاصيل</button>
-                                </div>
-                            </div>
-                        </td>
-
-                    </tr>
-                </table>--}}
             </div>
         </div>
 
@@ -194,38 +132,34 @@
 <br>
 <center>
 
-    <div class="well" style="background-color:#64AEF7; ">
+    <div class="well" style="background-color:#64AEF7; " >
         <div class="container">
             <div  class="col-md-6 col-xs-12" style="float:right;">
                 <label style=" font-size: 25px; color:white; font-weight: bold; ">سـجـل مـعـنـا لـتـصـلـك عـروضـنـا</label>
             </div>
 
-            <div class="col-md-6 col-xs-12"  style="padding-left: 20px;">
-                <form method="post" action="{{route('subscribe')}}">
+            <div class="col-md-6 col-xs-12" style="padding-left: 20px;" >
+                <form method="post" action="{{route('subscribe')}}"  >
                     {{csrf_field()}}
                 <div class="input-group">
-                    <input type="email" class="form-control" name="email"  placeholder="أدخل بريدك الإلكتروني " style="text-align: right; font-size: 18px;">
+                    <input type="email" class="form-control" name="email" id="email" placeholder="أدخل بريدك الإلكتروني " style="text-align: right; font-size: 18px;">
 
                     <span class="input-group-btn">
-                  <button class="btn btn-default subscribe" type="submit" style=" font-weight: bold;color:#64AEF7;margin-right: 4px">Subscribe<span class="glyphicon glyphicon-ok" style="color: orange;"></span></button>
+                    <button class="btn btn-default" type="submit" id="btn" style=" font-weight: bold;color:#64AEF7;margin-right: 4px" >اشـترك<span class="glyphicon glyphicon-ok" style="color: orange;"></span></button>
                 </span>
                 </div>
-                    @if ($message = Session::get('warning'))
-                        <div class="alert alert-warning" role="alert">
-                            <button type="button" class="close" data-dismiss="alert">×</button>
-                            <span style="font-size: 15px;text-align: center;font-weight: bold">{{ $message }}</span>
-                        </div>
-                    @endif
                 </form>
             </div>
-
         </div>
     </div>
-    <!--   <input type="submit" name="" style="color: white; background-color: rgb(10,20,150) ; width: 200px; height: 35px; border:1px normal orange; border-radius:4px; " value="أدخل بريدك الإلكتروني">
 
-   <input style="width: 250px; text-align:right;"  placeholder="بريدك الإلكتروني" ;  type="email" name="">
-     <span style="color:rgb(10,10,100) ;">سجل معنا لتصلك عروضنا  </span>
-   </div>-->
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <span style="font-size: 15px;text-align: center;font-weight: bold">{{ $message }}</span>
+        </div>
+    @endif
+
 </center><br>
 
 <div style="text-align: center; margin-bottom:-10px; color: #64AEF7">
@@ -290,16 +224,7 @@
 
         <!-- Wrapper for slides -->
         <div class="carousel-inner" style="height: 200px; ">
-           {{-- <div class="item active">
-                <p>موقع رائع يتيح  حجز الفنادق وتذاكر الطيران أون لاين بسهولة</p>
-                <h3>"أحمد مصطفى"</h3>
-            </div>--}}
-
             @foreach($rated_messages as $msg)
-                {{--<div class="item active">
-                    <p>موقع رائع يتيح  حجز الفنادق وتذاكر الطيران أون لاين بسهولة</p>
-                    <h3>"أحمد مصطفى"</h3>
-                </div>--}}
             <div class="item {{$loop->first?'active':''}}">
                 <span style="padding:5px;word-wrap: break-word;">{{$msg->message}}</span>
                 <h3>{{$msg->user_name}}</h3>
@@ -375,13 +300,19 @@
 </div>
 <br>
 </div>
+
 @endsection
 
 @include('Partials.Web._javascript')
+{{--
 <script>
-    $('.subscribe').on('click', function() {
-        if($(this).text() == 'Subscribe') {
-            $(this).text('s');
-        }
+    $(document).ready(function(e) {
+        $('#show').hide();
+        $('form').submit(function(e) {
+            $('#show').hide();
+
+        });
+
     });
-</script>
+
+</script>--}}

@@ -61,7 +61,7 @@
 
         <br><br>
         <button type="submit" class="btn btn-info" style="color: white; width: 100px;height: 40px; font-size: 20px;"><span class="glyphicon glyphicon-send" style="color: orange;"></span>&nbsp;رد</button>
-        <a href="man-support.php"><button type="button" class="btn btn-info" style="color: white; width: 100px;height: 40px; font-size: 20px;">  إلـغاء</button></a>
+        <a href="{{route('messages')}}"><button type="button" class="btn btn-info" style="color: white; width: 100px;height: 40px; font-size: 20px;">  إلـغاء</button></a>
     </div>
     </form>
     @if(session()->has('message'))

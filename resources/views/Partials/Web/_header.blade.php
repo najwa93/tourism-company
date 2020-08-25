@@ -34,10 +34,12 @@
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 @if(Auth::user()->role_id != 1)
-                                <a class="dropdown-item signout" href="{{ route('showUserReservations') }}">الحجوزات</a><br/>
+                                    <i class="far fa-calendar-check "></i><a class="dropdown-item signout" href="{{ route('showUserReservations') }}">الحجوزات</a><br/>
+
+                                    <i class="far fa-bell"></i><a class="dropdown-item signout" href="{{ route('show_message_replies') }}"> البريد الوارد </a><br/>
                                 @endif
-                                <a class="dropdown-item signout" href="{{ route('editUserProfile') }}">تعديل الملف الشخصي</a><br/>
-                                <a class="dropdown-item signout" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">تسجيل الخروج</a>
+                                    <i class="fas fa-user-cog"></i><a class="dropdown-item signout" href="{{ route('editUserProfile') }}">تعديل الملف الشخصي</a><br/>
+                                    <i class="fas fa-sign-out-alt"></i><a class="dropdown-item signout" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">تسجيل الخروج</a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                     @csrf
                                 </form>

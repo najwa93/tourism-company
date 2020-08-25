@@ -48,6 +48,9 @@ Route::prefix('Web')->group(function () {
     // messages and subscribtion
     Route::post('sendMessage', 'Web\WebController@send')->name('sendMessage');
     Route::post('subscribe', 'Web\WebController@subscribe')->name('subscribe');
+    Route::get('message_replies', 'Web\WebController@show_message_replies')->name('show_message_replies');
+    Route::post('delete_message/{message}', 'Web\WebController@delete_message')->name('delete_message');
+
 
 });
 
@@ -99,6 +102,8 @@ Route::prefix('Admin')->group(function () {
     Route::get('index_messages', 'Admin\Support\SupportController@index_messages')->name('messages');
     Route::post('send_reply/{msg}', 'Admin\Support\SupportController@send_reply')->name('send_reply');
     Route::get('show_as_rate/{msg}', 'Admin\Support\SupportController@show_as_rate')->name('show_as_rate');
+    Route::post('subscriber/{email}', 'Admin\Support\SupportController@deleteSubscribe')->name('Subscriber.delete');
+    Route::post('send_email_for_users', 'Admin\Support\SupportController@send_email_for_users')->name('send_email');
 });
 
 

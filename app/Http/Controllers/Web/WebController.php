@@ -27,7 +27,7 @@ class WebController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['only' => ['hotelReservation', 'subscribe']]);
+        $this->middleware('auth', ['only' => ['hotelReservation']]);
     }
 
     /**
@@ -115,31 +115,66 @@ class WebController extends Controller
     {
         $this->validate($request, ['email' => 'string', 'email', 'max:255', 'unique:users']);
 
-        $user = Auth::user();
+       // $user = Auth::user();
 
         $email = $request->input('email');
-        $checkUser = Subscribe::where('email','=',$email)->first();
-        if ($checkUser == null){
+        //$checkUser = Subscribe::where('email','=',$email)->first();
+       // if ($checkUser == null){
         $subscriber = new Subscribe();
-        $subscriber->user_id = $user->id;
+       // $subscriber->user_id = $user->id;
         $subscriber->email = $email;
         $subscriber->save();
-        }else{
-            return redirect()->back()->with('warning','تم الاشتراك مسبقاً');
-        }
-        return redirect()->back();
+
+        return redirect()->back()->with('success','تم الاشتراك بنجاح');
         //return view('Admin.SupportManagement.Index',compact('rated_messages'));
     }
 
+    public function show_message_replies()
+    {
+        $user = Auth::user();
+        $data = [];
+        $msgs_data = [];
+        $msgs = Message::where('user_id',$user->id)->whereHas('message_reply')->get();
+
+        //return $msgs;
+        foreach ($msgs as $msg){
+            $data['message_id'] = $msg->id;
+            $data['message'] = $msg->message;
+            foreach ($msg->message_reply as $msg_reply){
+                $data['msg_reply'] = $msg_reply->message_reply;
+                $data['read_by_user'] =  $msg_reply->read_by_user;
+            }
+            array_push($msgs_data,$data);
+        }
+        $msgs_replies = $msgs_data;
+       // return $msgs_replies;
+        return view('Web.Messages.index',compact('msgs_replies'));
+    }
+
+
+
+    public function delete_message($msgId)
+    {
+       $msg = Message::where('id',$msgId)
+           ->with('message_reply')
+           ->first();
+
+       $msg->delete();
+        return redirect()->back()->with('success', 'تمت عملية الحذف بنجاح');
+    }
     /**
      * Display the specified resource.
      *
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($messageId)
     {
-        //
+        $msg = Message::where('id',$messageId)->first();
+        $msg_reply = MessageReply::where('message_id',$msg->id)->first();
+        $msg_reply->read_by_user = true;
+        $msg_reply->save();
+        return view('Web.Messages.show',compact('msg_reply'));
     }
 
     /**
@@ -182,7 +217,7 @@ class WebController extends Controller
             $user->last_name = $request->input('last_name');
             $user->user_name = $request->input('user_name');
             $user->phone_number = $request->input('phone_number');
-            $user->country = $request->input('country');
+            $user->country_id = $request->input('country');
             $user->gender = $request->input('gender');
             $user->save();
             if (!is_null($request->input('password')) and ($request->input('password') == $request->input('password_confirmation'))) {
