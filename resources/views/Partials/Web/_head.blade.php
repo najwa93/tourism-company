@@ -10,6 +10,8 @@
 <link href="{{asset('css/all.css')}}" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{{asset('slick/slick.css')}}"/>
 <link rel="stylesheet" type="text/css" href="{{asset('slick/slick-theme.css')}}"/>
+<link rel="stylesheet" type="text/css" href="{{asset('css/jquery-datepicker.css')}}"/>
+<link rel="stylesheet" type="text/css" href="{{asset('css/jquery-ui.css')}}"/>
 <style>
     *{
         margin: 0;

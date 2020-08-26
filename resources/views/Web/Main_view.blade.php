@@ -24,9 +24,22 @@
 
 
 @section('content')
+    @if ($message = Session::get('error'))
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <span style="font-size: 15px;text-align: center;font-weight: bold">{{ $message }}</span>
+        </div>
+    @endif
+
 
 <div class ="p1">
     <center>
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success" role="alert">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <span style="font-size: 25px;text-align: center;font-weight: bold">{{ $message }}</span>
+            </div>
+        @endif
         <div class="p2">
             <h1>مرحبا بضيوف ترافل رو</h1>
             <h3>اختر المدينة واحــجز الفنـــدق وتــذكرة الطـــيران واحصل على أقــــوى عــــروض السفر <br>والسياحة حول العالم من خلال موقع ترافل  رو </h3>
@@ -44,26 +57,51 @@
               <div id="hotel" class="tabcontent row" style="display: all;">
                 <div style="text-align: right;">
                     <label style="color:#64AEF7;"><span class="glyphicon glyphicon-map-marker" style="color: orange;"></span>البحـث باسـم المـدينة</label>
-                    <input type="text" class="form-control" id="city" name="city" placeholder="ادخـل اسـم المدينة...">
+                    <input type="text" class="form-control" id="city" name="city" value="{{ old('city') }}" placeholder="ادخـل اسـم المدينة...">
+                    @error('city')
+                    <div class="alert alert-danger">
+                        <span style="font-size: 15px;text-align: center;font-weight: bold">يرجى إدخال اسم المدينة</span>
+                    </div>
+                    @enderror
                 </div><br>
                 <div class="row">
                     <div class="col-md-6 col-xs-12" style="float: right;">
-                        <label style="color:#64AEF7;"><span class="glyphicon glyphicon-calendar" style="color: orange;"></span>&nbsp;تاريـخ الوصـول</label><br>
-                        <input type="date" class="form-control" name="checkin" id="checkin" placeholder="تاريخ الوصولس" >
+                        <label style="color:#64AEF7;"><span class="glyphicon glyphicon-calendar" style="color: orange;" ></span>&nbsp;تاريـخ الوصـول</label><br>
+
+{{--
+                        <input type="date" class="form-control" name="checkin" id="checkin" min="25-8-2020" max="01-09-2020" placeholder="تاريخ الوصول" >
+--}}
+                       <input type="text" class="form-control" id="datepicker" name="datepicker" placeholder="تاريخ الوصول">
+                        @error('datepicker')
+                        <div class="alert alert-danger">
+                            <span style="font-size: 15px;text-align: center;font-weight: bold">يرجى إدخال تاريخ الوصول</span>
+                        </div>
+                        @enderror
                     </div>
                     <div class="col-md-6 col-xs-12"  style="float: right;">
                         <label style="color:#64AEF7;"><span class="glyphicon glyphicon-calendar" style="color: orange;"></span>&nbsp;تاريـخ  المغادرة </label><br>
-                        <input type="date" class="form-control" name="checkout" id="checkout" placeholder="تـاريخ المغادرة">
+                       {{-- <input type="date" class="form-control" name="checkout" id="checkout" placeholder="تـاريخ المغادرة">--}}
+                        <input type="text" class="form-control" id="datepicker1" name="datepicker1" placeholder="تاريخ المغادرة">
+                        @error('datepicker1')
+                        <div class="alert alert-danger">
+                            <span style="font-size: 15px;text-align: center;font-weight: bold">يرجى إدخال تاريخ المغادرة</span>
+                        </div>
+                        @enderror
                     </div></div>
                 <br>
                 <div class="row">
                     <div class="col-md-6 col-xs-12" style="float: right;">
                         <label style="color:#64AEF7;"><span class="glyphicon glyphicon-lamp" style="color: orange;"></span>&nbsp;عـدد الليالـي  </label>
-                        <input type="number" class="form-control" id="nights_count" min="1" max="100" placeholder="ادخـل  عـدد الليـالـي ..">
+                        <input type="number" class="form-control" id="nights_count" min="1" name="nights_count" max="100" value="{{ old('nights_count') }}" placeholder="ادخـل  عـدد الليـالـي ..">
                     </div>
                     <div class="col-md-6 col-xs-12" style="float: right;">
                         <label style="color:#64AEF7;"><span class="glyphicon glyphicon-user"  style="color: orange;"></span>&nbsp;عـدد الأشـخاص  </label>
-                        <input type="number" class="form-control" id="customers_count" min="1" max="100" name="customers_count" placeholder="ادخـل  عـدد المسـافرين ..">
+                        <input type="number" class="form-control" id="customers_count" min="1" max="100" value="{{ old('customers_count') }}" name="customers_count" placeholder="ادخـل  عـدد المسـافرين ..">
+                        @error('customers_count')
+                        <div class="alert alert-danger">
+                            <span style="font-size: 15px;text-align: center;font-weight: bold">يرجى إدخال عدد الأشخاص</span>
+                        </div>
+                        @enderror
                     </div></div>
                 <button type="submit" class="btn btn-info" style="color: white; width: 120px;height: 35px; font-size: 20px; margin-top: 10px;"><span class="glyphicon glyphicon-search" style="color: orange;"></span>&nbsp;بـحـث</button><br>
             </div>
@@ -153,12 +191,7 @@
         </div>
     </div>
 
-    @if ($message = Session::get('success'))
-        <div class="alert alert-success" role="alert">
-            <button type="button" class="close" data-dismiss="alert">×</button>
-            <span style="font-size: 15px;text-align: center;font-weight: bold">{{ $message }}</span>
-        </div>
-    @endif
+
 
 </center><br>
 
@@ -304,6 +337,7 @@
 @endsection
 
 @include('Partials.Web._javascript')
+
 {{--
 <script>
     $(document).ready(function(e) {

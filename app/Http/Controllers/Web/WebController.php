@@ -14,6 +14,7 @@ use App\Models\User\Messages\MessageReply;
 use App\Models\User\Subscribe\Subscribe;
 use App\Notifications\Msg;
 use App\User;
+use Carbon\Carbon;
 use function foo\func;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -41,7 +42,7 @@ class WebController extends Controller
         $flight_degrees = FlightDegree::all()->pluck('name', 'id');
         $rated_messages = Message::where('show_as_rate', 1)->get();
 
-        if ($rated_messages == null){
+        if ($rated_messages == null) {
             $rated_messages = null;
         }
 
@@ -115,17 +116,17 @@ class WebController extends Controller
     {
         $this->validate($request, ['email' => 'string', 'email', 'max:255', 'unique:users']);
 
-       // $user = Auth::user();
+        // $user = Auth::user();
 
         $email = $request->input('email');
         //$checkUser = Subscribe::where('email','=',$email)->first();
-       // if ($checkUser == null){
+        // if ($checkUser == null){
         $subscriber = new Subscribe();
-       // $subscriber->user_id = $user->id;
+        // $subscriber->user_id = $user->id;
         $subscriber->email = $email;
         $subscriber->save();
 
-        return redirect()->back()->with('success','تم الاشتراك بنجاح');
+        return redirect()->back()->with('success', 'تم الاشتراك بنجاح');
         //return view('Admin.SupportManagement.Index',compact('rated_messages'));
     }
 
@@ -134,34 +135,34 @@ class WebController extends Controller
         $user = Auth::user();
         $data = [];
         $msgs_data = [];
-        $msgs = Message::where('user_id',$user->id)->whereHas('message_reply')->get();
+        $msgs = Message::where('user_id', $user->id)->whereHas('message_reply')->get();
 
         //return $msgs;
-        foreach ($msgs as $msg){
+        foreach ($msgs as $msg) {
             $data['message_id'] = $msg->id;
             $data['message'] = $msg->message;
-            foreach ($msg->message_reply as $msg_reply){
+            foreach ($msg->message_reply as $msg_reply) {
                 $data['msg_reply'] = $msg_reply->message_reply;
-                $data['read_by_user'] =  $msg_reply->read_by_user;
+                $data['read_by_user'] = $msg_reply->read_by_user;
             }
-            array_push($msgs_data,$data);
+            array_push($msgs_data, $data);
         }
         $msgs_replies = $msgs_data;
-       // return $msgs_replies;
-        return view('Web.Messages.index',compact('msgs_replies'));
+        // return $msgs_replies;
+        return view('Web.Messages.index', compact('msgs_replies'));
     }
-
 
 
     public function delete_message($msgId)
     {
-       $msg = Message::where('id',$msgId)
-           ->with('message_reply')
-           ->first();
+        $msg = Message::where('id', $msgId)
+            ->with('message_reply')
+            ->first();
 
-       $msg->delete();
+        $msg->delete();
         return redirect()->back()->with('success', 'تمت عملية الحذف بنجاح');
     }
+
     /**
      * Display the specified resource.
      *
@@ -170,11 +171,11 @@ class WebController extends Controller
      */
     public function show($messageId)
     {
-        $msg = Message::where('id',$messageId)->first();
-        $msg_reply = MessageReply::where('message_id',$msg->id)->first();
+        $msg = Message::where('id', $messageId)->first();
+        $msg_reply = MessageReply::where('message_id', $msg->id)->first();
         $msg_reply->read_by_user = true;
         $msg_reply->save();
-        return view('Web.Messages.show',compact('msg_reply'));
+        return view('Web.Messages.show', compact('msg_reply'));
     }
 
     /**
@@ -262,36 +263,79 @@ class WebController extends Controller
     // search hotels function
     public function searchHotels(Request $request)
     {
+        $this->validate($request, [
+            'city' => 'required',
+            'customers_count' => 'required',
+            'datepicker' => 'required',
+            'datepicker1' => 'required',
+        ]);
+        // return Carbon::createFromFormat('Y-m-d H:i:s', Carbon::parse($request->datepicker))->format('Y-m-d');
+        /*
+                $checkIndate = Carbon::createFromFormat('Y-m-d H:i:s', Carbon::parse($request->datepicker))->format('Y-m-d');
+                $checkOutdate = Carbon::createFromFormat('Y-m-d H:i:s', Carbon::parse($request->datepicker1))->format('Y-m-d');*/
+        //  return $checkIndate;
+        /*if ($checkIndate > $checkOutdate){
+            return "hello";
+            return redirect()->back()->with('error','يرجى إدخال تاريخ الوصول بشكل صحيح');
+        }*/
 
-        $request->session()->put('checkin', $request->input('checkin'));
-        $request->session()->put('checkout', $request->input('checkout'));
+        //return $request->input('datepicker1');
+
+        // return $request->input('datepicker1');
+
+        //return "heelo";
+        $checkInDate = $request->input('datepicker');
+        $checkOutDate = $request->input('datepicker1');
+        if ($checkInDate >= $checkOutDate) {
+            // return "hello";
+            return redirect()->back()->with('error', 'يرجى إدخال تاريخ الوصول بشكل صحيح');
+        }
+
+
+        $hotels = [];
+        $request->session()->put('checkin', $request->input('datepicker'));
+        $request->session()->put('checkout', $request->input('datepicker1'));
+        // $request->session()->put('checkout', $request->input('checkout'));
         //return($request->session()->get('checkin'));
         $city = $request->input('city');
         $customers_count = $request->input('customers_count');
-        $hotels = Hotel::whereHas('city', function ($query) use ($city) {
-            $query->where('name', 'like', '%' . $city . '%');
+        $hotels_q = Hotel::whereHas('city', function ($query) use ($city) {
+            $query->where('name', 'like', "%" . $city . "%");
         })
-            ->whereHas('hotel_room', function ($query) use ($customers_count) {
+            /*->whereHas('hotel_room', function ($query) use ($customers_count) {
                 $query->where('is_available', '=', 1);
                 $query->where('customers_count', '=', $customers_count);
-            })
+            })*/
             ->get();
+
+        //return $hotels_q;
+        foreach ($hotels_q as $hotel) {
+            $hotel_rooms = HotelRoom::where('hotel_id', $hotel->id)->where('is_available', '=', 1)
+                ->where('customers_count', '=', $customers_count)
+                ->get();
+
+            // array_push($hotels,$hotel_rooms);
+            $hotels[] = $hotel_rooms;
+        }
+
         // return $hotels;
         $data = [];
         $hotel_data = [];
-        foreach ($hotels as $hotel) {
-            $data['hotel_id'] = $hotel->id;
-            $data['hotel_name'] = $hotel->name;
-            foreach ($hotel['hotel_room'] as $hotelRoom) {
-                $data['room_id'] = $hotelRoom->id;
-                $data['room_type'] = $hotelRoom->room_type->name;
-                $data['customers_count'] = $hotelRoom['customers_count'];
-                $data['room_details'] = $hotelRoom['details'];
-                $data['night_price'] = $hotelRoom['night_price'];
+        foreach ($hotels as $hotelRoom) {
+            foreach ($hotelRoom as $room) {
+                $data['hotel_id'] = $room['hotel_id'];
+                $data['hotel_name'] = $room->hotel['name'];
+
+                $data['room_id'] = $room['id'];
+                $data['room_type'] = $room->room_type->name;
+                $data['customers_count'] = $room['customers_count'];
+                $data['room_details'] = $room['details'];
+                $data['night_price'] = $room['night_price'];
                 array_push($hotel_data, $data);
             }
         }
-        // return $hotel_data;
+
+        //return $hotel_data;
 
         return view('Web.Search.Hotel.searchHotel', compact('hotel_data'));
     }
@@ -336,6 +380,7 @@ class WebController extends Controller
 
     public function completeHotelReservation(Request $request, $hotelId, $roomId)
     {
+        $this->validate($request, ['credit' => 'required', 'credit_number' => 'required|integer']);
         $user = Auth::user();
         $room = HotelRoom::where('id', $roomId)->first();
         $room->is_available = 0;
@@ -346,15 +391,20 @@ class WebController extends Controller
         $hotelReservation->room_id = $roomId;
         $checkin = Session::get('checkin');
         $checkout = Session::get('checkout');
+
         $hotelReservation->check_in_date = $checkin;
         $hotelReservation->check_out_date = $checkout;
         $hotelReservation->is_booked = true;
         $hotelReservation->reservation_cost = $room->night_price;
         $hotelReservation->save();
         $user->credit = $request->input('credit');
+        $userBalance = $request->input('credit_number');
+        if ($userBalance < $room->night_price) {
+            return redirect()->back()->with('error', 'الرصيد غيركافي لعملية الحجز');
+        }
         $user->credit_number = $request->input('credit_number');
         $user->save();
-        return redirect()->back();
+        return redirect()->route('showUserReservations')->with('success', 'تمت عملية حجز فندق بنجاح');;
     }
 
     /**

@@ -2,8 +2,13 @@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="{{asset('js/jquery-3.4.1.js')}}"></script>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+{{--
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+--}}
 <script src="{{asset('js/bootstrap.min.js')}}"></script>
+<script src="{{asset('js/jquery-datepicker.js')}}"></script>
+<script src="{{asset('js/jquery-ui.js')}}"></script>
+
 
 
 <script>
@@ -64,3 +69,15 @@
     }
 </script>
 
+
+<script>
+    $( function() {
+        $( "#datepicker" ).datepicker({ dateFormat: "dd/mm/yy",minDate: 0});
+       // $( "#datepicker" ).datepicker({ minDate: 0});
+
+    } );
+
+    $( function() {
+        $( "#datepicker1" ).datepicker({  dateFormat: "dd/mm/yy",minDate: 0});
+    } );
+</script>

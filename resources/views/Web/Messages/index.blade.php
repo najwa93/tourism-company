@@ -65,6 +65,7 @@
         <div style="text-align: center; color:#64AEF7; font-size: 28px;"><label>&nbsp;&nbsp;قــائـــمـــة
                 الـرســائـل</label></div>
         <!-- Table --><br>
+        @if($msgs_replies != null)
         <table class="table table-striped table-bordered">
             <thead>
             <tr>
@@ -79,7 +80,7 @@
             </tr>
             </thead>
             <tbody style="text-align: center;" dir="ltr">
-            @if($msgs_replies != null)
+
             @foreach($msgs_replies as $msg_reply)
                 <tr>
                     <td class="col-xs-2"><i class="far fa-envelope{{$msg_reply['read_by_user'] == 0?'':'-open'}} fa-2x "></i></td>

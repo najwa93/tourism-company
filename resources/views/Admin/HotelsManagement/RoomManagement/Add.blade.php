@@ -53,7 +53,7 @@
                 </div>
                 <div class="form-group ">
                     <label for="usr">عـدد الاشخاص</label>
-                    <input type="number" class="form-control" name="custcount" id="usr" placeholder="عـدد الاشخاص" style="font-size: 20px; color: black;">
+                    <input type="number" class="form-control" name="custcount" id="usr" min="1" max="10" placeholder="عـدد الاشخاص" style="font-size: 20px; color: black;">
                 </div>
                 <div class="form-group ">
                     <label for="usr">تكلفة الليلة</label>
