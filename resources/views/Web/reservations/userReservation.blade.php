@@ -4,7 +4,7 @@
 
     .p1 {
     margin-top: 0;
-    background-image: url('{{asset("images/test.png")}}');
+    background-image: url('{{asset("images/reservation.png")}}');
     background-size: cover;
     height: 600px;
     overflow-y: auto;
@@ -24,7 +24,7 @@
     }
 
     .table{
-       margin-bottom:60px;
+    margin-bottom:60px;
     }
 
     .table tr th{
@@ -43,7 +43,8 @@
 @section('content')
 
     <div class="p1">
-        <div class="well" style="font-size: 25px;font-weight: bold; color: #64AEF7; text-align: center;"><span class="glyphicon glyphicon-user" style="color: orange;"></span>&nbsp;قائمة رحلات الطيران
+        <div class="well" style="font-size: 25px;font-weight: bold; color: #64AEF7; text-align: center;"><span
+                    class="glyphicon glyphicon-user" style="color: orange;"></span>&nbsp;قائمة رحلات الطيران
         </div>
         @if ($message = Session::get('success'))
             <div class="alert alert-success" role="alert">
@@ -62,18 +63,37 @@
                     <th scope="col">عدد الأشخاص</th>
                     <th scope="col">التفاصيل</th>
                     <th scope="col">تكلفة الليلة</th>
+                    <th scope="col">يشمل العرض</th>
                 </tr>
                 </thead>
                 <tbody>
-               @foreach($allData['hotelReservation'] as $reservation)
+                @foreach($allData['hotelReservation'] as $reservation)
                     <tr>
                         <td>{{$reservation['hotel']}}</td>
                         <td>{{$reservation['room_type']}}</td>
                         <td>{{$reservation['customers_count']}}</td>
                         <td>{{$reservation['room_details']}}</td>
                         <td>{{$reservation['customers_count']}}</td>
+                        @if($reservation['offer_id'] != null)
+                            <td><i class="fas fa-user-check"></i></td>
+                        @else
+                            <td></td>
+                        @endif
+                        {{--
+                                                <th scope="col"><a href="{{route('deleteHotelReservation',$reservation['hotel_reservation_id'])}}" class="btn btn-danger" onclick="return confirm('هل تريد بالتأكيد القيام بعملة الحذف؟')"> إلغاء الحجز</a><br>
+                        --}}
+                        <td scope="col">
+                            <form method="POST"
+                                  action="{{route('deleteHotelReservation',$reservation['hotel_reservation_id'])}}">
+                                {{ csrf_field() }}
 
-                        <th scope="col"><a href="{{route('deleteHotelReservation',$reservation['hotel_reservation_id'])}}" class="btn btn-danger" onclick="return confirm('هل تريد بالتأكيد القيام بعملة الحذف؟')"> إلغاء الحجز</a><br>
+                                <button type="submit" class="btn btn-danger"
+                                        onclick="return confirm('هل تريد بالتأكيد القيام بعملة الحذف؟')">إلغاء الحجز
+                                </button>
+
+                            </form>
+                        </td>
+
                     </tr>
                 @endforeach
                 </tbody>
@@ -88,6 +108,7 @@
                     <th scope="col">التاريخ</th>
                     <th scope="col">الوقت</th>
                     <th scope="col">سعرالتذكرة</th>
+                    <th scope="col">يشمل العرض</th>
                     </th>
                 </tr>
                 </thead>
@@ -99,7 +120,25 @@
                         <td>{{$reservation['date']}}</td>
                         <td>{{$reservation['time']}}</td>
                         <td>{{$reservation['flight_degree']}}</td>
-                        <th scope="col"><a href="{{route('deleteFlightReservation',$reservation['flight_reservation_id'])}}" class="btn btn-danger" onclick="return confirm('هل تريد بالتأكيد القيام بعملة الحذف؟')"> إلغاء الحجز</a><br>
+                        @if($reservation['offer_id'] != null)
+                            <td><i class="fas fa-user-check"></i></td>
+                        @else
+                            <td></td>
+                        @endif
+                        {{--
+                                                <th scope="col"><a href="{{route('deleteFlightReservation',$reservation['flight_reservation_id'])}}" class="btn btn-danger" onclick="return confirm('هل تريد بالتأكيد القيام بعملة الحذف؟')"> إلغاء الحجز</a><br>
+                        --}}
+                        <td scope="col">
+                            <form method="POST"
+                                  action="{{route('deleteFlightReservation',$reservation['flight_reservation_id'])}}">
+                                {{ csrf_field() }}
+
+                                <button type="submit" class="btn btn-danger"
+                                        onclick="return confirm('هل تريد بالتأكيد القيام بعملة الحذف؟')">إلغاء الحجز
+                                </button>
+
+                            </form>
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>

@@ -42,8 +42,8 @@ Route::prefix('Web')->group(function () {
     Route::post('completeOfferReservation/{offer}/{flight}', 'Web\OfferReservation\OfferReservationController@completeOfferReservation')->name('completeOfferReservation');
 
     Route::get('showUserReservations', 'Web\WebController@showUserReservations')->name('showUserReservations');
-    Route::get('deleteHotelReservations/{reservation}', 'Web\WebController@deleteHotelReservation')->name('deleteHotelReservation');
-    Route::get('deleteFlightReservations/{reservation}', 'Web\WebController@deleteFlightReservation')->name('deleteFlightReservation');
+    Route::post('deleteHotelReservations/{reservation}', 'Web\WebController@deleteHotelReservation')->name('deleteHotelReservation');
+    Route::post('deleteFlightReservations/{reservation}', 'Web\WebController@deleteFlightReservation')->name('deleteFlightReservation');
 
     // messages and subscribtion
     Route::post('sendMessage', 'Web\WebController@send')->name('sendMessage');

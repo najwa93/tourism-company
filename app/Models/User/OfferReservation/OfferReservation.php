@@ -3,6 +3,8 @@
 namespace App\Models\User\OfferReservation;
 
 use App\Models\Admin\Offer\Offer;
+use App\Models\User\FlightReservation\FlightReservation;
+use App\Models\User\HotelReservation\HotelReservation;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 

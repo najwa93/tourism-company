@@ -25,8 +25,7 @@
                         @endif
 
                         @if(Auth::user()->role_id == 8)
-                                <li><a href="#contact" class="h"><span class="glyphicon glyphicon-envelope" style="color: orange;"></span>&nbsp; @yield('contact')</a></li>
-
+                                <li><a href="#contact" class="h"><span class="glyphicon glyphicon-envelope" style="color: orange;"></span>&nbsp; تواصل معنا</a></li>
                             @endif
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -49,10 +48,9 @@
 
                         </li>
                     @else
+                        <li><a href="#contact" class="h"><span class="glyphicon glyphicon-envelope" style="color: orange;"></span>&nbsp; تواصل معنا</a></li>
                         <li><a href="{{route('register')}}" class=""><span class="glyphicon glyphicon-user" style="color: orange;"></span>&nbsp; إنشاء حسـاب</a></li>
                         <li><a href="{{route('login')}}" class="h"><span class="glyphicon glyphicon-log-in" style="color:orange;"></span>&nbsp;تسجيل الدخول</a>
-                        <li><a href="#contact" class="h"><span class="glyphicon glyphicon-envelope" style="color: orange;"></span>&nbsp; @yield('contact')</a></li>
-
                         </li>
                     @endauth
 

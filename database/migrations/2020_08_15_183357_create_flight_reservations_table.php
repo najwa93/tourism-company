@@ -18,10 +18,10 @@ class CreateFlightReservationsTable extends Migration
             $table->integer('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
-            $table->integer('seats_count');
+            $table->integer('seats_count')->nullable();
             //$table->string('flight_class');
-            $table->float('reservation_price');
-            $table->string('date_time');
+            $table->float('reservation_price')->nullable();
+            $table->string('date_time')->nullable();
 
             $table->integer('flight_id')->unsigned()->nullable();
             $table->foreign('flight_id')->references('id')->on('flights');

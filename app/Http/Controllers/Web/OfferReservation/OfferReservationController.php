@@ -19,7 +19,7 @@ class OfferReservationController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth',['only' => ['offerDetails']]);
+        $this->middleware('auth',['only' => ['offerReservation']]);
     }
     /**
      * Display a listing of the resource.
@@ -85,7 +85,7 @@ class OfferReservationController extends Controller
         $room = HotelRoom::where('id',$offer->room_id)->first();
         $hotel = Hotel::where('id',$room->hotel_id)->first();
        //return $hotel;
-        //return $returned_flight;
+      //  return $returned_flight;
         //return $offer_data;
         return view('Web.Search.Offer.searchOfferDetails', compact('offer','flight','returned_flight','hotel'));
     }
@@ -101,9 +101,16 @@ class OfferReservationController extends Controller
     }
 
     public function completeOfferReservation(Request $request,$offerId,$flightId){
+        $this->validate($request, ['credit' => 'required', 'credit_number' => 'required|numeric|min:0']);
         $user = Auth::user();
         $offer = Offer::where('id',$offerId)->first();
         $flight = Flight::where('id',$flightId)->first();
+      // return $offer;
+        $offersCheck = OfferReservation::where('user_id',$user->id)->first();
+
+            if ($offersCheck != null){
+                return redirect()->back()->with('error','لقد استفدت من عرض سابق');
+            }
 
         $flightReservation = new FlightReservation();
         $flightReservation->user_id = Auth::user()->id;
@@ -112,7 +119,9 @@ class OfferReservationController extends Controller
         $flightReservation->seats_count = $offer->seats_number;
         $flightReservation->date = $flight->date;
         $flightReservation->time = $flight->time;
-
+        $flightReservation->offer_id = $offer->id;
+       // return $flightReservation;
+        $flightReservation->save();
         if ($offer->flight_degree_id == 1){
             $flightReservation->reservation_price = $flight->first_class_ticket_price;
             $flightReservation->flight_degree_id = 1;
@@ -122,7 +131,7 @@ class OfferReservationController extends Controller
         }
 
         $flightReservation->save();
-
+       // return  $flightReservation;
         $hotelReservation = new HotelReservation();
         $hotelReservation->user_id = Auth::user()->id;
         $room = HotelRoom::where('id',$offer->room_id)->first();
@@ -133,7 +142,7 @@ class OfferReservationController extends Controller
         $hotelReservation->is_booked = true;
         $hotelReservation->reservation_cost = $room->night_price;
         $hotelReservation->save();
-
+       // $flightReservationCost = $flightReservation->reservation_price;
 
         $offerReservation = new OfferReservation();
         $offerReservation->user_id = Auth::user()->id;
@@ -141,11 +150,14 @@ class OfferReservationController extends Controller
         $offerReservation->date = $flight->date;
         $offerReservation->time = $flight->time;
         $offerReservation->save();
-
         $user->credit = $request->input('credit');
+        $userBalance = $request->input('credit_number');
+        if ($userBalance < $offer->price) {
+            return redirect()->back()->with('error', 'الرصيد غيركافي لعملية الحجز');
+        }
         $user->credit_number = $request->input('credit_number');
         $user->save();
-        return redirect()->back();
+        return redirect()->route('showUserReservations')->with('success', 'تمت عملية حجز العرض بنجاح');
     }
     /**
      * Store a newly created resource in storage.

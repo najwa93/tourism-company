@@ -6,7 +6,15 @@
     }
 
     .slick-prev:before, .slick-next:before{
-        color: #000;!important;
+    color: #64AEF7;!important;
+    }
+
+    .panel-body{
+     padding: 15px 30px !important;
+    }
+
+    .panel-group .panel{
+     margin-top:20px;
     }
 
     .modal-style{
@@ -17,18 +25,19 @@
     <div class="container">
 
         <div class="offer_details">
-            <h1>تفاصيل العرض</h1>
             <div class="panel-group">
                 <div class="panel panel-default">
+                    <div class="panel-heading"> <h1 style="font-weight: bold;color: #64AEF7;">تفاصيل العرض</h1></div>
                     <div class="panel-body">
-                        <h4><span>   إلى المدينة :</span> {{$flight->destination_city->name}}</h4>
-                        <h4><span>   اسم الفندق :</span> {{$hotel->name}}</h4>
-                        <h3><span> مدة الرحلة :</span> {{$flight->flight_duration}}</h3>
+                        <h3><span style="color: #FFA500;font-weight: bold;margin-bottom: 20px">   إلى المدينة :</span> {{$flight->destination_city->name}}</h3>
+                        <h3><span style="color: #FFA500;font-weight: bold;margin-bottom: 20px">   اسم الفندق :</span> {{$hotel->name}}</h3>
+                        <h3><span style="color: #FFA500;font-weight: bold;margin-bottom: 20px"> مدة الرحلة :</span> {{$flight->flight_duration}}</h3>
                     </div>
                 </div>
             </div>
-        </div>
 
+        </div>
+        <div style="text-align: center; color:#64AEF7; font-size: 28px;"><label>رحـلـةالذهاب</label></div>
         <table class="table table-striped table-bordered">
             <thead>
             <tr>
@@ -52,7 +61,7 @@
                     <td>{{$flight->source_city->name}}</td>
                     <td>{{$flight->destination_city->name}}</td>
                     <td>{{$flight->date}}</td>
-                    <td>{{$flight->time}}</td>
+                    <td>{{$flight->updated_time}}</td>
                 </tr>
             </tbody>
         </table>
@@ -82,10 +91,10 @@
             </thead>
             <tbody style="text-align: center;" dir="ltr">
                 <tr>
-                    <td>{{$flight->source_city->name}}</td>
-                    <td>{{$flight->destination_city->name}}</td>
-                    <td>{{$flight->date}}</td>
-                    <td>{{$flight->time}}</td>
+                    <td>{{$returned_flight->source_city->name}}</td>
+                    <td>{{$returned_flight->destination_city->name}}</td>
+                    <td>{{$returned_flight->date}}</td>
+                    <td>{{$returned_flight->updated_time}}</td>
                 </tr>
             </tbody>
         </table>
@@ -94,13 +103,15 @@
         <br>
 
         <div class="details">
-            <h1>تفاصيل الفندق</h1>
+
             <div class="panel-group">
                 <div class="panel panel-default">
-                    <div class="panel-heading"><h3> {{$hotel->name}}</h3></div>
+
+                    <div class="panel-heading"><h1 style="font-weight: bold;color: #64AEF7;">تفاصيل الفندق</h1></div>
                     <div class="panel-body">
-                        <h3><span>  حول الفندق :</span> {{$hotel->details}}</h3>
-                        <h3><span>   صور من الفندق :</span></h3>
+                        <h3><span style="color: #FFA500;font-weight: bold;margin-bottom: 20px">  اسم الفندق :</span> {{$hotel->name}}</h3>
+                        <h3><span style="color: #FFA500;font-weight: bold;margin-bottom: 20px">  حول الفندق :</span> {{$hotel->details}}</h3>
+                        <h3><span style="color: #FFA500;font-weight: bold;margin-bottom: 20px">   صور من الفندق :</span></h3>
                         <div class="autoplay">
                             @foreach($hotel->hotelImage as $img)
                                 <img src="{{url('/images/'.$img->img_path)}}"
@@ -113,19 +124,26 @@
         </div>
 
         <div class="details">
-            <h1>تفاصيل المدينة</h1>
+
             <div class="panel-group">
                 <div class="panel panel-default">
-                    <div class="panel-heading"><h3><span>مدينة</span>{{$flight->destination_city->name}}</h3></div>
+
+                    <div class="panel-heading"> <h1 style="font-weight: bold;color: #64AEF7;">تفاصيل المدينة</h1></div>
                     <div class="panel-body">
-                        <h3><span>  حول المدينة :</span> {{$flight->destination_city->description}}</h3>
-                        <h3><span>   صور من الفندق :</span></h3>
+                        <h3><span style="color: #FFA500;font-weight: bold;margin-bottom: 20px">  اسم المدينة :</span> {{$flight->destination_city->name}}</h3>
+                        <h3><span style="color: #FFA500;font-weight: bold;margin-bottom: 20px">  حول المدينة :</span> {{$flight->destination_city->description}}</h3>
+                        <h3><span style="color: #FFA500;font-weight: bold;margin-bottom: 20px">   صور من المدينة :</span></h3>
+                        <div class="autoplay">
+
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="buttons" style="margin: 20px;">
             <a href="{{route('offerReservation',['offer' => $offer->id,'flight' => $flight->id])}}"><button type="button" class="btn btn-info"  name="btnsave" style="color: white; height: 40px; font-size: 20px;"><span class="glyphicon glyphicon-floppy-save" style="color: orange;"></span>&nbsp;احجز الاّن</button></a>
             <button type="button" class="btn btn-info" name="btnsave" style="color: white; height: 40px; font-size: 20px;"><span class="glyphicon glyphicon-floppy-save" style="color: orange;"></span>&nbsp;الغاء</button>
+        </div>
     </div>
 
 @endsection

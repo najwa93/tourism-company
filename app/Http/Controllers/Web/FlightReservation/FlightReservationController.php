@@ -112,6 +112,7 @@ class FlightReservationController extends Controller
 
             $flight = Flight::where('id',$flightId)->first();
             $flightCheck = FlightReservation::where('user_id',$user->id)->get();
+            //return $flightCheck;
             foreach ($flightCheck as $check){
                 if ($check->flight_id == $flight->id ){
                     return redirect()->back()->with('error','لقد قمت بعملية الحجز مسبقا');
@@ -141,7 +142,7 @@ class FlightReservationController extends Controller
             $user->save();
             $flightReservation->save();
             //$hotelReservation->check_in_date = $request->session()->get('checkin');
-            return redirect()->route('showUserReservations')->with('success', 'تمت عملية حجز فندق بنجاح');;
+            return redirect()->route('showUserReservations')->with('success', 'تمت عملية حجز رحلة الطيران بنجاح');
 
         }
     }

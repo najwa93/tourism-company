@@ -1,112 +1,112 @@
-@extends('layouts.Web_app')
 
+@extends('layouts.Web_app')
+@section('styles')
+    .content{
+
+    }
+    .content-style{
+    background-image: url('{{asset("images/test.png")}}');
+    }
+
+    label{
+    font-size:20px;
+    color:64AEF7
+    }
+@endsection
 
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header"><h1>{{ __('إتمام عملية الحجز ') }}</h1></div>
+    <div class="container content-style">
+        <div class="row justify-content-center ">
+            <div class="col-md-8 content">
+                <div class="card ">
+                    <div class="card-header" style=""><h1 style="color: #FFA500;font-weight: bold;margin-bottom: 20px">{{ __('إتمام عملية الحجز ') }}</h1></div>
+                    @if ($message = Session::get('error'))
+                        <div class="alert alert-danger" role="alert">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            <span style="font-size: 15px;text-align: center;font-weight: bold">{{ $message }}</span>
+                        </div>
 
+                    @endif
                     <div class="card-body">
                         <form method="POST" action="{{ route('completeOfferReservation',['offer' => $offer->id,'flight' => $offer->flight_id])}}">
                             @csrf
                             <div class="form-group row">
                                 <label for="first_name"
-                                       class="col-md-12 col-form-label text-md-right">{{ __('الاسم الأول') }}</label>
+                                       class=" col-form-label text-md-right ">{{ __('الاسم الأول') }}</label>
 
-                                <div class="col-md-8">
+                                <div >
                                     <input id="first_name" type="text"
-                                           class="form-control @error('first_name') is-invalid @enderror"
-                                           name="first_name" value="{{$user->first_name}}" required
+                                           class="col-xs-8 form-control @error('first_name') is-invalid @enderror"
+                                           name="first_name" value="{{$user->first_name}}"
                                            autocomplete="first_name" autofocus readonly>
 
-                                    @error('first_name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label for="last_name"
-                                       class="col-md-12 col-form-label text-md-right">{{ __('الاسم الأخير') }}</label>
+                                       class="col-form-label text-md-right">{{ __('الاسم الأخير') }}</label>
 
-                                <div class="col-md-8">
+                                <div >
                                     <input id="last_name" type="text"
-                                           class="form-control @error('last_name') is-invalid @enderror"
-                                           name="last_name" value="{{$user->last_name}}" required
+                                           class="col-xs-8 form-control @error('last_name') is-invalid @enderror"
+                                           name="last_name" value="{{$user->last_name}}"
                                            autocomplete="last_name" autofocus readonly placeholder="أدخل الاسم  الأخير">
 
-                                    @error('last_name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
                                 </div>
                             </div>
 
 
                             <div class="form-group row">
                                 <label for="email"
-                                       class="col-md-12 col-form-label text-md-right">{{ __('البريد الإلكتروني') }}</label>
+                                       class="col-form-label text-md-right">{{ __('البريد الإلكتروني') }}</label>
 
-                                <div class="col-md-8">
+                                <div >
                                     <input id="email" type="email"
-                                           class="form-control @error('email') is-invalid @enderror" name="email"
-                                           value="{{$user->email}}" required autocomplete="email" readonly
+                                           class="col-xs-8 form-control @error('email') is-invalid @enderror" name="email"
+                                           value="{{$user->email}}"  autocomplete="email" readonly
                                            placeholder="أدخل  البريد الالكتروني">
 
-                                    @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label for="phone_number"
-                                       class="col-md-12 col-form-label text-md-right">{{ __('رقم الهاتف') }}</label>
+                                       class="col-form-label text-md-right">{{ __('رقم الهاتف') }}</label>
 
-                                <div class="col-md-8">
+                                <div >
                                     <input id="phone_number" type="text"
-                                           class="form-control @error('phone_number') is-invalid @enderror"
+                                           class="col-xs-8 form-control @error('phone_number') is-invalid @enderror"
                                            name="phone_number" value="{{ $user->phone_number }}" required
                                            autocomplete="phone_number" autofocus readonly
                                            placeholder="أدخل  رقم الهاتف">
 
-                                    @error('phone_number')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
+
                                 </div>
                             </div>
 
 
                             <div class="form-group row">
                                 <label for="country"
-                                       class="col-md-12 col-form-label text-md-right">{{ __(' البلد') }}</label>
+                                       class="col-form-label text-md-right">{{ __(' البلد') }}</label>
 
-                                <div class="col-md-8">
+                                <div >
                                     <input id="country" type="text"
-                                           class="form-control @error('country') is-invalid @enderror"
-                                           name="phone_number" value="{{$user->country->name}}" required
+                                           class="col-xs-8 form-control @error('country') is-invalid @enderror"
+                                           name="phone_number" value="{{$user->country->name}}"
                                            autofocus readonly>
                                 </div>
                             </div>
 
 
-                            <label for="credit" class="col-md-12 col-form-label text-md-right">{{ __('الدفع') }}</label>
+                            <label for="credit" class="col-form-label text-md-right" style="font-size: 23px;color: #FFA500;">{{ __('*لإتمام الحجز أدخل اسم البطاقة ورصيد البطاقة:') }}</label>
                             <div class="form-group row">
                                 <label for="credit"
-                                       class="col-md-12 col-form-label text-md-right">{{ __('اسم البطاقة') }}</label>
+                                       class="col-form-label text-md-right">{{ __('اسم البطاقة') }}</label>
 
-                                <div class="col-md-8">
+                                <div >
                                     <input id="credit" type="text"
-                                           class="form-control @error('credit') is-invalid @enderror"
+                                           class="col-xs-8  form-control @error('credit') is-invalid @enderror"
                                            name="credit" value="{{ $user->credit }}" required
                                            autocomplete="credit" autofocus placeholder="أدخل اسم البطاقة">
 
@@ -120,19 +120,22 @@
 
                             <div class="form-group row">
                                 <label for="credit_number"
-                                       class="col-md-12 col-form-label text-md-right">{{ __('رقم البطاقة') }}</label>
+                                       class="col-form-label text-md-right">{{ __('رصيد البطاقة') }}</label>
 
-                                <div class="col-md-8">
+                                <div >
                                     <input id="credit_number" type="text"
-                                           class="form-control @error('credit_number') is-invalid @enderror"
+                                           class="col-xs-8 form-control @error('credit_number') is-invalid @enderror"
                                            name="credit_number"
                                            value="{{ $user->credit_number }}" required autocomplete="credit"
-                                           placeholder="أدخل  رقم البطاقة">
-
+                                           placeholder="أدخل  رصيد البطاقة">
+                                    <label for="credit"
+                                           class=" col-form-label text-md-right" style="border:2px solid #FFA500;margin: 1px 5px;padding: 1px 6px;border-radius: 5px;font-size: 20px"><span style="color: black">$</span></label>
                                     @error('credit_number')
+                                    <div class="alert alert-danger col-xs-8">
                                     <span class="invalid-feedback" role="alert">
-                                         <strong>{{ $message }}</strong>
+                                         <strong>يرجى إدخال رصيد صالح للبطاقة</strong>
                                      </span>
+                                    </div>
                                     @enderror
                                 </div>
                             </div>
@@ -143,9 +146,14 @@
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('إتمام الحجز') }}
                                     </button>
+                                    <a href="{{route('editUserProfile')}}">
+                                        <button type="button" class="btn btn-success">
+                                            {{ __('تعديل الملف الشخصي') }}
+                                        </button>
+                                    </a>
                                     <a href="{{route('home_page.index')}}">
                                         <button type="button" class="btn btn-warning">
-                                            <i class="glyphicon glyphicon-remove"></i>
+                                            <i ></i>
                                             {{ __('إلغاء') }}
                                         </button>
                                     </a>
@@ -157,7 +165,7 @@
             </div>
         </div>
     </div>
-
 @endsection
-
 @include('Partials.Web._javascript')
+
+

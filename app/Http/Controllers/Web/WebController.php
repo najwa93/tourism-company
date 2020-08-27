@@ -11,6 +11,7 @@ use App\Models\User\FlightReservation\FlightReservation;
 use App\Models\User\HotelReservation\HotelReservation;
 use App\Models\User\Messages\Message;
 use App\Models\User\Messages\MessageReply;
+use App\Models\User\OfferReservation\OfferReservation;
 use App\Models\User\Subscribe\Subscribe;
 use App\Notifications\Msg;
 use App\User;
@@ -444,6 +445,7 @@ class WebController extends Controller
                 $hotel['room_details'] = $hotelReserv->room->details;
                 $hotel['night_price'] = $hotelReserv->reservation_cost;
                 $hotel['customers_count'] = $hotelReserv->room->customers_count;
+                $hotel['offer_id'] = $hotelReserv->offer_id;
                 array_push($hotel_reservation_data, $hotel);
             }
             $allData['hotelReservation'] = $hotel_reservation_data;
@@ -455,6 +457,7 @@ class WebController extends Controller
                 $flight['date'] = $flightReserv->flight->date;
                 $flight['time'] = $flightReserv->flight->time;
                 $flight['flight_degree'] = $flightReserv->flight_degree->name;
+                $flight['offer_id'] = $flightReserv->offer_id;
                 array_push($flight_reservation_data, $flight);
             }
             $allData['flightReservation'] = $flight_reservation_data;
@@ -466,7 +469,14 @@ class WebController extends Controller
     public function deleteHotelReservation($hotelReservationid)
     {
         $hotelReservation = HotelReservation::find($hotelReservationid);
+        //return $hotelReservation;
 
+        if ($hotelReservation->offer_id != null){
+            $offer_reservation = OfferReservation::where('offer_id',$hotelReservation->offer_id)->first();
+            $offer_reservation->delete();
+            $offer_reservation = FlightReservation::where('offer_id',$hotelReservation->offer_id)->first();
+            $offer_reservation->delete();
+        }
         $roomId = $hotelReservation->room_id;
 
         $room = HotelRoom::where('id', $roomId)->first();
@@ -481,6 +491,13 @@ class WebController extends Controller
     public function deleteFlightReservation($flightReservationid)
     {
         $flightReservation = FlightReservation::find($flightReservationid);
+
+        if ($flightReservation->offer_id != null){
+            $offer_reservation = OfferReservation::where('offer_id',$flightReservation->offer_id)->first();
+            $offer_reservation->delete();
+            $hotel_reservation = HotelReservation::where('offer_id',$flightReservation->offer_id)->first();
+            $hotel_reservation->delete();
+        }
 
         $flightReservation->delete();
 
