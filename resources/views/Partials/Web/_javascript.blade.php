@@ -69,7 +69,16 @@
     }
 </script>
 
+<script type="text/javascript">
+    $(document).ready(function(){
+        var url = document.location.toString();
+        if (url.match('#')) {
+            $('.nav-tabs a[href="#' + url.split('#')[1] + '"]').tab('show');
+        }
 
+
+    });
+</script>
 <script>
     $( function() {
         $( "#datepicker" ).datepicker({ dateFormat: "dd/mm/yy",minDate: 0});
@@ -79,5 +88,9 @@
 
     $( function() {
         $( "#datepicker1" ).datepicker({  dateFormat: "dd/mm/yy",minDate: 0});
+    } );
+
+    $( function() {
+        $( "#datepicker-f" ).datepicker({  dateFormat: "dd/mm/yy",minDate: 0});
     } );
 </script>

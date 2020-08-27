@@ -47,9 +47,10 @@
        {{-- <label style="font-size: 40px;  color: white; font-weight: bold; margin-right: 12%;">&nbspالفنادق المتوفرة</label>--}}
         <div class="well" style="font-size: 25px;font-weight: bold; color: #64AEF7; text-align: center;"><span class="glyphicon glyphicon-user" style="color: orange;"></span>&nbsp;قائمة الفنادق
         </div>
-        @if($hotel_data != null)
+
         <div class="container " style="color: #64AEF7; font-size: 20px;">
             <div class="col-sm">
+                @if($hotel_data != null)
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -73,6 +74,11 @@
                 @endforeach
                 </tbody>
             </table>
+                @else
+                    <div class="alert alert-warning" style="text-align: center "  role="alert">
+                        <span style="font-size: 25px;text-align: center;font-weight: bold"> لاتوجد نتائج </span>
+                    </div>
+                @endif
             </div>
             <div class="col-sm" style="margin-top: 100px;text-align: center"><a href="{{route('home_page.index')}}"> <button type="submit" class="btn btn-success" style="color: white; width: 84px;height: 41px; font-size: 20px;padding: 4px ;font-weight: bold">&nbsp;العودة</button></a><br>
 
@@ -80,11 +86,7 @@
             <br>
             <br>
         </div>
-            @else
-            <div class="alert alert-warning" style="text-align: center "  role="alert">
-                <span style="font-size: 25px;text-align: center;font-weight: bold"> لاتوجد نتائج </span>
-            </div>
-            @endif
+
     </div>
     <br>
 

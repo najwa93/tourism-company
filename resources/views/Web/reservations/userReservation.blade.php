@@ -41,9 +41,17 @@
     }
 @endsection
 @section('content')
+
     <div class="p1">
         <div class="well" style="font-size: 25px;font-weight: bold; color: #64AEF7; text-align: center;"><span class="glyphicon glyphicon-user" style="color: orange;"></span>&nbsp;قائمة رحلات الطيران
         </div>
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success" role="alert">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <span style="font-size: 15px;text-align: center;font-weight: bold">{{ $message }}</span>
+            </div>
+
+        @endif
         <div class="container" style="color: #64AEF7; font-size: 20px;">
             <h1 style="font-weight: bold">الحجز الفندقي</h1>
             <table class="table table-striped">

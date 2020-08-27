@@ -1,6 +1,7 @@
 <script src={{asset("js/jquery-3.4.1.js")}}></script>
 <script src={{asset("js/bootstrap.min.js")}}></script>
-
+<script src="{{asset('js/jquery-datepicker.js')}}"></script>
+<script src="{{asset('js/jquery-ui.js')}}"></script>
 <script>
     function myFunction() {
         // Declare variables
@@ -139,4 +140,14 @@
         })
     })
 </script>
+
+<script>
+    $( function() {
+        $( "#datepicker" ).datepicker({ dateFormat: "dd/mm/yy",minDate: 0});
+        // $( "#datepicker" ).datepicker({ minDate: 0});
+
+    } );
+
+</script>
+
 

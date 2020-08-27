@@ -7,7 +7,8 @@
 <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
 <link href="{{asset('css/bootstrap-rtl.min.css')}}" rel="stylesheet">
 <link href="{{asset('css/all.css')}}" rel="stylesheet">
-
+<link rel="stylesheet" type="text/css" href="{{asset('css/jquery-datepicker.css')}}"/>
+<link rel="stylesheet" type="text/css" href="{{asset('css/jquery-ui.css')}}"/>
 <style>
     *{
         margin: 0;

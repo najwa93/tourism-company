@@ -264,11 +264,13 @@ class WebController extends Controller
     public function searchHotels(Request $request)
     {
         $this->validate($request, [
-            'city' => 'required',
+            'city' => 'required|alpha',
             'customers_count' => 'required',
             'datepicker' => 'required',
             'datepicker1' => 'required',
+
         ]);
+
         // return Carbon::createFromFormat('Y-m-d H:i:s', Carbon::parse($request->datepicker))->format('Y-m-d');
         /*
                 $checkIndate = Carbon::createFromFormat('Y-m-d H:i:s', Carbon::parse($request->datepicker))->format('Y-m-d');
@@ -287,8 +289,7 @@ class WebController extends Controller
         $checkInDate = $request->input('datepicker');
         $checkOutDate = $request->input('datepicker1');
         if ($checkInDate >= $checkOutDate) {
-            // return "hello";
-            return redirect()->back()->with('error', 'يرجى إدخال تاريخ الوصول بشكل صحيح');
+            return redirect()->route('searchFlights')->with('warning', 'لاتوجدنتائج');
         }
 
 
@@ -380,9 +381,14 @@ class WebController extends Controller
 
     public function completeHotelReservation(Request $request, $hotelId, $roomId)
     {
-        $this->validate($request, ['credit' => 'required', 'credit_number' => 'required|integer']);
+        $this->validate($request, ['credit' => 'required', 'credit_number' => 'required|numeric|min:0']);
         $user = Auth::user();
         $room = HotelRoom::where('id', $roomId)->first();
+
+        if ($room->is_available == 0){
+          //  return "hello";
+            return redirect()->back()->with('error','لقد قمت بعملية الحجز مسبقا');
+        }
         $room->is_available = 0;
         $room->save();
         $hotelReservation = new HotelReservation();

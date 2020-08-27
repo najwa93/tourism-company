@@ -24,12 +24,7 @@
 
 
 @section('content')
-    @if ($message = Session::get('error'))
-        <div class="alert alert-danger" role="alert">
-            <button type="button" class="close" data-dismiss="alert">×</button>
-            <span style="font-size: 15px;text-align: center;font-weight: bold">{{ $message }}</span>
-        </div>
-    @endif
+
 
 
 <div class ="p1">
@@ -46,9 +41,10 @@
         </div><br>
         <div class="container">
             <div class="tab row">
-                <button class="tablinks col-md-4 col-xs-12 active" onclick="openCity(event, 'hotel')"><span class="glyphicon glyphicon-bed" style="color: orange;"></span>&nbsp;&nbsp;الفنادق</button>
-                <button class="tablinks col-md-4 col-xs-12" onclick="openCity(event, 'flight')"><span class="glyphicon glyphicon-plane" style="color: orange;"></span>&nbsp;&nbsp;رحلات الطيران</button>
-                <button class="tablinks col-md-4 col-xs-12" onclick="openCity(event, 'offer')"><span class="glyphicon glyphicon-gift" style="color: orange;"></span>&nbsp;&nbsp;العروض السياحية</button>
+                <button class="tablinks col-md-4 col-xs-12 active" onclick="openCity(event, 'hotel')" value="hotel"><span class="glyphicon glyphicon-bed" style="color: orange;"></span>&nbsp;&nbsp;الفنادق</button>
+                <button class="tablinks col-md-4 col-xs-12" onclick="openCity(event, 'flight')" value="flight"><span class="glyphicon glyphicon-plane" style="color: orange;"></span>&nbsp;&nbsp;رحلات الطيران</button>
+                <button class="tablinks col-md-4 col-xs-12" onclick="openCity(event, 'offer')" value="offer"><span class="glyphicon glyphicon-gift" style="color: orange;"></span>&nbsp;&nbsp;العروض السياحية</button>
+
             </div>
 
             <!-- Search Hotels Section  -->
@@ -63,6 +59,12 @@
                         <span style="font-size: 15px;text-align: center;font-weight: bold">يرجى إدخال اسم المدينة</span>
                     </div>
                     @enderror
+                    @if ($message = Session::get('success'))
+                        <div class="alert alert-success" role="alert">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            <span style="font-size: 25px;text-align: center;font-weight: bold">{{ $message }}</span>
+                        </div>
+                    @endif
                 </div><br>
                 <div class="row">
                     <div class="col-md-6 col-xs-12" style="float: right;">
@@ -72,6 +74,12 @@
                         <input type="date" class="form-control" name="checkin" id="checkin" min="25-8-2020" max="01-09-2020" placeholder="تاريخ الوصول" >
 --}}
                        <input type="text" class="form-control" id="datepicker" name="datepicker" placeholder="تاريخ الوصول">
+                        @if ($message = Session::get('error'))
+                            <div class="alert alert-danger" role="alert">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                <span style="font-size: 15px;text-align: center;font-weight: bold">{{ $message }}</span>
+                            </div>
+                        @endif
                         @error('datepicker')
                         <div class="alert alert-danger">
                             <span style="font-size: 15px;text-align: center;font-weight: bold">يرجى إدخال تاريخ الوصول</span>
@@ -114,29 +122,54 @@
                 <div class="row">
                     <div class="col-md-6 col-xs-12" style="float: right;">
                         <label style="color:#64AEF7;"><span class="glyphicon glyphicon-arrow-up" style="color: orange;"></span>&nbsp;يسـافر مـن </label><br>
-                        <input type="text" class="form-control" id="source_city" name="source_city" placeholder="ادخل مدينـة المصـدر" >
+                        <input type="text" class="form-control" id="source_city" name="source_city" value="{{old('source_city')}}" placeholder="ادخل مدينـة المصـدر" >
+                        @error('source_city')
+                        <div class="alert alert-danger">
+                            <span style="font-size: 15px;text-align: center;font-weight: bold">يرجى إدخال اسم المدينة</span>
+                        </div>
+                        @enderror
                     </div>
+
                     <div class="col-md-6 col-xs-12"  style="float: right;">
                         <label style="color:#64AEF7;"><span class="glyphicon glyphicon-arrow-down" style="color: orange;"></span>&nbsp;يسـافر إلـى</label><br>
-                        <input type="text" class="form-control" id="destination_city" name="destination_city" placeholder="ادخل مدينة الوجهـة">
+                        <input type="text" class="form-control" id="destination_city" name="destination_city" value="{{old('destination_city')}}" placeholder="ادخل مدينة الوجهـة">
+                        @error('destination_city')
+                        <div class="alert alert-danger">
+                            <span style="font-size: 15px;text-align: center;font-weight: bold">يرجى إدخال اسم المدينة</span>
+                        </div>
+                        @enderror
                     </div></div><br>
+
+
                 <div class="row">
                     <div class="col-md-6 col-xs-12" style="float: right;">
                         <label style="color:#64AEF7;"><span class="glyphicon glyphicon-calendar" style="color: orange;"></span>&nbsp;تاريـخ السـفر </label><br>
-                        <input type="date" class="form-control" id="date" name="date" placeholder="" >
+                        {{--<input type="date" class="form-control" id="date" name="date" placeholder="" >--}}
+                        <input type="text" class="form-control" id="datepicker-f" name="datepicker-f" value="{{old('datepicker-f')}}" placeholder="تاريخ السفر">
+                        @error('datepicker-f')
+                        <div class="alert alert-danger">
+                            <span style="font-size: 15px;text-align: center;font-weight: bold">يرجى إدخال تاريخ السفر</span>
+                        </div>
+                        @enderror
                     </div>
                     <div class="col-md-6 col-xs-12"  style="float: right;">
                         <label style="color:#64AEF7;"><span class="glyphicon glyphicon-user" style="color: orange;"></span>&nbsp;عـدد المسـافريـن</label><br>
-                        <input type="number" class="form-control" id="customers_count" name="customers_count" placeholder="ادخل  عدد المسـافرين">
+                        <input type="number" class="form-control" id="customers_count" min="1" max="20" name="customers_count" value="{{old('customers_count')}}" placeholder="ادخل  عدد المسـافرين">
                     </div></div><br>
                 <div class="row">
                     <div class="col-md-6 col-xs-12" style="float: right;">
                         <label style="color:#64AEF7;"><span class="glyphicon glyphicon-briefcase" style="color: orange;"></span>&nbsp;درجة الرحلـة </label><br>
                         <select id="flight_degree" name="flight_degree" class="form-control">
+                            <option value="">اختر درجة الرحلة</option>
                             @foreach($flight_degrees as $key => $value)
                             <option value="{{$key}}">{{$value}}</option>
                                 @endforeach
                         </select>
+                        @error('flight_degree')
+                        <div class="alert alert-danger">
+                            <span style="font-size: 15px;text-align: center;font-weight: bold">يرجى إدخال درجة الرحلة</span>
+                        </div>
+                        @enderror
                     </div>
                     <div class="col-md-6 col-xs-12" style="float: right; padding-top: 33px;">
                         <button type="submit" class="btn btn-info" style="color: white; width: 120px;height: 34px; font-size: 20px; "><span class="glyphicon glyphicon-search" style="color: orange;"></span>&nbsp;بـحـث</button></div></div>
@@ -153,6 +186,11 @@
 
                     <div class="col-md-8 col-xs-12">
                         <input  type="text" class="form-control" name="dest_city" id="myInput" onkeyup="myFunction()" placeholder="الـبـحـث بـاسـم المدينـة...."  style="text-align: right;">
+                        @error('dest_city')
+                        <div class="alert alert-danger">
+                            <span style="font-size: 15px;text-align: center;font-weight: bold">يرجى إدخال اسم المدينة</span>
+                        </div>
+                        @enderror
                     </div>
                     <div class="col-md-6 col-xs-12" style="float: right; padding-top: 33px;">
                         <button type="submit" class="btn btn-info" style="color: white; width: 120px;height: 34px; font-size: 20px; "><span class="glyphicon glyphicon-search" style="color: orange;"></span>&nbsp;بـحـث</button></div></div>
@@ -338,15 +376,3 @@
 
 @include('Partials.Web._javascript')
 
-{{--
-<script>
-    $(document).ready(function(e) {
-        $('#show').hide();
-        $('form').submit(function(e) {
-            $('#show').hide();
-
-        });
-
-    });
-
-</script>--}}

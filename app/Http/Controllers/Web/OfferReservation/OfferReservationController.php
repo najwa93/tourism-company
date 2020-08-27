@@ -44,6 +44,10 @@ class OfferReservationController extends Controller
     // search flights function
     public function searchOffers(Request $request)
     {
+        $this->validate($request, [
+            'dest_city' => 'required|alpha',
+
+        ]);
 
         $dest_city = $request->input('dest_city');
         //return $dest_city;

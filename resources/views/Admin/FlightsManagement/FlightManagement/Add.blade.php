@@ -41,6 +41,7 @@
                     <div class="form-group ">
                         <label for="usr">مـن المـديـنة </label>
                         <select name="source_city" id="city1" class="form-control">
+                            <option value="">اختر مدينة</option>
                             @foreach($cities as $key => $value)
                                 <option value="{{$key}}">{{$value}}</option>
                             @endforeach
@@ -49,6 +50,7 @@
                     <div class="form-group ">
                         <label for="usr">إلـى المـديـنة </label>
                         <select name="dist_city" id="city2" class="form-control">
+                            <option value="">اختر مدينة</option>
                             @foreach($cities as $key => $value)
                                 <option value="{{$key}}">{{$value}}</option>
                             @endforeach
@@ -57,6 +59,7 @@
                     <div class="form-group ">
                         <label for="usr">شـركـة الطـيران</label>
                         <select name="flight_company" id="filghtcompany" class="form-control">
+                            <option value="">اختر شركة طيران</option>
                             @foreach($flightCompanies as $key => $value)
                                 <option value="{{$key}}">{{$value}}</option>
                             @endforeach
@@ -74,8 +77,10 @@
                     </div>
                     <div class="form-group ">
                         <label for="usr">التاريـخ</label>
-                        <input type="date" class="form-control" id="usr" name="date" placeholder="تاريـخ الرحـلـة"
-                               style="font-size: 20px; color: black;">
+                        {{--<input type="date" class="form-control" id="usr" name="date" placeholder="تاريـخ الرحـلـة"
+                               style="font-size: 20px; color: black;">--}}
+                        <input type="text" class="form-control" id="datepicker" name="datepicker">
+
                     </div>
                     <div class="form-group ">
                         <label for="usr">الـوقـت</label>

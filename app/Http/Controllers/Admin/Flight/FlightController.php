@@ -76,7 +76,7 @@ class FlightController extends Controller
         $flight->economy_seats_count = $request->input('economy_seats_count');
         $flight->first_class_seats_count = $request->input('first_class_seats_count');
         $flight->flight_duration = $request->input('duration');
-        $flight->date = $request->input('date');
+        $flight->date = $request->input('datepicker');
         //$time = $request->input('time');
         //$converted_time = date("h:ia", strtotime($time));
         $flight->time = $request->input('time');

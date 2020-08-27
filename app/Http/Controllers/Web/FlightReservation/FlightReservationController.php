@@ -31,6 +31,13 @@ class FlightReservationController extends Controller
     // search flights function
     public function searchFlights(Request $request){
 
+        $this->validate($request, [
+            'source_city' => 'required|alpha',
+            'destination_city' => 'required|alpha',
+            'datepicker-f' => 'required',
+            'flight_degree' => 'required'
+        ]);
+
         $request->session()->put('customers_count',$request->input('customers_count'));
        // $request->session()->put('source_city',$request->input('source_city'));
        // $request->session()->put('destination_city',$request->input('destination_city'));
@@ -46,9 +53,13 @@ class FlightReservationController extends Controller
         $degree = $request->input('flight_degree');
         $flight_degree = FlightDegree::where('id',$degree)->first();
        // return $flight_degree;
-        $date = $request->input('date');
+        $date = $request->input('datepicker-f');
+       // return $date;
+     /*   $flights = Flight::where('date','=',$date)
+            ->get();
 
-            $flights = Flight::where('date','like','%' .$date. '%')
+        return $flights;*/
+          $flights = Flight::where('date','like','%' .$date. '%')
             ->whereHas('source_city' , function($query) use ($source_city){
                 $query->where('name','like','%' .$source_city . '%');
             })
@@ -57,11 +68,10 @@ class FlightReservationController extends Controller
                 })
                 ->get();
 
-           // return $flights;
-           /* $economy_flights = Flight::with(['city' => function($query) use ($source_city, $destination_city,$date){
-                $query->where([['name','like','%' .$source_city . '%'],['name','like','%' .$destination_city . '%'],
-                    ['date','like','%' .$date. '%']]);
-            }])->get(['id','economy_ticket_price']);*/
+          if ($flights == null){
+                  // return "hello";
+                  return redirect()->back()->with('error', 'يرجى إدخال تاريخ الوصول بشكل صحيح');
+          }
 
         $data = [];
         $flight_data = [];
@@ -96,10 +106,17 @@ class FlightReservationController extends Controller
 
     // Flight Reservation
     public function completeFlightReservation(Request $request,$flightId){
+        $this->validate($request, ['credit' => 'required', 'credit_number' => 'required|numeric|min:0']);
         if (Auth::user()){
             $user = Auth::user();
 
             $flight = Flight::where('id',$flightId)->first();
+            $flightCheck = FlightReservation::where('user_id',$user->id)->get();
+            foreach ($flightCheck as $check){
+                if ($check->flight_id == $flight->id ){
+                    return redirect()->back()->with('error','لقد قمت بعملية الحجز مسبقا');
+                }
+            }
             $flightReservation = new FlightReservation();
             $flightReservation->user_id = Auth::user()->id;
             $seats_count = Session::get('customers_count');
@@ -115,12 +132,17 @@ class FlightReservationController extends Controller
                 $flightReservation->reservation_price = $flight->economy_ticket_price;
                 $flightReservation->flight_degree_id = 2;
             }
+            $flightReservation->save();
             $user->credit = $request->input('credit');
-            $user->credit_number = $request->input('credit_number');
+            $userBalance = $request->input('credit_number');
+            if ($userBalance < $flightReservation->reservation_price) {
+                return redirect()->back()->with('error', 'الرصيد غيركافي لعملية الحجز');
+            }
             $user->save();
             $flightReservation->save();
             //$hotelReservation->check_in_date = $request->session()->get('checkin');
-           return redirect()->back();
+            return redirect()->route('showUserReservations')->with('success', 'تمت عملية حجز فندق بنجاح');;
+
         }
     }
     /**
