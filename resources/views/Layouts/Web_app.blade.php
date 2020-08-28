@@ -7,10 +7,6 @@
     </head>
 
     <body>
-    @section('contact')
-        تواصل  معنـا
-    @endsection
-
 
     @include('Partials.Web._header')
 

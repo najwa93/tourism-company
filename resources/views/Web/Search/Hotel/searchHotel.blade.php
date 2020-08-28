@@ -1,4 +1,5 @@
 @extends('Layouts.Web_app')
+
 @section('styles')
 
     .p1 {
@@ -68,7 +69,7 @@
                         <td>{{$hotel['room_type']}}</td>
                         <td>{{$hotel['customers_count']}}</td>
                         <td>{{$hotel['room_details']}}</td>
-                        <td>{{$hotel['night_price']}}</td>
+                        <td>{{$hotel['night_price']}}$</td>
                         <th scope="col" class="col-sm-2"><a href="{{url('Web/hotelDetails/'.$hotel['hotel_id'].'/'. $hotel['room_id'] )}}"> <button type="submit" class="btn btn-warning" style="color: white; width: 120px;height: 35px; font-size: 20px;padding: 4px ">&nbsp;التفاصيل</button></a><br>
                     </tr>
                 @endforeach

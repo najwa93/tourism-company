@@ -151,7 +151,7 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="email"
+                                <label for="gender"
                                        class="col-md-12 col-form-label text-md-right">{{ __('الجنس') }}</label>
 
                                 <div>
@@ -227,10 +227,13 @@
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('تسجيل') }}
                                     </button>
-                                    <button type="submit" class="btn btn-warning">
+
+                                    <a href="{{route('home_page.index')}}">
+                                    <button type="button" class="btn btn-warning">
                                         <i class="glyphicon glyphicon-remove"></i>
                                         {{ __('إلغاء') }}
                                     </button>
+                                    </a>
                                 </div>
                             </div>
 

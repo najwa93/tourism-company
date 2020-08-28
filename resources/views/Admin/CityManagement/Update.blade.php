@@ -22,15 +22,13 @@
     @method('PUT')
     <div class="p1"><label
                 style="font-size: 40px; margin-top:9%; color: white; font-weight: bold; margin-right: 12%;"><span
-                    class="glyphicon glyphicon-globe" style="color: orange;"></span>&nbsp;إضـافـة مـديـنـة
-            جـديـدة</label></div>
+                    class="glyphicon glyphicon-globe" style="color: orange;"></span>&nbsp;تعديل مدينة</label></div>
     <br>
     <br>
     <div class="container">
         <div class="col-md-6 col-xs-12" style="float: right;">
             <label style=" font-size: 25px;
-    color:#64AEF7; font-weight: bold;"><span class="glyphicon glyphicon-download" style="color: orange;"></span>&nbsp;أضــف
-                مـديــنــة إلــى قــائـمـة الــمــدن الـمـتـاحـة</label>
+    color:#64AEF7; font-weight: bold;"><span class="glyphicon glyphicon-pencil" style="color: orange;"></span>&nbsp;تعديل مدينة</label>
             <br>
             <br>
             <br>
@@ -41,6 +39,9 @@
                     <input type="text" class="form-control" name="cityname" placeholder="أدخــل اســم الـمــديــنــة"
                            value="{{$city->name}}" style="font-size: 22px; color: black;">
                 </div>
+                @error('cityname')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
                 <div class="form-group ">
                     <label for="usr">عــن الـمـديـنـة</label>
                     <textarea class="form-control" name="aboutcity" placeholder="أدخــل مـعـلـومـات عـن الـمــديـنـة"
@@ -54,6 +55,11 @@
                            placeholder="أدخـل مـوقـع الـمــديــنــة مــن خـرائــط غـوغـل"
                            value="{{$city->city_location}}" style="font-size: 22px; color: black;">
                 </div>
+                @error('location')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+
+                @if($city->cityImgs != null || [])
                 <div class="form-group">
                     <label for="flag">صـور مـن الـمـديـنـة</label>
                     <input id="file-input" type="file" name="images[]" multiple>
@@ -62,13 +68,14 @@
                             <img src="{{url('/images/'.$cityImg->img_path)}}" style="width: 150px;height: 140px;">
                         @endforeach
                     </div>
-
                 </div>
+                @endif
                 <br>
                 <button type="submit" class="btn btn-info" name="btnsave"
                         style="color: white; width: 100px;height: 40px; font-size: 20px;"><span
                             class="glyphicon glyphicon-floppy-save" style="color: orange;"></span>&nbsp;تعديل
                 </button>
+                <a href="{{route('Countries.show',$city->country_id)}}"> <button type="button" class="btn btn-warning" style="color: white; width: 84px;height: 41px; font-size: 20px;padding: 4px ;font-weight: bold">&nbsp;إلغاء</button></a><br>
 
             </div>
         </div>

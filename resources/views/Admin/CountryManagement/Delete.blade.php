@@ -57,11 +57,12 @@
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                     <br>
-
+                    @if($country->img_path != null)
                     <div class="form-group">
                         <label for="flag">عـلــم الـبــلــد:</label>
                         <img src="{{url('/images/'.$country->img_path)}}" style="width: 150px;height: 140px;">
                     </div>
+                    @endif
                     @error('image')
                     <div class="alert alert-danger"><?php echo("upload an image please")?></div>
                     @enderror
@@ -70,6 +71,7 @@
                             style="color: white; width: 100px;height: 40px; font-size: 20px;"><span
                                 class="glyphicon glyphicon-floppy-save" style="color: #ff3928;"></span>&nbsp;حذف
                     </button>
+                    <a href="{{route('Countries.index')}}"> <button type="button" class="btn btn-warning" style="color: white; width: 84px;height: 41px; font-size: 20px;padding: 4px ;font-weight: bold">&nbsp;العودة</button></a><br>
 
                 </div>
             </form>

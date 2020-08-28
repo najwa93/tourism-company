@@ -68,7 +68,7 @@
                         <td>{{$flight['destination_city']}}</td>
                         <td>{{$flight['date']}}</td>
                         <td>{{$flight['time']}}</td>
-                        <td>{{$flight['ticket_price']}}</td>
+                        <td>{{$flight['ticket_price']}}$</td>
                         <th scope="col"><a href="{{route('flightDetails',$flight['flight_id'])}}"><button type="button" class="btn btn-warning" style="color: white; width: 120px;height: 35px; font-size: 20px;padding: 4px ">&nbsp;احجز الاّن</button></a><br>
                     </tr>
                 @endforeach
@@ -82,8 +82,7 @@
                     </div>
                 @endif
 
-                <div class="col-sm" style="margin-top: 100px;text-align: center"><a href="{{route('home_page.index')}}"> <button type="submit" class="btn btn-success" style="color: white; width: 84px;height: 41px; font-size: 20px;padding: 4px ;font-weight: bold">&nbsp;العودة</button></a><br>
-
+                <div class="col-sm" style="margin-top: 100px;text-align: center"><a href="{{route('home_page.index')}}"> <button type="button" class="btn btn-success" style="color: white; width: 84px;height: 41px; font-size: 20px;padding: 4px ;font-weight: bold">&nbsp;العودة</button></a><br>
                 </div>
         </div>
 

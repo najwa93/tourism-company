@@ -100,7 +100,7 @@ class FlightReservationController extends Controller
             //return $user;
             return view('Web.Search.Flight.CompleteReservation',compact('user','flight'));
         }else{
-            return redirect()->intended('flightDetails');
+            return redirect()->intended();
         }
     }
 

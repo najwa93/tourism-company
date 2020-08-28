@@ -34,7 +34,20 @@ class CityController extends Controller
     // get cities with related country
     public function storeCity(Request $request, $country_id)
     {
+        $this->validate($request, [
+            'cityname' => 'required|string',
+            'location' => 'required'
+        ]);
         $country = Country::findOrfail($country_id);
+        $cities = City::all();
+        $checkCity = $request->input('cityname');
+        if ($cities != null | []) {
+            foreach ($cities as $city) {
+                if ($checkCity == $city->name) {
+                    return redirect()->back()->with('error', 'لقد تم إضافة هذه المدينة مسبقاً');
+                }
+            }
+        }
         $city = new City();
         $city->name = $request->input('cityname');
         $city->description = $request->input('aboutcity');
@@ -54,7 +67,7 @@ class CityController extends Controller
             }
         }
 
-        return redirect()->route('Countries.show', $country->id);
+        return redirect()->route('Countries.show', $country->id)->with('success', 'تم إضافة مدينة جديد بنجاح');;
     }
 
     /**
@@ -92,6 +105,11 @@ class CityController extends Controller
      */
     public function update(Request $request, $city_id)
     {
+
+        $this->validate($request, [
+            'cityname' => 'required|string',
+            'location' => 'required'
+        ]);
         $city = City::findOrfail($city_id);
         $country = Country::where('id', $city->country_id)->first();
         $cityImgs = CityImage::where('city_id', $city->id)
@@ -120,7 +138,7 @@ class CityController extends Controller
             }
 
         }
-
+           // return $city;
         return redirect()->route('Countries.show', $country->id);
     }
 

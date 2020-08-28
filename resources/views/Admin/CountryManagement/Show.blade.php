@@ -38,6 +38,12 @@
 
         </a>
         <br>
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success" style="text-align: center" role="alert">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <span style="font-size: 25px;text-align: center;font-weight: bold">{{ $message }}</span>
+            </div>
+        @endif
         <div class="row">
             <div class="col-md-4 col-xs-12" style="float: right;">
                 <label style=" font-size: 22px; color:#64AEF7; font-weight: bold; "><span

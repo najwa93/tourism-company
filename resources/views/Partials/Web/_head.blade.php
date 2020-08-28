@@ -61,7 +61,7 @@
         background-color:  #64AEF7;
     }
 */
-    i{
+    .icon-style{
         color: #FFA500;
     }
      .fas {
@@ -263,19 +263,55 @@
         cursor: pointer;
     }
 
-    .fb {
-        background-color: #3B5998;
-        color: white;
+    .social-icons-box{
+        margin: -15px;
+    }
+    .social-icons-box .social-icons-list{
+        width: 100%;
+        height: auto;
+        margin: auto;
+        margin-top: 33px;
+        margin-bottom: 21px;
     }
 
-    .twitter {
-        background-color: #55ACEE;
-        color: white;
+    .social-icons-list ul{
+        margin: 0;
+        padding: 0 0 2px 0;
+        text-align: center;
     }
 
-    .google {
-        background-color: #dd4b39;
-        color: white;
+    .social-icons-list ul li{
+        display: inline-block;
+        width: 35px;
+        height: 35px;
+        text-align: center;
+        border-radius: 100%;
+        margin: 0 10px;
+    }
+
+    .social-icons-list ul li a{
+        display: block;
+        color: #F5F5F5;!important;
+        font-size: 20px;
+    }
+
+    .social-icons-list ul li a i{
+        line-height: 38px;
+    }
+
+    /* facebook icon */
+    .social-icons-list ul li.facebook {
+        background: #3b5999;
+    }
+
+    /* twitter icon */
+    .social-icons-list ul li.twitter {
+        background: #55acee;
+    }
+
+    /*email icon */
+    .social-icons-list ul li.google {
+        background: #EA4335;
     }
 
     #myTable {

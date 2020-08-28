@@ -29,6 +29,12 @@
                         class="glyphicon glyphicon-globe" style="color: orange;"></span>&nbsp;إضـافـة بـلـد
                 جـديـد</label></div>
     </div>
+    @if ($message = Session::get('error'))
+        <div class="alert alert-danger" style="text-align: center" role="alert">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <span style="font-size: 25px;text-align: center;font-weight: bold">{{ $message }}</span>
+        </div>
+    @endif
     <div class="container">
         <br>
         <div class="col-md-6 col-xs-12" style="float: right;">
@@ -43,11 +49,11 @@
                 <div style="font-size: 22px; font-weight: bold; color:#64AEF7;margin-right: 80px;">
                     <div class="form-group ">
                         <label for="usr">اســم الـبــلــد:</label>
-                        <input type="text" class="form-control" id="usr" name="countryname"
+                        <input type="text" class="form-control" id="usr" name="countryname" value="{{old('countryname')}}"
                                style="font-size: 22px; color: black;">
                     </div>
                     @error('countryname')
-                    <div class="alert alert-danger">{{ $message }}</div>
+                    <div class="alert alert-danger">يرجى إدخال اسم البلد</div>
                     @enderror
                     <br>
                     <div class="form-group">
@@ -61,6 +67,9 @@
                             style="color: white; width: 100px;height: 40px; font-size: 20px;"><span
                                 class="glyphicon glyphicon-floppy-save" style="color: orange;"></span>&nbsp;إضـافــة
                     </button>
+
+                    <a href="{{route('Countries.index')}}"> <button type="button" class="btn btn-warning" style="color: white; width: 84px;height: 41px; font-size: 20px;padding: 4px ;font-weight: bold">&nbsp;إلغاء</button></a><br>
+
                 </div>
             </form>
 

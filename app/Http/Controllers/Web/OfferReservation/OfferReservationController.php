@@ -96,7 +96,7 @@ class OfferReservationController extends Controller
             $offer = Offer::where('id',$offerId)->first();
             return view('Web.Search.Offer.completeReservation',compact('user','offer'));
         }else{
-            return redirect()->intended('offerDetails');
+            return redirect()->intended();
         }
     }
 

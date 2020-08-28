@@ -24,13 +24,13 @@ class CreateFlightReservationsTable extends Migration
             $table->string('date_time')->nullable();
 
             $table->integer('flight_id')->unsigned()->nullable();
-            $table->foreign('flight_id')->references('id')->on('flights');
+            $table->foreign('flight_id')->references('id')->on('flights')->onDelete('cascade');
 
             $table->integer('flight_degree_id')->unsigned()->nullable();
-            $table->foreign('flight_degree_id')->references('id')->on('flight_degrees');
+            $table->foreign('flight_degree_id')->references('id')->on('flight_degrees')->onDelete('cascade');;
 
             $table->integer('offer_id')->unsigned()->nullable();
-            $table->foreign('offer_id')->references('id')->on('offers');
+            $table->foreign('offer_id')->references('id')->on('offers')->onDelete('cascade');;
 
             $table->timestamps();
         });

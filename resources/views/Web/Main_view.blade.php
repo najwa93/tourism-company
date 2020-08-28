@@ -1,4 +1,8 @@
 @extends('Layouts.Web_app')
+@section('contact')
+    <a href="#contact" class="h"><span class="glyphicon glyphicon-envelope" style="color: orange;"></span> تواصل معنا </a>
+@endsection
+@section('title','الصفحة الرئيسية')
    @section('styles')
 
         .p1{
@@ -352,19 +356,27 @@
 
 
         <div class="col-md-6 col-xs-12" style="text-align: center; float: right;">
-            <h2>أرقام الاتصال</h2>
+            <h2 style="color: grey;">أرقام الاتصال</h2>
             <h3><span class="glyphicon glyphicon-phone" style="color: orange;"></span>6677889911 963+ </h3>
             <h3><span class="glyphicon glyphicon-phone" style="color: orange;"></span>2233445566 963+ </h3>
             <hr>
-            <h2>البريد الإلكتروني</h2>
-            <h3><span class="glyphicon glyphicon-envelope" style="color: orange;"></span>&nbsp;TravelRo@Email.com</h3>
+            <h2 style="color: grey;">البريد الإلكتروني</h2>
+            <h3><span class="glyphicon glyphicon-envelope" style="color: orange;"></span>&nbsp;TravelRoCompany@gmail.com</h3>
             <hr>
             <h3>تابعنا عبر مواقع التواصل الاجتماعي</h3>
-             <div class="social-icon">
-               <i class="fa fa-twitter twitter"></i>
-               <i class="fa fa-facebook fb"></i>
-             <i class="fa fa-google google"></i>
-           </div>
+            <div class="social-icons-box">
+                <div class="social-icons-list">
+                    <ul class="icons">
+                        <!-- facebook icon -->
+                        <li class="facebook" style="color: #ffffff;"><a href="" target="" ><i class="fab fa-facebook-f"></i></a></li>
+                    <!-- twitter icon -->
+                        <li class="twitter"><a href="" target=""><i class="fab fa-twitter"></i></a></li>
+                    <!-- email icon -->
+                        <li class="google"><a href="" target=""><i class="fab fa-google"></i></a></li>
+
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
     </form>

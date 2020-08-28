@@ -1,4 +1,5 @@
 @extends('layouts.Web_app')
+@section('title','البريد الوارد')
 
 @section('styles')
 

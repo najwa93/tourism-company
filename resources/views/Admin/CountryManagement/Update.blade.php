@@ -25,20 +25,22 @@
 
 
 @section('content')
-    @if (session('error'))
-        <div class="alert alert-danger">{{ session('error') }}</div>
-    @endif
     <div class="p1">
         <div class="p1"><label
                     style="font-size: 40px; margin-top:9%; color: white; font-weight: bold; margin-right: 12%;"><span
                         class="glyphicon glyphicon-globe" style="color: orange;"></span>&nbsp;تعديل بلد</label></div>
     </div>
+    @if ($message = Session::get('error'))
+        <div class="alert alert-danger" style="text-align: center" role="alert">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <span style="font-size: 25px;text-align: center;font-weight: bold">{{ $message }}</span>
+        </div>
+    @endif
     <div class="container">
         <br>
         <div class="col-md-6 col-xs-12" style="float: right;">
             <label style=" font-size: 25px;
-    color:#64AEF7; font-weight: bold;"><span class="glyphicon glyphicon-download" style="color: orange;"></span>&nbsp;أضــف
-                بــلــد إلــى قــائـمـة الـبــلــدان الـمـتـاحـة</label>
+    color:#64AEF7; font-weight: bold;"><span class="glyphicon glyphicon-pencil" style="color: orange;"></span>&nbsp;تعديل بلد</label>
             <hr>
             <br>
             <br>
@@ -56,19 +58,19 @@
                     @enderror
                     <br>
 
+                    @if($country->img_path != null)
                     <div class="form-group">
                         <label for="flag">عـلــم الـبــلــد:</label>
                         <input type="file" name="image">
                         <img src="{{url('/images/'.$country->img_path)}}" style="width: 150px;height: 140px;">
                     </div>
-                    @error('image')
-                    <div class="alert alert-danger"><?php echo("upload an image please")?></div>
-                    @enderror
+                    @endif
 
                     <button type="submit" class="btn btn-info" name="btnc"
                             style="color: white; width: 100px;height: 40px; font-size: 20px;"><span
                                 class="glyphicon glyphicon-floppy-save" style="color: orange;"></span>&nbsp;تعديل
                     </button>
+                    <a href="{{route('Countries.index')}}"> <button type="button" class="btn btn-warning" style="color: white; width: 84px;height: 41px; font-size: 20px;padding: 4px ;font-weight: bold">&nbsp;إالغاء</button></a><br>
 
                 </div>
             </form>

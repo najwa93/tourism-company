@@ -94,6 +94,19 @@
                         <input type="text" class="form-control" name="location" id="usr"
                                placeholder="أدخـل مـوقـع  الـفـنـدق مــن خـرائــط غـوغـل"
                                style="font-size: 20px; color: black;">
+                        <div id="wrapper-9cd199b9cc5410cd3b1ad21cab2e54d3">
+                            <div id="map-9cd199b9cc5410cd3b1ad21cab2e54d3"></div><script>(function () {
+                                    var setting = {"height":538,"width":435,"zoom":12,"queryString":"Lattakia, Syria","place_id":"ChIJfWDUYS2sJhUR3pVBofhbMo4","satellite":false,"centerCoord":[35.543562132031866,35.7920161],"cid":"0x8e325bf8a14195de","lang":"en","cityUrl":"/syria/latakia-41212","cityAnchorText":"Map of Latakia, Syria","id":"map-9cd199b9cc5410cd3b1ad21cab2e54d3","embed_id":"257270"};
+                                    var d = document;
+                                    var s = d.createElement('script');
+                                    s.src = 'https://1map.com/js/script-for-user.js?embed_id=257270';
+                                    s.async = true;
+                                    s.onload = function (e) {
+                                        window.OneMap.initMap(setting)
+                                    };
+                                    var to = d.getElementsByTagName('script')[0];
+                                    to.parentNode.insertBefore(s, to);
+                                })();</script><a href="https://1map.com/map-embed">1 Map</a></div>
                     </div>
                     <div class="form-group">
                         <label for="flag">صـور مـن الـفـنـدق</label>

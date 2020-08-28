@@ -1,5 +1,5 @@
 @extends('layouts.Web_app')
-
+@section('title','قائمة الحجوزات')
 @section('styles')
 
     .p1 {
@@ -44,8 +44,8 @@
 
     <div class="p1">
         <div class="well" style="font-size: 25px;font-weight: bold; color: #64AEF7; text-align: center;"><span
-                    class="glyphicon glyphicon-user" style="color: orange;"></span>&nbsp;قائمة رحلات الطيران
-        </div>
+                    class="glyphicon glyphicon-user" style="color: orange;"></span>&nbsp;قائمة الحجوزات
+    </div>
         @if ($message = Session::get('success'))
             <div class="alert alert-success" role="alert">
                 <button type="button" class="close" data-dismiss="alert">×</button>

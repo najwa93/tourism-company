@@ -1,7 +1,6 @@
 
-
-
 @extends('layouts.Web_app')
+
 @section('styles')
     .content{
 

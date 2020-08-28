@@ -213,6 +213,12 @@ class WebController extends Controller
     // update users
     public function updateUserProfile(Request $request)
     {
+        $this->validate($request, ['email' => 'string', 'email', 'max:255', 'unique:users',
+            'first_name' => ['required', 'string', 'max:255'],
+            'user_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['string', 'max:255','nullable'],
+            'phone_number' => ['max:255'],
+            'c_password' => ['required'],]);
         $user = Auth::user();
         if ($this->check($request->input('c_password'))) {
             $user->first_name = $request->input('first_name');
@@ -227,12 +233,12 @@ class WebController extends Controller
                 $user->save();
             }
             if ($user->role_id != 8) {
-                return redirect()->route('Main.index');
+                return redirect()->route('Main.index')->with('success','تم التعديل الملف الشخصي بنجاح');;
             } else {
-                return redirect()->route('home_page.index');
+                return redirect()->route('home_page.index')->with('success','تم تعديل الملف الشخصي بنجاح');
             }
         } else {
-            dd('error');
+            return redirect()->back()->with('error','كلمة المرور غير صحيحة');
         }
 
     }
@@ -376,7 +382,7 @@ class WebController extends Controller
             $hotel = Hotel::where('id', $hotelId)->first();
             return view('Web.Search.Hotel.completeReservation', compact('room', 'hotel', 'user'));
         } else {
-            return redirect()->intended('hotelDetails');
+            return redirect()->intended();
         }
     }
 
