@@ -21,16 +21,15 @@
 
 @section('content')
     <div class="p1"><label
-                style="font-size: 40px; margin-top:9%; color: white; font-weight: bold; margin-right: 12%;"><span
-                    class="glyphicon glyphicon-globe" style="color: orange;"></span>&nbsp;إضـافـة فـنـدق جـديـد</label>
+                style="font-size: 40px; margin-top:9%; color: white; font-weight: bold; margin-right: 12%;"><span class="glyphicon glyphicon-pencil" style="color: orange;"></span>&nbsp;تعـديل فنـدق</label>
     </div>
     <br>
     <br>
     <div class="container">
         <div class="col-md-6 col-xs-12" style="float: right;">
             <label style=" font-size: 25px;
-    color:#64AEF7; font-weight: bold;"><span class="glyphicon glyphicon-list" style="color: orange;"></span>&nbsp;امـلأ
-                الـنـمـوذج الـتـالــي لإضــافـة فـنـدق إلـى قـائـمـة الـفـنـادق </label>
+    color:#64AEF7; font-weight: bold;"><span class="glyphicon glyphicon-pencil" style="color: orange;margin-left: 7px"></span>تعـديل فنـدق
+                </label>
             <hr>
             <br>
             <br>
@@ -44,6 +43,9 @@
                                placeholder="أدخــل اســم الـفـنـدق" value="{{$hotel->name}}"
                                style="font-size: 20px; color: black;">
                     </div>
+                    @error('name')
+                    <div class="alert alert-danger">يرجى إدخال اسم الفندق</div>
+                    @enderror
                     <div class="form-group">
                         <label for="usr">اســم الـبـلــد</label>
                         <select name="country" id="country" class="form-control">
@@ -53,7 +55,9 @@
                             @endforeach
                         </select>
                     </div>
-
+                    @error('country')
+                    <div class="alert alert-danger">يرجى اختيار اسم البلد</div>
+                    @enderror
                     <div class="form-group">
                         <label for="usr">اســم الـمـديـنـة</label>
                         <select name="city" id="city" class="form-control">
@@ -63,7 +67,9 @@
                             @endforeach
                         </select>
                     </div>
-
+                    @error('city')
+                    <div class="alert alert-danger">يرجى اختيار اسم المدينة</div>
+                    @enderror
                     <div class="form-group ">
                         <label for="usr">عـدد الـنـجـوم</label>
                         <input type="number" class="form-control" name="stars" id="usr" placeholder="عـدد الـنـجـوم"
@@ -87,6 +93,9 @@
                         <input type="text" class="form-control" name="phone" id="usr" placeholder="رقــم الـهـاتــف"
                                value="{{$hotel->phone_number}}" style="font-size: 20px; color: black;">
                     </div>
+                    @error('phone')
+                    <div class="alert alert-danger">يرجى إدخال رقم الهاتف</div>
+                    @enderror
                     <div class="form-group ">
                         <label for="usr">مـوقــع الـفـنـدق</label>
                         <input type="text" class="form-control" name="location" id="usr"
@@ -110,8 +119,9 @@
                     <br>
                     <button type="submit" class="btn btn-info" name="btnsave"
                             style="color: white; width: 100px;height: 40px; font-size: 20px;"><span
-                                class="glyphicon glyphicon-floppy-save" style="color: orange;"></span>&nbsp;حــفــظ
+                                class="glyphicon glyphicon-floppy-save" style="color: orange;"></span>تعديل
                     </button>
+                    <a href="{{route('Hotels.index')}}"> <button type="button" class="btn btn-warning" style="color: white; width: 84px;height: 41px; font-size: 20px;padding: 4px ;font-weight: bold">&nbsp;إلغاء</button></a><br>
 
                 </div>
             </form>

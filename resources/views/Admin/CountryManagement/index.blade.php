@@ -36,9 +36,15 @@
     @if ($message = Session::get('success'))
         <div class="alert alert-success" style="text-align: center" role="alert">
             <button type="button" class="close" data-dismiss="alert">×</button>
-            <span style="font-size: 25px;text-align: center;font-weight: bold">{{ $message }}</span>
+            <div class="alert alert-warning" style="text-align: center "  role="alert">
+                <span style="font-size: 25px;text-align: center;font-weight: bold"> {{ $message  }}</span>
+            </div>
+
         </div>
     @endif
+
+
+
     <div class="row">
         <div class="col-md-4 col-xs-12" style="float: right;">
             <label style=" font-size: 22px; color:#64AEF7; font-weight: bold; "><span class="glyphicon glyphicon-search"
@@ -72,11 +78,10 @@
                 <td>
                     <div class="btn-group btn-group-justified" role="group" aria-label="...">
                         <div class="btn-group" role="group">
-                            <a href="man-city.php">
                                 <a href="{{route('Countries.show',$country->id)}}">
                                     <button type="button" class="btn btn-success">إدارة المدن</button>
                                 </a>
-                            </a>
+
                         </div>
                         <div class="btn-group" role="group">
                             <a href="{{route('Countries.delete',$country->id)}}">
@@ -95,5 +100,6 @@
         </tbody>
     </table>
 </div>
+<div style="text-align: center" class="btnstyle"> <a href="{{route('Main.index')}}"> <button type="button" class="btn " style="color: white; width:215px;height: 41px; background-color:#74828F;font-size: 20px;padding: 4px ;font-weight: bold">&nbsp;عودة إلى إدارة الموقع </button></a></div><br>
 
 

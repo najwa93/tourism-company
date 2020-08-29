@@ -94,7 +94,7 @@
                                 <div >
                                     <input id="country" type="text"
                                            class="col-xs-8 form-control @error('country') is-invalid @enderror"
-                                           name="phone_number" value="{{$user->country->name}}"
+                                           name="phone_number" value="{{$user->country_id != null?$user->country->name:''}}"
                                            autofocus readonly>
                                 </div>
                             </div>
@@ -127,7 +127,7 @@
                                     <input id="credit_number" type="text"
                                            class="col-xs-8 form-control @error('credit_number') is-invalid @enderror"
                                            name="credit_number"
-                                           value="{{ $user->credit_number }}" required autocomplete="credit"
+                                           value="{{ $user->credit_balance }}" required autocomplete="credit"
                                            placeholder="أدخل  رصيد البطاقة">
                                     <label for="credit"
                                            class=" col-form-label text-md-right" style="border:2px solid #FFA500;margin: 1px 5px;padding: 1px 6px;border-radius: 5px;font-size: 20px"><span style="color: black">$</span></label>

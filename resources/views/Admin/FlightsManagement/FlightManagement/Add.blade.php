@@ -43,70 +43,102 @@
                         <select name="source_city" id="city1" class="form-control">
                             <option value="">اختر مدينة</option>
                             @foreach($cities as $key => $value)
-                                <option value="{{$key}}">{{$value}}</option>
+                                <option value="{{$key}}" {{ (\Illuminate\Support\Facades\Input::old("source_city") == $key ? "selected":"") }}>{{$value}}</option>
                             @endforeach
                         </select>
                     </div>
+                    @error('source_city')
+                    <div class="alert alert-danger">يرجى اختيار اسم المدينة </div>
+                    @enderror
                     <div class="form-group ">
                         <label for="usr">إلـى المـديـنة </label>
                         <select name="dist_city" id="city2" class="form-control">
                             <option value="">اختر مدينة</option>
                             @foreach($cities as $key => $value)
-                                <option value="{{$key}}">{{$value}}</option>
+                                <option value="{{$key}}" {{ (\Illuminate\Support\Facades\Input::old("dist_city") == $key ? "selected":"") }}>{{$value}}</option>
                             @endforeach
                         </select>
                     </div>
+                    @error('dist_city')
+                    <div class="alert alert-danger">يرجى اختيار اسم المدينة </div>
+                    @enderror
                     <div class="form-group ">
                         <label for="usr">شـركـة الطـيران</label>
                         <select name="flight_company" id="filghtcompany" class="form-control">
                             <option value="">اختر شركة طيران</option>
                             @foreach($flightCompanies as $key => $value)
-                                <option value="{{$key}}">{{$value}}</option>
+                                <option value="{{$key}}" {{ (\Illuminate\Support\Facades\Input::old("flight_company") == $key ? "selected":"") }}>{{$value}}</option>
                             @endforeach
                         </select>
                     </div>
+                    @error('flight_company')
+                    <div class="alert alert-danger">يرجى اختيار شركة الطيران </div>
+                    @enderror
                     <div class="form-group ">
                         <label for="usr">عـدد مقاعـد الدرجة الاقتصادية</label>
                         <input type="text" class="form-control" id="usr" name="economy_seats_count"
-                               placeholder="عـدد مقاعـد الدرجة الاقتصادية" style="font-size: 20px; color: black;">
+                               placeholder="عـدد مقاعـد الدرجة الاقتصادية"  value="{{old('economy_seats_count')}}" style="font-size: 20px; color: black;">
                     </div>
+                    @error('economy_seats_count')
+                    <div class="alert alert-danger">يرجى ادخال عدد مقاعد الدرجة الاقتصادية </div>
+                    @enderror
                     <div class="form-group ">
                         <label for="usr">عـدد مقاعـد الدرجة السياحية</label>
                         <input type="text" class="form-control" id="usr" name="first_class_seats_count"
-                               placeholder="عـدد مقاعـد الدرجة السياحية" style="font-size: 20px; color: black;">
+                               placeholder="عـدد مقاعـد الدرجة السياحية" value="{{old('first_class_seats_count')}}" style="font-size: 20px; color: black;">
                     </div>
+                    @error('first_class_seats_count')
+                    <div class="alert alert-danger">يرجى ادخال عدد مقاعد الدرجةالسياحية </div>
+                    @enderror
                     <div class="form-group ">
                         <label for="usr">التاريـخ</label>
                         {{--<input type="date" class="form-control" id="usr" name="date" placeholder="تاريـخ الرحـلـة"
                                style="font-size: 20px; color: black;">--}}
-                        <input type="text" class="form-control" id="datepicker" name="datepicker">
+                        <input type="text" class="form-control" id="datepicker" name="datepicker" value="{{old('datepicker')}}">
 
                     </div>
+                    @error('datepicker')
+                    <div class="alert alert-danger">يرجى اختيار التاريخ </div>
+                    @enderror
                     <div class="form-group ">
                         <label for="usr">الـوقـت</label>
-                        <input type="time" class="form-control" id="usr" name="time" placeholder="وقـت الرحـلـة"
+                        <input type="time" class="form-control" id="usr" name="time" value="{{old('time')}}" placeholder="وقـت الرحـلـة"
                                style="font-size: 20px; color: black;">
                     </div>
+                    @error('time')
+                    <div class="alert alert-danger">يرجى اختيار الوقت </div>
+                    @enderror
                     <div class="form-group ">
                         <label for="usr">مـدة الرحـلة</label>
-                        <input type="text" class="form-control" id="usr" name="duration" placeholder="مـدة الرحـلة"
+                        <input type="text" class="form-control" id="usr" name="duration" value="{{old('duration')}}" placeholder="مـدة الرحـلة"
                                style="font-size: 20px; color: black;">
                     </div>
+                    @error('duration')
+                    <div class="alert alert-danger">يرجى ادخال مدة الرحلة </div>
+                    @enderror
                     <div class="form-group ">
-                        <label for="usr">سعر التذكرة الدرجة الاقتصادية</label>
-                        <input type="text" class="form-control" id="usr" name="economy_ticket_price"
-                               placeholder="سعر التذكرة الدرجة الاقتصادية" style="font-size: 20px; color: black;">
+                        <label for="usr">سعر التذكرة الدرجة الاقتصادية</label><br/>
+                        <input type="text" class="col-xs-8 col-md-10 form-control" id="usr" name="economy_ticket_price"
+                               placeholder="سعر التذكرة الدرجة الاقتصادية" value="{{old('economy_ticket_price')}}" style="font-size: 20px; color: black;"><label for="credit" class=" col-form-label text-md-right" style="border:2px solid #FFA500;margin: 1px 5px;padding: 1px 6px;border-radius: 5px;font-size: 20px"><span style="color: black">$</span></label>
+
                     </div>
+                    @error('economy_ticket_price')
+                    <div class="alert alert-danger">يرجى ادخال سعر التذكرة </div>
+                    @enderror
                     <div class="form-group ">
-                        <label for="usr">سعر التذكرة الدرجة السياحية</label>
-                        <input type="text" class="form-control" id="usr" name="first_class_ticket_price"
-                               placeholder="سعر التذكرة الدرجة السياحية" style="font-size: 20px; color: black;">
+                        <label for="usr">سعر التذكرة الدرجة السياحية</label><br/>
+                        <input type="text" class="col-xs-8 col-md-10 form-control" id="usr" name="first_class_ticket_price"
+                               placeholder="سعر التذكرة الدرجة السياحية" value="{{old('first_class_ticket_price')}}" style="font-size: 20px; color: black;"><label for="credit" class=" col-form-label text-md-right" style="border:2px solid #FFA500;margin: 1px 5px;padding: 1px 6px;border-radius: 5px;font-size: 20px"><span style="color: black">$</span></label>
                     </div>
+                    @error('first_class_ticket_price')
+                    <div class="alert alert-danger">يرجى ادخال سعر التذكرة </div>
+                    @enderror
                     <br>
                     <button type="submit" class="btn btn-info"
                             style="color: white; width: 100px;height: 40px; font-size: 20px;"><span
                                 class="glyphicon glyphicon-floppy-save" style="color: orange;"></span>&nbsp;إضـافــة
                     </button>
+                    <a href="{{route('Flights.index')}}"> <button type="button" class="btn btn-warning" style="color: white; width: 84px;height: 41px; font-size: 20px;padding: 4px ;font-weight: bold">&nbsp;إلغاء</button></a><br>
 
                 </div>
             </div>

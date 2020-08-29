@@ -179,10 +179,9 @@ class CountryController extends Controller
 //        $cities = City::where('country_id',$country->id)->get();
 //
 //        $country->city()->delete();
-//        $country->city()->flight()->delete();
-//        $country->hotel()->delete();
+       // $country->city()->hotel()->delete();
+      //  $country->hotel()->delete();
         $country->delete();
-
 
         return redirect()->route('Countries.index')->with('success', 'تم حذف بلد بنجاح');;
 

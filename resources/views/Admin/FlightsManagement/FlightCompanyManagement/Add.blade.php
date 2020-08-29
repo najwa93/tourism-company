@@ -41,25 +41,31 @@
                     <div class="form-group ">
                         <label for="usr">اسـم شـركة الطيـران</label>
                         <input type="text" class="form-control" id="usr" name="name"
-                               placeholder="أدخــل اســم  شـركة الطيران" style="font-size: 22px; scolor: black;">
+                               placeholder="أدخــل اســم  شـركة الطيران" value="{{old('name')}}" style="font-size: 22px; scolor: black;">
                     </div>
+                    @error('name')
+                    <div class="alert alert-danger">يرجى إدخال اسم شركة الطيران </div>
+                    @enderror
                     <br>
                     <div class="form-group ">
                         <label for="usr">البريد الالكتروني</label>
-                        <input type="text" class="form-control" id="usr" name="email"
-                               placeholder="أدخــل  البريد الالكتروني" style="font-size: 22px; color: black;">
+                        <input type="email" class="form-control" id="usr" name="email"
+                               placeholder="أدخــل  البريد الالكتروني" value="{{old('email')}}" style="font-size: 22px; color: black;">
                     </div>
+
                     <br>
                     <div class="form-group ">
                         <label for="usr">رقـم الهاتـف</label>
                         <input type="text" class="form-control" id="usr" name="phone_number"
-                               placeholder="أدخــل  رقم الهاتـف" style="font-size: 22px; color: black;">
+                               placeholder="أدخــل  رقم الهاتـف" value="{{old('phone_number')}}" style="font-size: 22px; color: black;">
                     </div>
                     <br>
                     <button type="submit" class="btn btn-info"
                             style="color: white; width: 100px;height: 40px; font-size: 20px;"><span
                                 class="glyphicon glyphicon-floppy-save" style="color: orange;"></span>&nbsp;إضـافــة
                     </button>
+                    <a href="{{route('Flights.index')}}"> <button type="button" class="btn btn-warning" style="color: white; width: 84px;height: 41px; font-size: 20px;padding: 4px ;font-weight: bold">&nbsp;إلغاء</button></a><br>
+
                 </div>
             </form>
         </div>

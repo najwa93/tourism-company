@@ -93,4 +93,8 @@
     $( function() {
         $( "#datepicker-f" ).datepicker({  dateFormat: "dd/mm/yy",minDate: 0});
     } );
+
+    $( function() {
+        $( "#datepicker-flight" ).datepicker({  dateFormat: "dd/mm/yy",minDate: 0});
+    } );
 </script>

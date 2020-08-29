@@ -21,14 +21,14 @@
 @section('content')
     <div class="p1"><label
                 style="font-size: 40px; margin-top:9%; color: white; font-weight: bold; margin-right: 12%;"><span
-                    class="glyphicon glyphicon-globe" style="color: orange;"></span>&nbsp;حـذف رحلة طيـران </label>
+                    class="glyphicon glyphicon-remove" style="color: orange;"></span>&nbsp;حـذف رحلة طيـران </label>
     </div>
     <br>
     <br>
     <div class="container">
 
         <label style=" font-size: 25px;
-    color:#f73917; font-weight: bold;"><span class="glyphicon glyphicon-list" style="color: orange;"></span>&nbsp;هل
+    color:#f73917; font-weight: bold;"><span class="glyphicon glyphicon-remove" style="color: #f73917;"></span>&nbsp;هل
             تريد بالتأكيد القيام بعملية حـذف رحـلة طـيران ؟</label>
         <hr>
         <br>
@@ -75,9 +75,9 @@
                                style="font-size: 20px; color: black;">
                     </div>
                     <div class="form-group ">
-                        <label for="usr">التاريـخ</label>
-                        <input type="date" class="form-control" id="usr" name="date" value="{{$flight->date}}"
-                               placeholder="تاريـخ الرحـلـة" style="font-size: 20px; color: black;">
+                        <label for="usr">الـوقـت</label>
+                        <input type="time" class="form-control" id="usr" name="time" value="{{$flight->time}}"
+                               placeholder="وقـت الرحـلـة" style="font-size: 20px; color: black;">
                     </div>
                     <div class="form-group ">
                         <label for="usr">الـوقـت</label>
@@ -107,6 +107,8 @@
                             style="color: white; width: 100px;height: 40px; font-size: 20px;"><span
                                 class="glyphicon glyphicon-floppy-save" style="color: #ff3928;"></span>&nbsp;حذف
                     </button>
+                    <a href="{{route('Flights.index')}}"> <button type="button" class="btn btn-warning" style="color: white; width: 84px;height: 41px; font-size: 20px;padding: 4px ;font-weight: bold">&nbsp;إلغاء</button></a><br>
+
                 </div>
             </div>
         </form>

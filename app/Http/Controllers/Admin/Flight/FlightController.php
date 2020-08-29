@@ -69,6 +69,18 @@ class FlightController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'source_city' => 'required',
+            'dist_city' => 'required',
+            'flight_company' => 'required',
+            'economy_seats_count' => 'required',
+            'first_class_seats_count' => 'required',
+            'datepicker' => 'required',
+            'time' => 'required',
+            'duration' => 'required',
+            'first_class_ticket_price' => 'required',
+            'economy_ticket_price' => 'required',
+        ]);
         $flight = new Flight();
         $flight->source_city_id = $request->input('source_city');
         $flight->destination_city_id = $request->input('dist_city');
@@ -86,7 +98,7 @@ class FlightController extends Controller
 
         $flight->save();
 
-         return redirect()->route('Flights.index');
+         return redirect()->route('Flights.index')->with('success','تم إضافة رحلة جديدة بنجاح');
 
     }
 
@@ -128,6 +140,18 @@ class FlightController extends Controller
      */
     public function update(Request $request, $flight_id)
     {
+        $this->validate($request, [
+            'source_city' => 'required',
+            'dist_city' => 'required',
+            'flight_company' => 'required',
+            'economy_seats_count' => 'required',
+            'first_class_seats_count' => 'required',
+            'datepicker' => 'required',
+            'time' => 'required',
+            'duration' => 'required',
+            'first_class_ticket_price' => 'required',
+            'economy_ticket_price' => 'required',
+        ]);
         $flight = Flight::where('id',$flight_id)
             ->first();
 
@@ -137,7 +161,7 @@ class FlightController extends Controller
         $flight->economy_seats_count = $request->input('economy_seats_count');
         $flight->first_class_seats_count = $request->input('first_class_seats_count');
         $flight->flight_duration = $request->input('duration');
-        $flight->date = $request->input('date');
+        $flight->date = $request->input('datepicker');
         $time = $request->input('time');
         $flight->time = $request->input('time');
         $flight->updated_time = date("h:ia", strtotime($flight->time));
@@ -146,7 +170,7 @@ class FlightController extends Controller
 
         $flight->save();
 
-        return redirect()->route('Flights.index');
+        return redirect()->route('Flights.index')->with('success','تم تعديل رحلة طيران بنجاح');;
     }
 
     public function delete($flight_id){
@@ -155,7 +179,7 @@ class FlightController extends Controller
             ->with('flight_company')
             ->first();
 
-        return $flight;
+       // return $flight;
         $cities = City::all()->pluck('name','id');
         $flightCompanies = FlightCompany::all()->pluck('name','id');
         return view('Admin.FlightsManagement.FlightManagement.Delete',compact(['flight','cities','flightCompanies']));
@@ -172,6 +196,6 @@ class FlightController extends Controller
         $flight = Flight::where('id',$flight_id)
             ->first();
         $flight->delete();
-        return redirect()->route('Flights.index');
+        return redirect()->route('Flights.index')->with('success','تمت عملية الحذف بنجاح');
     }
 }

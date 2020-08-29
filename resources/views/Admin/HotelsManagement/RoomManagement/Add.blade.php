@@ -40,6 +40,9 @@
                     <label for="usr">الاسم</label>
                     <input type="text" class="form-control" name="name" id="usr" placeholder="أدخــل اســم الـغرفة" style="font-size: 20px; color: black;">
                 </div>
+                @error('name')
+                <div class="alert alert-danger">يرجى إدخال اسم الغرفة </div>
+                @enderror
                 <div class="form-group ">
                     <label for="usr">النوع</label>
                     <select name="type" id="type" class="form-control">
@@ -49,16 +52,25 @@
                         <option value="{{$roomType->id}}">{{$roomType->name}}</option>
                             @endforeach
                     </select>
-
                 </div>
+                @error('type')
+                <div class="alert alert-danger">يرجى اختيار نوع الغرفة </div>
+                @enderror
                 <div class="form-group ">
                     <label for="usr">عـدد الاشخاص</label>
                     <input type="number" class="form-control" name="custcount" id="usr" min="1" max="10" placeholder="عـدد الاشخاص" style="font-size: 20px; color: black;">
                 </div>
+                @error('custcount')
+                <div class="alert alert-danger">يرجى إدخال عدد الأشخاص </div>
+                @enderror
                 <div class="form-group ">
-                    <label for="usr">تكلفة الليلة</label>
-                    <input type="text" class="form-control" name="price" id="usr" placeholder="تكلفة الليلة" style="font-size: 20px; color: black;">
+                    <label for="usr">تكلفة الليلة</label><br>
+                   <input type="text" class="col-xs-8 col-md-10 form-control" name="price" id="usr" placeholder="تكلفة الليلة" style="font-size: 20px; color: black;"> <label for="credit" class=" col-form-label text-md-right" style="border:2px solid #FFA500;margin: 1px 5px;padding: 1px 6px;border-radius: 5px;font-size: 20px"><span style="color: black">$</span></label>
+
                 </div>
+                @error('price')
+                <div class="alert alert-danger">يرجى إدخال تكلفة الليلة </div>
+                @enderror
                 <div class="form-group ">
                     <label for="usr">التفاصيل</label>
                     <input type="text" class="form-control" name="about" id="usr" placeholder="أدخـل  مزايا تتمتع بها الغرفة" style="font-size: 20px; color: black;">
@@ -69,11 +81,13 @@
                 </div>
                 <br>
                 <button type="submit" class="btn btn-info" name="btnsave" style="color: white; width: 100px;height: 40px; font-size: 20px;"><span class="glyphicon glyphicon-floppy-save" style="color: orange;"></span>&nbsp;حــفــظ</button>
+                <a href="{{route('Hotels.show',$hotel->id)}}"> <button type="button" class="btn btn-warning" style="color: white; width: 84px;height: 41px; font-size: 20px;padding: 4px ;font-weight: bold">&nbsp;إلغاء</button></a><br>
 
             </div>
         </div>
     </div>
 </form>
+
 <br>
 <br>
 @endsection

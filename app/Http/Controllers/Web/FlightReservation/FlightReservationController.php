@@ -111,6 +111,18 @@ class FlightReservationController extends Controller
             $user = Auth::user();
 
             $flight = Flight::where('id',$flightId)->first();
+            $user->credit = $request->input('credit');
+            $userBalance = $request->input('credit_number');
+            $flight_degree = Session::get('flight_degree');
+
+            if ($flight_degree == 1){
+                $reservation_price = $flight->first_class_ticket_price;
+            }else{
+                $reservation_price = $flight->economy_ticket_price;
+            }
+            if ($userBalance < $reservation_price) {
+                return redirect()->back()->with('error', 'الرصيد غيركافي لعملية الحجز');
+            }
             $flightCheck = FlightReservation::where('user_id',$user->id)->get();
             //return $flightCheck;
             foreach ($flightCheck as $check){
@@ -125,7 +137,7 @@ class FlightReservationController extends Controller
             $flightReservation->seats_count = $seats_count;
             $flightReservation->date = $flight->date;
             $flightReservation->time = $flight->time;
-            $flight_degree = Session::get('flight_degree');
+
             if ($flight_degree == 1){
             $flightReservation->reservation_price = $flight->first_class_ticket_price;
             $flightReservation->flight_degree_id = 1;
@@ -134,11 +146,8 @@ class FlightReservationController extends Controller
                 $flightReservation->flight_degree_id = 2;
             }
             $flightReservation->save();
-            $user->credit = $request->input('credit');
-            $userBalance = $request->input('credit_number');
-            if ($userBalance < $flightReservation->reservation_price) {
-                return redirect()->back()->with('error', 'الرصيد غيركافي لعملية الحجز');
-            }
+
+            $user->credit_balance = $request->input('credit_number');
             $user->save();
             $flightReservation->save();
             //$hotelReservation->check_in_date = $request->session()->get('checkin');

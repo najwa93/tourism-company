@@ -32,14 +32,14 @@
     <div class="p1">
         <div class="p1"><label
                     style="font-size: 40px; margin-top:9%; color: white; font-weight: bold; margin-right: 12%;"><span
-                        class="glyphicon glyphicon-globe" style="color: orange;"></span>&nbsp;حذف بلد
+                        class="glyphicon glyphicon-remove" style="color: orange;"></span>&nbsp;حذف بلد
                 </label></div>
     </div>
     <div class="container">
         <br>
         <div class="col-md-6 col-xs-12" style="float: right;">
             <label style=" font-size: 25px;
-    color:#f73917; font-weight: bold;"><span class="glyphicon glyphicon-download" style="color:#f73917;"></span>&nbsp;
+    color:#f73917; font-weight: bold;"><span class="glyphicon glyphicon-remove" style="color:#f73917;"></span>&nbsp;
                 هل تريد بالتأكيد القيام بعملية حذف بلد ؟</label>
             <hr>
             <br>
@@ -51,7 +51,7 @@
                     <div class="form-group ">
                         <label for="usr">اســم الـبــلــد:</label>
                         <input type="text" class="form-control" id="usr" name="countryname" value="{{$country->name}}"
-                               style="font-size: 22px; color: black;">
+                               style="font-size: 22px; color: black;" readonly>
                     </div>
                     @error('countryname')
                     <div class="alert alert-danger">{{ $message }}</div>
@@ -69,9 +69,9 @@
 
                     <button type="submit" class="btn btn-info" name="btnc"
                             style="color: white; width: 100px;height: 40px; font-size: 20px;"><span
-                                class="glyphicon glyphicon-floppy-save" style="color: #ff3928;"></span>&nbsp;حذف
+                                class="glyphicon glyphicon-remove" style="color: #ff3928;"></span>&nbsp;حذف
                     </button>
-                    <a href="{{route('Countries.index')}}"> <button type="button" class="btn btn-warning" style="color: white; width: 84px;height: 41px; font-size: 20px;padding: 4px ;font-weight: bold">&nbsp;العودة</button></a><br>
+                    <a href="{{route('Countries.index')}}"> <button type="button" class="btn btn-warning" style="color: white; width: 84px;height: 41px; font-size: 20px;padding: 4px ;font-weight: bold">&nbsp;إلغاء</button></a><br>
 
                 </div>
             </form>

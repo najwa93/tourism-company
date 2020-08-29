@@ -32,6 +32,12 @@ class RoomController extends Controller
 
     public function storeRoom(Request $request, $hotel_id)
     {
+        $this->validate($request, [
+            'name' => 'required|string',
+            'custcount' => 'required',
+            'type' => 'required',
+            'price' => 'required|numeric|min:0',
+        ]);
         $hotel = Hotel::findOrfail($hotel_id);
         $hotelRoom = new HotelRoom();
         $hotelRoom->room_type_id = $request->type;
@@ -44,7 +50,7 @@ class RoomController extends Controller
         $hotelRoom->is_available = $request->input('available')?true:false;
         $hotelRoom->save();
 
-        return redirect()->route('Hotels.show', $hotel->id);
+        return redirect()->route('Hotels.show', $hotel->id)->with('success','تم إضافة غرفة جديدة بنجاح');
 
     }
 
@@ -86,6 +92,13 @@ class RoomController extends Controller
      */
     public function update(Request $request, $room_id)
     {
+
+        $this->validate($request, [
+            'name' => 'required|string',
+            'custcount' => 'required',
+            'type' => 'required',
+            'price' => 'required|numeric|min:0',
+        ]);
         $hotelRoom = HotelRoom::findOrfail($room_id);
         $hotel = Hotel::where('id', $hotelRoom->hotel_id)->first();
         $hotel->room_type_id = $request->type;
@@ -95,10 +108,10 @@ class RoomController extends Controller
         $hotelRoom->details = $request->input('about');
         $hotelRoom->name = $request->input('name');
         $hotelRoom->night_price = $request->input('price');
-        $hotelRoom->is_available = $request->input('available')?true:false;
+        $hotelRoom->is_available = $request->input('available')?1:0;
         $hotelRoom->save();
 
-        return redirect()->route('Hotels.show', $hotel->id);
+        return redirect()->route('Hotels.show', $hotel->id)->with('success','تم تعديل غرفة بنجاح');;
     }
 
     /**

@@ -67,7 +67,7 @@ class CityController extends Controller
             }
         }
 
-        return redirect()->route('Countries.show', $country->id)->with('success', 'تم إضافة مدينة جديد بنجاح');;
+        return redirect()->route('Countries.show', $country->id)->with('success', 'تم إضافة مدينة جديدة بنجاح');;
     }
 
     /**
@@ -139,7 +139,7 @@ class CityController extends Controller
 
         }
            // return $city;
-        return redirect()->route('Countries.show', $country->id);
+        return redirect()->route('Countries.show', $country->id)->with('success','تم تعديل مدينة بنجاح');
     }
 
     public function storeLocation(Request $request)

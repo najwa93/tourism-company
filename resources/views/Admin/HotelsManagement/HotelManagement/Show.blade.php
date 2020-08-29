@@ -26,9 +26,8 @@
                     class="glyphicon glyphicon-cutlery" style="color: orange;"></span>&nbsp;إدارة غـرف الـفـنادق</label>
     </div>
     <br> <br>
-    <div class="well" style="font-size: 25px; color: #64AEF7; text-align: center;"><span class="glyphicon glyphicon-bed"
-                                                                                         style="color: orange;"></span>&nbsp;{{$hotel->name}}
-    </div>
+    <div class="well" style="font-size: 25px; color: #64AEF7; text-align: center;"><span class="glyphicon glyphicon-bed" style="color: orange;"></span>&nbsp;{{$hotel->name}}</div>
+
     <div class="container">
         <a href="{{route('GetRoom.create',$hotel->id)}}" style="text-decoration:none ;">
             <button type="button" class="btn btn-block"
@@ -38,6 +37,13 @@
             </button>
         </a>
         <br><br>
+
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success" style="text-align: center" role="alert">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <span style="font-size: 25px;text-align: center;font-weight: bold">{{ $message }}</span>
+            </div>
+        @endif
         <div style="text-align: center; color:#64AEF7; font-size: 28px;"><label><span class="glyphicon glyphicon-lamp"
                                                                                       style="color: orange;"></span>&nbsp;&nbsp;الـغـرف
                 الـمـتـوفــرة</label></div>
@@ -89,4 +95,6 @@
         </table>
     </div>
     <br>
+    <div style="text-align: center" class="btnstyle"> <a href="{{route('Hotels.index')}}"> <button type="button" class="btn " style="color: white; width:200px;height: 41px; background-color:#74828F;font-size: 18px;padding: 4px ;font-weight: bold">&nbsp;عودة إلى قائمة الفندق </button></a></div><br>
+
 @endsection

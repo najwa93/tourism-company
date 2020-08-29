@@ -37,6 +37,11 @@ class FlightCompanyController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            //'email' =>  ['string', 'email', 'max:255', 'unique:users'],
+            'name' => 'required',
+        ]);
+
         $flightCompany = new FlightCompany();
         $flightCompany->name = $request->input('name');
         $flightCompany->email = $request->input('email');
@@ -44,7 +49,7 @@ class FlightCompanyController extends Controller
 
         $flightCompany->save();
 
-        return redirect()->route('Flights.index');
+        return redirect()->route('Flights.index')->with('success','تم إضافة شركة طيران جديدة بنجاح');
     }
 
     /**
@@ -81,6 +86,10 @@ class FlightCompanyController extends Controller
      */
     public function update(Request $request, $flight_company_id)
     {
+        $this->validate($request, [
+            'email' =>  'string', 'email', 'max:255', 'unique:users',
+            'name' => 'required',
+        ]);
         $flightCompany = FlightCompany::where('id',$flight_company_id)
             ->first();
         $flightCompany->name = $request->input('name');
@@ -89,7 +98,7 @@ class FlightCompanyController extends Controller
 
         $flightCompany->save();
 
-        return redirect()->route('Flights.index');
+        return redirect()->route('Flights.index')->with('success','تم تعديل شركة طيران بنجاح');
     }
 
     /**
@@ -113,6 +122,6 @@ class FlightCompanyController extends Controller
 
         $flight_company->delete();
 
-        return redirect()->route('Flights.index');
+        return redirect()->route('Flights.index')->with('success','تم حذف شركة طيران بنجاح');;
     }
 }

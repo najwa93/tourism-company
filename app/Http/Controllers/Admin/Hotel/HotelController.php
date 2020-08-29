@@ -71,6 +71,13 @@ class HotelController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required|string',
+            'country' => 'required',
+            'city' => 'required',
+            'phone' => 'required|string'
+        ]);
+
         $hotel = new Hotel();
         $hotel->name = $request->input('name');
         $hotel->country_id = $request->country;
@@ -95,7 +102,7 @@ class HotelController extends Controller
             }
         }
 
-        return redirect()->route('Hotels.index');
+        return redirect()->route('Hotels.index')->with('success','تم إضافة فندق جديد بنجاح');
     }
 
     /**
@@ -158,6 +165,13 @@ class HotelController extends Controller
      */
     public function update(Request $request, $hotel_id)
     {
+        $this->validate($request, [
+            'name' => 'required|string',
+            'country' => 'required',
+            'city' => 'required',
+            'phone' => 'required|string'
+        ]);
+
         $hotel = Hotel::findOrfail($hotel_id);
 
         $hotelImages = HotelImage::where('hotel_id', $hotel_id)->get();
@@ -191,7 +205,7 @@ class HotelController extends Controller
         }
 
 
-        return redirect()->route('Hotels.index');
+        return redirect()->route('Hotels.index')->with('success','تم تعديل فندق بنجاح');;
     }
 
     /**

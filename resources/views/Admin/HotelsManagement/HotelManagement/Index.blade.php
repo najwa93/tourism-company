@@ -17,6 +17,7 @@
     margin-top: -1px;
     opacity: 0.9;
     }
+
 @endsection
 
 @section('content')
@@ -24,6 +25,7 @@
                 style="font-size: 40px; margin-top:9%; color: white; font-weight: bold; margin-right: 12%;"><span
                     class="glyphicon glyphicon-cutlery" style="color: orange;"></span>&nbsp;إدارة الفـنـادق</label>
     </div>
+
     <div class="container">
         <br>
         <a href="{{route('Hotels.create')}}" style="text-decoration:none ;">
@@ -34,6 +36,13 @@
             </button>
         </a>
         <br>
+
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success" style="text-align: center" role="alert">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <span style="font-size: 25px;text-align: center;font-weight: bold">{{ $message }}</span>
+            </div>
+        @endif
         <div class="row">
             <div class="col-md-4 col-xs-12" style="float: right;">
                 <label style=" font-size: 22px; color:#64AEF7; font-weight: bold; "><span
@@ -93,5 +102,7 @@
             </tbody>
         </table>
     </div>
+    <div style="text-align: center" class="btnstyle"> <a href="{{route('Main.index')}}"> <button type="button" class="btn " style="color: white; width:215px;height: 41px; background-color:#74828F;font-size: 20px;padding: 4px ;font-weight: bold">&nbsp;عودة إلى إدارة الموقع </button></a></div><br>
+
     <br>
 @endsection

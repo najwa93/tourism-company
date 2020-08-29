@@ -15,14 +15,14 @@ class CreateFlightsTable extends Migration
     {
         Schema::create('flights', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('economy_seats_count');
-            $table->integer('first_class_seats_count');
-            $table->float('economy_ticket_price');
-            $table->float('first_class_ticket_price');
-            $table->string('flight_duration');
-            $table->string('date');
-            $table->string('time');
-            $table->string('updated_time');
+            $table->integer('economy_seats_count')->nullable();
+            $table->integer('first_class_seats_count')->nullable();
+            $table->float('economy_ticket_price')->nullable();
+            $table->float('first_class_ticket_price')->nullable();
+            $table->string('flight_duration')->nullable();
+            $table->string('date')->nullable();
+            $table->string('time')->nullable();
+            $table->string('updated_time')->nullable();
 
             $table->integer('source_city_id')->unsigned()->nullable();
             $table->foreign('source_city_id')->references('id')->on('cities')->onDelete('cascade');

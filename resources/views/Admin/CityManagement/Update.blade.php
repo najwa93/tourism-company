@@ -21,8 +21,7 @@
     {{csrf_field()}}
     @method('PUT')
     <div class="p1"><label
-                style="font-size: 40px; margin-top:9%; color: white; font-weight: bold; margin-right: 12%;"><span
-                    class="glyphicon glyphicon-globe" style="color: orange;"></span>&nbsp;تعديل مدينة</label></div>
+                style="font-size: 40px; margin-top:9%; color: white; font-weight: bold; margin-right: 12%;"><span class="glyphicon glyphicon-pencil" style="color: orange;"></span>&nbsp;تعديل مدينة</label></div>
     <br>
     <br>
     <div class="container">
@@ -40,14 +39,11 @@
                            value="{{$city->name}}" style="font-size: 22px; color: black;">
                 </div>
                 @error('cityname')
-                <div class="alert alert-danger">{{ $message }}</div>
+                <div class="alert alert-danger">يرجى إدخال اسم المدينة</div>
                 @enderror
                 <div class="form-group ">
                     <label for="usr">عــن الـمـديـنـة</label>
-                    <textarea class="form-control" name="aboutcity" placeholder="أدخــل مـعـلـومـات عـن الـمــديـنـة"
-                              style="text-align:right;font-size:22px; color: black;" rows="4">
-                        {{$city->description}}
-                    </textarea>
+                    <textarea class="form-control" name="aboutcity" placeholder="أدخــل مـعـلـومـات عـن الـمــديـنـة" style="text-align:right;font-size:22px; color: black;" rows="4">{{$city->description}}</textarea>
                 </div>
                 <div class="form-group ">
                     <label for="usr">مـوقــع الـمـديـنـة</label>
@@ -56,7 +52,7 @@
                            value="{{$city->city_location}}" style="font-size: 22px; color: black;">
                 </div>
                 @error('location')
-                <div class="alert alert-danger">{{ $message }}</div>
+                <div class="alert alert-danger">يرجى إدخال موقع المدينة</div>
                 @enderror
 
                 @if($city->cityImgs != null || [])

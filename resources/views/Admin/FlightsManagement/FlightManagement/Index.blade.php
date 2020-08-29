@@ -40,6 +40,12 @@
         </div>
         <br>
         <br>
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success" style="text-align: center" role="alert">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <span style="font-size: 25px;text-align: center;font-weight: bold">{{ $message }}</span>
+            </div>
+        @endif
         <div style="text-align: center; color:#64AEF7; font-size: 28px;"><label>&nbsp;&nbsp;قــائـــمـــة رحـلات
                 الطـيـران</label></div>
         <!-- Table -->
@@ -113,6 +119,8 @@
         <br>
         <br>
         <br>
+        <div style="text-align: center" class="btnstyle"> <a href="{{route('Main.index')}}"> <button type="button" class="btn " style="color: white; width:215px;height: 41px; background-color:#74828F;font-size: 20px;padding: 4px ;font-weight: bold">&nbsp;عودة إلى إدارة الموقع </button></a></div><br>
+
         <hr>
         <div class="row">
             <div class="col-xs-12" style="float: left;">

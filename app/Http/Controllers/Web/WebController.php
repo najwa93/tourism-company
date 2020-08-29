@@ -380,6 +380,7 @@ class WebController extends Controller
             $user = Auth::user();
             $room = HotelRoom::where('id', $roomId)->first();
             $hotel = Hotel::where('id', $hotelId)->first();
+            //return $user;
             return view('Web.Search.Hotel.completeReservation', compact('room', 'hotel', 'user'));
         } else {
             return redirect()->intended();
@@ -391,11 +392,21 @@ class WebController extends Controller
         $this->validate($request, ['credit' => 'required', 'credit_number' => 'required|numeric|min:0']);
         $user = Auth::user();
         $room = HotelRoom::where('id', $roomId)->first();
-
-        if ($room->is_available == 0){
+        $user->credit = $request->input('credit');
+        $userBalance = $request->input('credit_number');
+        if ($userBalance < $room->night_price) {
+            return redirect()->back()->with('error', 'الرصيد غيركافي لعملية الحجز');
+        }
+        $checkResevations = HotelReservation::where('user_id',$user->id)->get();
+        foreach ($checkResevations as $check){
+            if ($check->room_id == $room->id ){
+                return redirect()->back()->with('error','لقد قمت بعملية الحجز مسبقا');
+            }
+        }
+      /*  if ($room->is_available == 0){
           //  return "hello";
             return redirect()->back()->with('error','لقد قمت بعملية الحجز مسبقا');
-        }
+        }*/
         $room->is_available = 0;
         $room->save();
         $hotelReservation = new HotelReservation();
@@ -410,12 +421,8 @@ class WebController extends Controller
         $hotelReservation->is_booked = true;
         $hotelReservation->reservation_cost = $room->night_price;
         $hotelReservation->save();
-        $user->credit = $request->input('credit');
-        $userBalance = $request->input('credit_number');
-        if ($userBalance < $room->night_price) {
-            return redirect()->back()->with('error', 'الرصيد غيركافي لعملية الحجز');
-        }
-        $user->credit_number = $request->input('credit_number');
+
+        $user->credit_balance = $request->input('credit_number');
         $user->save();
         return redirect()->route('showUserReservations')->with('success', 'تمت عملية حجز فندق بنجاح');;
     }

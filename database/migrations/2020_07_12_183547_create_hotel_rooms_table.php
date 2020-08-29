@@ -21,10 +21,10 @@ class CreateHotelRoomsTable extends Migration
             $table->integer('room_type_id')->unsigned()->nullable();
             $table->foreign('room_type_id')->references('id')->on('room_types')->onDelete('cascade');
 
-            $table->integer('customers_count');
-            $table->string('details');
-            $table->string('name');
-            $table->float('night_price');
+            $table->integer('customers_count')->nullable();
+            $table->string('details')->nullable();
+            $table->string('name')->nullable();
+            $table->float('night_price')->nullable();
             $table->boolean('is_available')->default(false);
             $table->timestamps();
         });

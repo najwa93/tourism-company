@@ -99,6 +99,8 @@
             </tbody>
         </table>
     </div>
+    <div style="text-align: center"> <a href="{{route('Countries.index')}}"> <button type="button" class="btn btn-success" style="color: white; width: 170px;height: 41px; font-size: 20px;padding: 4px ;font-weight: bold">&nbsp;عودة إلى قائمة البلدان</button></a></div><br>
+
     <br>
 @endsection
 

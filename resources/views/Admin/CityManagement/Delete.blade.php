@@ -26,14 +26,14 @@
     @method('DELETE')
     <div class="p1"><label
                 style="font-size: 40px; margin-top:9%; color: white; font-weight: bold; margin-right: 12%;"><span
-                    class="glyphicon glyphicon-globe" style="color: orange;"></span>&nbsp;حذف مدينة
+                    class="glyphicon glyphicon-remove" style="color: orange;"></span>&nbsp;حذف مدينة
            </label></div>
     <br>
     <br>
     <div class="container">
         <div class="col-md-6 col-xs-12" style="float: right;">
             <label style=" font-size: 25px;
-    color:#f73917; font-weight: bold;"><span class="glyphicon glyphicon-download" style="color:#f73917"></span>&nbsp; هل تـريـد بالتأكيد القيـام بعملـية حـذف مدينة ؟</label>
+    color:#f73917; font-weight: bold;"><span class="glyphicon glyphicon-remove" style="color:#f73917"></span>&nbsp; هل تـريـد بالتأكيد القيـام بعملـية حـذف مدينة ؟</label>
             <br>
             <br>
             <br>
@@ -42,21 +42,19 @@
                 <div class="form-group ">
                     <label for="usr">اســم الـمـديـنـة</label>
                     <input type="text" class="form-control" name="cityname" placeholder="أدخــل اســم الـمــديــنــة"
-                           value="{{$city->name}}" style="font-size: 22px; color: black;">
+                           value="{{$city->name}}" style="font-size: 22px; color: black;" readonly>
                 </div>
                 <div class="form-group ">
                     <label for="usr">عــن الـمـديـنـة</label>
-                    <textarea class="form-control" name="aboutcity" placeholder="أدخــل مـعـلـومـات عـن الـمــديـنـة"
-                              style="text-align:right;font-size:22px; color: black;" rows="4">
-                        {{$city->description}}
-                    </textarea>
+                    <textarea class="form-control" name="aboutcity" placeholder="أدخــل مـعـلـومـات عـن الـمــديـنـة" style="text-align:right;font-size:22px; color: black;" rows="4" readonly>{{$city->description}}</textarea>
                 </div>
                 <div class="form-group ">
                     <label for="usr">مـوقــع الـمـديـنـة</label>
                     <input type="text" class="form-control" name="location" id="usr"
                            placeholder="أدخـل مـوقـع الـمــديــنــة مــن خـرائــط غـوغـل"
-                           value="{{$city->city_location}}" style="font-size: 22px; color: black;">
+                           value="{{$city->city_location}}" style="font-size: 22px; color: black;" readonly>
                 </div>
+
                 <div class="form-group">
                     <label for="flag">صـور مـن الـمـديـنـة</label>
                     <div class="panel-body">
@@ -64,13 +62,14 @@
                             <img src="{{url('/images/'.$cityImg->img_path)}}" style="width: 150px;height: 140px;">
                         @endforeach
                     </div>
-
                 </div>
+
                 <br>
                 <button type="submit" class="btn btn-info" name="btnsave"
                         style="color: white; width: 100px;height: 40px; font-size: 20px;"><span
-                            class="glyphicon glyphicon-floppy-save" style="color: #ff3928;"></span>&nbsp;حذف
+                            class="glyphicon glyphicon-remove" style="color: #ff3928;"></span>&nbsp;حذف
                 </button>
+                <a href="{{route('Countries.show',$city->country_id)}}"> <button type="button" class="btn btn-warning" style="color: white; width: 84px;height: 41px; font-size: 20px;padding: 4px ;font-weight: bold">&nbsp;إلغاء</button></a><br>
 
             </div>
         </div>

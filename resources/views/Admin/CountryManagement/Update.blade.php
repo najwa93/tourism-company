@@ -28,7 +28,7 @@
     <div class="p1">
         <div class="p1"><label
                     style="font-size: 40px; margin-top:9%; color: white; font-weight: bold; margin-right: 12%;"><span
-                        class="glyphicon glyphicon-globe" style="color: orange;"></span>&nbsp;تعديل بلد</label></div>
+                        class="glyphicon glyphicon-pencil" style="color: orange;"></span>&nbsp;تعديل بلد</label></div>
     </div>
     @if ($message = Session::get('error'))
         <div class="alert alert-danger" style="text-align: center" role="alert">
@@ -54,7 +54,7 @@
                                style="font-size: 22px; color: black;">
                     </div>
                     @error('countryname')
-                    <div class="alert alert-danger">{{ $message }}</div>
+                    <div class="alert alert-danger">يرجى إدخال اسم البلد</div>
                     @enderror
                     <br>
 
@@ -70,7 +70,7 @@
                             style="color: white; width: 100px;height: 40px; font-size: 20px;"><span
                                 class="glyphicon glyphicon-floppy-save" style="color: orange;"></span>&nbsp;تعديل
                     </button>
-                    <a href="{{route('Countries.index')}}"> <button type="button" class="btn btn-warning" style="color: white; width: 84px;height: 41px; font-size: 20px;padding: 4px ;font-weight: bold">&nbsp;إالغاء</button></a><br>
+                    <a href="{{route('Countries.index')}}"> <button type="button" class="btn btn-warning" style="color: white; width: 84px;height: 41px; font-size: 20px;padding: 4px ;font-weight: bold">&nbsp;إلغاء</button></a><br>
 
                 </div>
             </form>
