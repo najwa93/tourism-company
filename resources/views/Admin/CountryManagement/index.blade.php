@@ -40,8 +40,6 @@
         </div>
     @endif
 
-
-
     <div class="row">
         <div class="col-md-4 col-xs-12" style="float: right;">
             <label style=" font-size: 22px; color:#64AEF7; font-weight: bold; "><span class="glyphicon glyphicon-search"

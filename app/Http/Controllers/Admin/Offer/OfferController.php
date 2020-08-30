@@ -196,7 +196,10 @@ class OfferController extends Controller
             'seats_count' => 'required',
             'flight_degree' => 'required',
             'customers_count' => 'required',
-
+            'flight' => 'required',
+            'returned_flight' => 'required',
+            'room' => 'required',
+            'price' => 'required'
         ]);
         $offer = new Offer();
         $offer->customers_count = $request->input('customers_count');
@@ -326,13 +329,13 @@ class OfferController extends Controller
     public function update(Request $request, $offer_id)
     {
         $this->validate($request, [
-            'flight' => 'required',
-            'returned_flight' => 'required',
+            //'flight' => 'required',
+            //'returned_flight' => 'required',
             'seats_count' => 'required',
             'flight_degree' => 'required',
             'customers_count' => 'required',
-            'room' => 'required'
-
+          //  'room' => 'required'
+           'price' => 'required'
         ]);
         $editedOffer = Offer::findOrfail($offer_id);
         $editedOffer->customers_count = $request->input('customers_count');

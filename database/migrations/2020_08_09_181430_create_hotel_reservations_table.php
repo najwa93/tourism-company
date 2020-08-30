@@ -27,10 +27,10 @@ class CreateHotelReservationsTable extends Migration
             $table->integer('offer_id')->unsigned()->nullable();
             $table->foreign('offer_id')->references('id')->on('offers');
 
-            $table->string('check_in_date');
-            $table->string('check_out_date');
-            $table->float('reservation_cost');
-            $table->boolean('is_booked');
+            $table->string('check_in_date')->nullable();
+            $table->string('check_out_date')->nullable();
+            $table->float('reservation_cost')->nullable();
+            $table->boolean('is_booked')->nullable();
             $table->timestamps();
         });
     }

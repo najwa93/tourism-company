@@ -144,7 +144,7 @@ class UserController extends Controller
             $user->save();
         }
 
-        return redirect()->back();
+        return redirect()->route('Users.index')->with('success','تم تعديل صلاحية المستخدم بنجاح');
     }
 
     /**

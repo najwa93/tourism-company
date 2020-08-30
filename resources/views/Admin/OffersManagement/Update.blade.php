@@ -173,7 +173,7 @@
                     <input type="number" name="seats_count" min="1" max="500" class="form-control" id="usrname"
                            value="{{$editedOffer->seats_number}}" placeholder="ادخل  عدد المقاعـد">
                     @error('seats_count')
-                    <div class="alert alert-danger col-xs-6">يرجى اختيارعدد مقاعد الرحلة </div>
+                    <div class="alert alert-danger col-xs-6">يرجى تحديدعدد مقاعد الرحلة </div>
                     @enderror
                 </div>
                 <div class="col-md-6 col-xs-12" style="float: right;">
@@ -206,6 +206,9 @@
                         العرض </label><br>
                     <input type="text" name="price" class="form-control"
                            value="{{$editedOffer->price}}" placeholder="ادخل سعرالعرض ">
+                    @error('price')
+                    <div class="alert alert-danger">يرجى تحديد سعر العرض </div>
+                    @enderror
                 </div>
 
             </div>
@@ -280,7 +283,7 @@
                                placeholder="أدخــل  عدد المسافرين"
                                value="{{$editedOffer->customers_count}}" style="font-size: 20px; color: black;">
                         @error('customers_count')
-                        <div class="alert alert-danger">يرجى اختيارعدد المسافرين </div>
+                        <div class="alert alert-danger">يرجى تحديدعدد المسافرين </div>
                         @enderror
                     </div>
                     <div class="form-group ">

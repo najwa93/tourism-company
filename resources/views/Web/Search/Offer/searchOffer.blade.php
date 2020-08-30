@@ -4,7 +4,7 @@
 
     .p1 {
     margin-top: 0;
-    background-image: url('{{asset("images/test.png")}}');
+    background-image: url('{{asset("images/reservation.png")}}');
     background-size: cover;
     height: 600px;
     overflow-y: auto;
@@ -69,13 +69,14 @@
                 @endforeach
                 </tbody>
             </table>
-            <div class="col-sm" style="margin-top: 100px;text-align: center"><a href="{{route('home_page.index')}}"> <button type="submit" class="btn btn-success" style="color: white; width: 84px;height: 41px; font-size: 20px;padding: 4px ;font-weight: bold">&nbsp;العودة</button></a><br>
                 @else
                     <div class="alert alert-warning" style="text-align: center "  role="alert">
                         <span style="font-size: 25px;text-align: center;font-weight: bold"> لاتوجد نتائج </span>
                     </div>
                 @endif
-                <br>
+                <div class="col-sm" style="margin-top: 100px;text-align: center"><a href="{{route('home_page.index')}}"> <button type="submit" class="btn btn-success" style="color: white; width: 84px;height: 41px; font-size: 20px;padding: 4px ;font-weight: bold">&nbsp;العودة</button></a><br>
+
+                    <br>
             <br>
         </div>
     </div>

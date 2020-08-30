@@ -98,7 +98,7 @@
         <br>
         <hr>
         <br>
-        <div style="text-align: center" class="btnstyle"> <a href="{{route('Main.index')}}"> <button type="button" class="btn " style="color: white; width:215px;height: 41px; background-color:#74828F;font-size: 20px;padding: 4px ;font-weight: bold">&nbsp;عودة إلى إنشاء عرض سياحي </button></a></div><br>
+        <div style="text-align: center" class="btnstyle"> <a href="{{route('Offers.create')}}"> <button type="button" class="btn " style="color: white; width:215px;height: 41px; background-color:#74828F;font-size: 20px;padding: 4px ;font-weight: bold">&nbsp;عودة إلى إنشاء عرض سياحي </button></a></div><br>
 
         <div style="text-align: center; color:#64AEF7; font-size: 28px;"><label>رحـلـة العـودة</label></div>
 
@@ -168,7 +168,7 @@
                 <input type="number" name="seats_count" min="1" max="500" class="form-control" id="usrname" value="{{old('seats_count')}}"
                        placeholder="ادخل  عدد المقاعـد">
                 @error('seats_count')
-                <div class="alert alert-danger col-xs-6">يرجى اختيارعدد مقاعد الرحلة </div>
+                <div class="alert alert-danger col-xs-6">يرجى تحديد عدد مقاعد الرحلة </div>
                 @enderror
             </div>
 
@@ -198,6 +198,10 @@
                     العرض </label><br>
                 <input type="text" name="price" class="form-control" value="{{old('price')}}"
                        placeholder="ادخل سعرالعرض ">
+                @error('price')
+                <div class="alert alert-danger col-xs-6">يرجى تحديد سعر العرض</div>
+                @enderror
+
             </div>
 
         </div>
@@ -270,7 +274,7 @@
                         value="{{old('customers_count')}}"   style="font-size: 20px; color: black;">
                 </div>
                 @error('customers_count')
-                <div class="alert alert-danger">يرجى اختيارعدد المسافرين </div>
+                <div class="alert alert-danger">يرجى تحديدعدد المسافرين </div>
                 @enderror
                 <div class="form-group ">
                     <label for="usr">التفاصيل</label>

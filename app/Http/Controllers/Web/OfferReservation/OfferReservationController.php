@@ -106,6 +106,13 @@ class OfferReservationController extends Controller
         $offer = Offer::where('id',$offerId)->first();
         $flight = Flight::where('id',$flightId)->first();
       // return $offer;
+        $user->credit = $request->input('credit');
+        $userBalance = $request->input('credit_number');
+        if ($userBalance < $offer->price) {
+            return redirect()->back()->with('error', 'الرصيد غيركافي لعملية الحجز');
+        }
+        $user->credit_balance = $request->input('credit_number');
+        $user->save();
         $offersCheck = OfferReservation::where('user_id',$user->id)->first();
 
             if ($offersCheck != null){
@@ -150,13 +157,7 @@ class OfferReservationController extends Controller
         $offerReservation->date = $flight->date;
         $offerReservation->time = $flight->time;
         $offerReservation->save();
-        $user->credit = $request->input('credit');
-        $userBalance = $request->input('credit_number');
-        if ($userBalance < $offer->price) {
-            return redirect()->back()->with('error', 'الرصيد غيركافي لعملية الحجز');
-        }
-        $user->credit_number = $request->input('credit_number');
-        $user->save();
+
         return redirect()->route('showUserReservations')->with('success', 'تمت عملية حجز العرض بنجاح');
     }
     /**

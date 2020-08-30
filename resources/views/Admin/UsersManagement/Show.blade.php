@@ -63,6 +63,7 @@
         <label>{{$user_data['credit']}}</label><hr><br><br>
 
     </div>
+    <div style="text-align: center" class="btnstyle"> <a href="{{route('Users.index')}}"> <button type="button" class="btn " style="color: white; width:215px;height: 41px; background-color:#74828F;font-size: 20px;padding: 4px ;font-weight: bold">&nbsp;عودة</button></a></div><br>
 
 @endsection
 {{--

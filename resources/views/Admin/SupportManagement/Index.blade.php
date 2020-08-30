@@ -158,18 +158,23 @@
             <textarea class="form-control" placeholder="أدخــل  الرسـالـة " name="msg-users" style="text-align: right; font-size:20px; "
                       rows="4">
     </textarea>
+            @error('msg-users')
+            <div class="alert alert-danger">يرجى إدخال الرسالة </div>
+            @enderror
             <br>
             <button type="submit" class="btn btn-info"
                     style="color: white; width: 100px;height: 40px; font-size: 20px;"><span
                         class="glyphicon glyphicon-send" style="color: orange;"></span>&nbsp;إرسـال
             </button>
-            <a href="{{route('messages')}}">
-                <button type="button" class="btn btn-info"
-                        style="color: white; width: 100px;height: 40px; font-size: 20px;"> إلـغاء
-                </button>
-            </a>
+            {{--<a href="{{route('messages')}}">--}}
+                {{--<button type="button" class="btn btn-info"--}}
+                        {{--style="color: white; width: 100px;height: 40px; font-size: 20px;"> إلـغاء--}}
+                {{--</button>--}}
+            {{--</a>--}}
         </div>
         </form>
     </div>
     <br><br>
+    <div style="text-align: center" class="btnstyle"> <a href="{{route('Main.index')}}"> <button type="button" class="btn " style="color: white; width:215px;height: 41px; background-color:#74828F;font-size: 20px;padding: 4px ;font-weight: bold">&nbsp;عودة إلى إدارة الموقع </button></a></div><br>
+
 @endsection

@@ -138,6 +138,9 @@ class SupportController extends Controller
 
     public function send_email_for_users(Request $request)
     {
+        $this->validate($request, [
+            'msg-users' => 'required',
+        ]);
         $replyMsg = $request->input('msg-users');
         $data = ['replyMsg' => $replyMsg];
 

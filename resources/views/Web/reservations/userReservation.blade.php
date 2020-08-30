@@ -47,11 +47,10 @@
                     class="glyphicon glyphicon-user" style="color: orange;"></span>&nbsp;قائمة الحجوزات
     </div>
         @if ($message = Session::get('success'))
-            <div class="alert alert-success" role="alert">
+            <div class="alert alert-success" style="text-align: center" role="alert">
                 <button type="button" class="close" data-dismiss="alert">×</button>
-                <span style="font-size: 15px;text-align: center;font-weight: bold">{{ $message }}</span>
+                <span style="font-size: 25px;text-align: center;font-weight: bold"> {{ $message  }}</span>
             </div>
-
         @endif
         <div class="container" style="color: #64AEF7; font-size: 20px;">
             <h1 style="font-weight: bold">الحجز الفندقي</h1>
