@@ -36,10 +36,7 @@
     @if ($message = Session::get('success'))
         <div class="alert alert-success" style="text-align: center" role="alert">
             <button type="button" class="close" data-dismiss="alert">×</button>
-            <div class="alert alert-warning" style="text-align: center "  role="alert">
                 <span style="font-size: 25px;text-align: center;font-weight: bold"> {{ $message  }}</span>
-            </div>
-
         </div>
     @endif
 

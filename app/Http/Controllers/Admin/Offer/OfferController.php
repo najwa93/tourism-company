@@ -86,6 +86,12 @@ class OfferController extends Controller
 
     public function completeOffer(Request $request)
     {
+        $this->validate($request, [
+            'city' => 'required',
+            'country' => 'required',
+            'destcity' => 'required',
+            'destcountry' => 'required',
+        ]);
         $flightDegrees = FlightDegree::all();
         $s_city = $request->input('city');
         $dest_city = $request->input('destcity');
@@ -158,7 +164,7 @@ class OfferController extends Controller
         //dd($search_flights);
 
         //return all flight for going flight
-        if (count($search_flights)>0){
+
             $data = [];
             $allData = [];
             foreach ($search_flights as $search_flight){
@@ -175,9 +181,6 @@ class OfferController extends Controller
                 array_push($allData, $data);
             }
             return view('Admin.OffersManagement.AddOfferDetails',compact(['allData','allReturnedData','allHotelData','flightDegrees']));
-        }else{
-            echo "<h1>لايوجـد نتـائـج</h1>";
-        }
 
     }
 
@@ -189,7 +192,12 @@ class OfferController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'seats_count' => 'required',
+            'flight_degree' => 'required',
+            'customers_count' => 'required',
 
+        ]);
         $offer = new Offer();
         $offer->customers_count = $request->input('customers_count');
         $offer->seats_number = $request->input('seats_count');
@@ -208,7 +216,7 @@ class OfferController extends Controller
         //$offer->status = $request->input('flight') == 'true' ? 1 : 0;
         $offer->save();
 
-        return redirect()->route('Offers.create');
+        return redirect()->route('Offers.index')->with('success','تم إنشاء عرض سياحي جديد بنجاح');
     }
 
     /**
@@ -239,9 +247,10 @@ class OfferController extends Controller
             ->with('returned_flight.flight_company')
             ->with('returned_flight.source_city')
             ->with('returned_flight.destination_city')
-            ->with('hotel.hotel_room.room_type')
-            ->with('hotel.city')
-            ->with('hotel.country')
+           // ->with('hotel.hotel_room.room_type')
+           // ->with('hotel.city')
+           // ->with('hotel.country')
+            ->with('room.hotel')
                 ->get();
      // return $offer;
         $data = [];
@@ -280,18 +289,25 @@ class OfferController extends Controller
             $data['returned_flight_economy_ticket_price'] = $value['returned_flight']['economy_ticket_price'];
             $data['returned_flight_first_class_ticket_price'] = $value['returned_flight']['first_class_ticket_price'];
 
+          //  return $value['room']['hotel'];
             // hotel
-            $data['hotel_id'] = $value['hotel']['id'];
-            $data['hotel_name'] = $value['hotel']['name'];
-            $data['hotel_city'] = $value['hotel']['city']['name'];
-            $data['hotel_country'] = $value['hotel']['country']['name'];
-            foreach ($value['hotel']['hotel_room'] as $hotelRoom) {
+            $data['hotel_id'] = $value['room']['hotel']['id'];
+            //return $data;
+            $data['hotel_name'] = $value['room']['hotel']['name'];
+            $data['hotel_city'] = $value['room']['hotel']['city']['name'];
+            $data['hotel_country'] = $value['room']['hotel']['country']['name'];
+            $data['hotelRoom_id'] = $value['room']['id'];
+            $data['hotelRoom_name'] = $value['room']['name'];
+            $data['hotelRoom_customers_count'] = $value['room']['customers_count'];
+            $data['hotelRoom_night_price'] = $value['room']['night_price'];
+            $data['hotelRoom_type'] = $value['room']->room_type->name;
+            /*foreach ($value['hotel']['hotel_room'] as $hotelRoom) {
                 $data['hotelRoom_name'] = $hotelRoom['name'];
                 $data['hotelRoom_customers_count'] = $hotelRoom['customers_count'];
                 $data['hotelRoom_night_price'] = $hotelRoom['night_price'];
                 $data['hotelRoom_type'] = $hotelRoom['room_type']['name'];
 
-            }
+            }*/
             array_push($allData,$data);
         }
        //return $allData;
@@ -309,6 +325,15 @@ class OfferController extends Controller
      */
     public function update(Request $request, $offer_id)
     {
+        $this->validate($request, [
+            'flight' => 'required',
+            'returned_flight' => 'required',
+            'seats_count' => 'required',
+            'flight_degree' => 'required',
+            'customers_count' => 'required',
+            'room' => 'required'
+
+        ]);
         $editedOffer = Offer::findOrfail($offer_id);
         $editedOffer->customers_count = $request->input('customers_count');
         $editedOffer->seats_number = $request->input('seats_count');
@@ -319,7 +344,7 @@ class OfferController extends Controller
 
         $editedOffer->save();
 
-        return redirect()->route('Offers.index');
+        return redirect()->route('Offers.index')->with('success','تم تعديل العرض بنجاح');
     }
 
     public function delete($offer_id){
@@ -332,9 +357,10 @@ class OfferController extends Controller
             ->with('returned_flight.flight_company')
             ->with('returned_flight.source_city')
             ->with('returned_flight.destination_city')
-            ->with('hotel.hotel_room.room_type')
-            ->with('hotel.city')
-            ->with('hotel.country')
+            //->with('hotel.hotel_room.room_type')
+          //  ->with('hotel.city')
+           // ->with('hotel.country')
+          ->with('room.hotel')
             ->get();
         // return $offer;
         $data = [];
@@ -374,20 +400,19 @@ class OfferController extends Controller
             $data['returned_flight_first_class_ticket_price'] = $value['returned_flight']['first_class_ticket_price'];
 
             // hotel
-            $data['hotel_id'] = $value['hotel']['id'];
-            $data['hotel_name'] = $value['hotel']['name'];
-            $data['hotel_city'] = $value['hotel']['city']['name'];
-            $data['hotel_country'] = $value['hotel']['country']['name'];
-            foreach ($value['hotel']['hotel_room'] as $hotelRoom) {
-                $data['hotelRoom_name'] = $hotelRoom['name'];
-                $data['hotelRoom_customers_count'] = $hotelRoom['customers_count'];
-                $data['hotelRoom_night_price'] = $hotelRoom['night_price'];
-                $data['hotelRoom_type'] = $hotelRoom['room_type']['name'];
-
-            }
+            $data['hotel_id'] = $value['room']['hotel']['id'];
+            //return $data;
+            $data['hotel_name'] = $value['room']['hotel']['name'];
+            $data['hotel_city'] = $value['room']['hotel']['city']['name'];
+            $data['hotel_country'] = $value['room']['hotel']['country']['name'];
+            $data['hotelRoom_id'] = $value['room']['id'];
+            $data['hotelRoom_name'] = $value['room']['name'];
+            $data['hotelRoom_customers_count'] = $value['room']['customers_count'];
+            $data['hotelRoom_night_price'] = $value['room']['night_price'];
+            $data['hotelRoom_type'] = $value['room']->room_type->name;
             array_push($allData,$data);
         }
-
+        // return $allData;
         return view('Admin.OffersManagement.Delete',compact('editedOffer','allData','flightDegrees'));
     }
     /**
@@ -399,19 +424,10 @@ class OfferController extends Controller
     public function destroy($offer_id)
     {
         $offer = Offer::where('id',$offer_id)
-            ->with('flight.flight_company')
-            ->with('flight.source_city')
-            ->with('flight.destination_city')
-            ->with('returned_flight.flight_company')
-            ->with('returned_flight.source_city')
-            ->with('returned_flight.destination_city')
-            ->with('hotel.hotel_room.room_type')
-            ->with('hotel.city')
-            ->with('hotel.country')
             ->first();
 
         $offer->delete();
 
-        return redirect()->route('Offers.index');
+        return redirect()->route('Offers.index')->with('success','تمت عملية الحذف بنجاح');
     }
 }

@@ -5,6 +5,7 @@ namespace App\Models\Admin\Offer;
 use App\Models\Admin\Flight\Flight;
 use App\Models\Admin\Flight\FlightDegree;
 use App\Models\Admin\Hotel\Hotel;
+use App\Models\Admin\Hotel\HotelRoom;
 use App\Models\User\FlightReservation\FlightReservation;
 use App\Models\User\HotelReservation\HotelReservation;
 use Illuminate\Database\Eloquent\Model;
@@ -21,10 +22,13 @@ class Offer extends Model
         return $this->belongsTo(Flight::class,'returned_flight_id');
     }
 
-    public function hotel(){
-        return $this->belongsTo(Hotel::class);
-    }
+//    public function hotel(){
+//        return $this->belongsTo(Hotel::class);
+//    }
 
+    public function room(){
+        return $this->belongsTo(HotelRoom::class);
+    }
     public function flight_degree(){
         return $this->belongsTo(FlightDegree::class);
     }

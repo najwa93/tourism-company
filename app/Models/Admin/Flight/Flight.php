@@ -22,7 +22,7 @@ class Flight extends Model
     }
 
     public function offer(){
-        return $this->hasOne(Offer::class);
+        return $this->hasMany(Offer::class);
     }
 
     public function flight_reservation(){

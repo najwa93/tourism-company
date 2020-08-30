@@ -91,7 +91,7 @@ Route::prefix('Admin')->group(function () {
     Route::get('/getCities/{id}','Admin\Offer\OfferController@getCities' );
     Route::get('/getDestCities/{id}','Admin\Offer\OfferController@getDestCities' );
     Route::get('showOfferDetails','Admin\Offer\OfferController@showOfferDetails' )->name('showOfferDetails');
-    Route::post('/completeOffer','Admin\Offer\OfferController@completeOffer' )->name('completeOffer');
+    Route::get('/completeOffer','Admin\Offer\OfferController@completeOffer' )->name('completeOffer');
     Route::get('Offers/{offer}/delete', 'Admin\Offer\OfferController@delete')->name('Offers.delete');
 
     //User Management

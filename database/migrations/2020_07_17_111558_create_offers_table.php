@@ -15,13 +15,13 @@ class CreateOffersTable extends Migration
     {
         Schema::create('offers', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('customers_count');
-            $table->integer('seats_number');
-            $table->float('price');
-            $table->string('offer_duration');
-            $table->string('phone_number');
-            $table->string('details');
-            $table->boolean('status');
+            $table->integer('customers_count')->nullable();
+            $table->integer('seats_number')->nullable();
+            $table->float('price')->nullable();
+            $table->string('offer_duration')->nullable();
+           // $table->string('phone_number')->nullable();
+            $table->string('details')->nullable();
+            $table->boolean('status')->nullable();
 
             $table->integer('flight_degree_id')->unsigned()->nullable();
             $table->foreign('flight_degree_id')->references('id')->on('flight_degrees')->onDelete('cascade');
