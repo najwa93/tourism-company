@@ -76,6 +76,9 @@
     .form .register-form {
         display: none;
     }
+    .user-icon{
+        color: orange;
+    }
 </style>
 @section('content')
 
@@ -83,7 +86,7 @@
         <div class="form">
             <form method="POST" action="{{ route('login') }}" class="login-form">
                 {{ csrf_field() }}
-               <span style="font-weight: bold;color: grey;margin-bottom: 10px;font-size: 23px">تسجيل الدخول<i class="fas fa-user-alt"></i></span><br/><hr>
+               <span style="font-weight: bold;color: grey;margin-bottom: 10px;font-size: 23px">تسجيل الدخول<i class="fas fa-user-alt user-icon"></i></span><br/><hr>
                 <label style="font-weight: bold;color: grey;margin-bottom: 10px;margin-left: 185px">البريد الإلكتروني:</label>
                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"
                        value="{{ old('email') }}" required autocomplete="email" autofocus>

@@ -118,7 +118,7 @@ class SupportController extends Controller
         //$msg->markAsRead();
 
         //return $message;
-        return redirect()->route('messages');
+        return redirect()->route('messages')->with('success','تم إرسال الرد');
     }
 
     public function show_as_rate(Request $request, $messageId)

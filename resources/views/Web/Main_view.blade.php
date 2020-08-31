@@ -63,12 +63,12 @@
                         <span style="font-size: 15px;text-align: center;font-weight: bold">يرجى إدخال اسم المدينة</span>
                     </div>
                     @enderror
-                    @if ($message = Session::get('success'))
+                   {{-- @if ($message = Session::get('success'))
                         <div class="alert alert-success" role="alert">
                             <button type="button" class="close" data-dismiss="alert">×</button>
                             <span style="font-size: 25px;text-align: center;font-weight: bold">{{ $message }}</span>
                         </div>
-                    @endif
+                    @endif--}}
                 </div><br>
                 <div class="row">
                     <div class="col-md-6 col-xs-12" style="float: right;">

@@ -306,7 +306,7 @@
                     <label style="margin: 17px 0;font-size: 23px">الاسم الأخير:</label>
                     <input id="last_name" type="text"
                            class="form-control @error('last_name') is-invalid @enderror"
-                           name="last_name" value="{{ $user->last_name }}" required
+                           name="last_name" value="{{ $user->last_name }}" 
                            autocomplete="last_name" autofocus placeholder="أدخل الاسم  الأخير">
 
                     @error('last_name')

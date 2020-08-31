@@ -106,7 +106,7 @@ class OfferController extends Controller
             ->with('destination_city')
             ->with('flight_company')
         ->get();
-
+           // return $search_flights;
         $return_search_flights = Flight::where([['source_city_id',$destination_city->id],['destination_city_id',$source_city->id]])
             ->with('source_city')
             ->with('destination_city')
@@ -180,6 +180,8 @@ class OfferController extends Controller
                 $data['flight_company'] = $search_flight['flight_company']->name;
                 array_push($allData, $data);
             }
+
+            //return $allData;
             return view('Admin.OffersManagement.AddOfferDetails',compact(['allData','allReturnedData','allHotelData','flightDegrees']));
 
     }

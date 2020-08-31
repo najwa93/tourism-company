@@ -16,7 +16,7 @@ class City extends Model
     }
 
     public function cityImage(){
-        return $this->hasMany(City::class);
+        return $this->hasMany(CityImage::class);
     }
 
     public function hotel(){

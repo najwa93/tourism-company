@@ -124,23 +124,23 @@ class UserController extends Controller
     public function update(Request $request, $user_id)
     {
         $user = User::where('id',$user_id)->first();
-        $userRole = \App\Models\User\Role::where('id',$request->input('role'))->first();
-     //   return $userRole;
+        $userRole = \App\Models\User\Role::where('id',$request->role)->first();
+      // return $userRole;
         if ($userRole->name != 'User') {
-            $old_user = User::where('role_id', $request->input('role'))->first();
+            $old_user = User::where('role_id', $request->role)->first();
             if (!$old_user){
-                $user->role_id = $request->input('role');
+                $user->role_id = $request->role;
                 $user->save();
             }else{
                 $old_user->role_id = 8;
                 $old_user->save();
-                $user->role_id = $request->input('role');
+                $user->role_id = $request->role;
                 $user->save();
             }
 
 
         }else{
-            $user->role_id = $request->input('role');
+            $user->role_id = $request->role;
             $user->save();
         }
 

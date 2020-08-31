@@ -10,6 +10,7 @@ use App\Models\Admin\Offer\Offer;
 use App\Models\User\FlightReservation\FlightReservation;
 use App\Models\User\HotelReservation\HotelReservation;
 use App\Models\User\OfferReservation\OfferReservation;
+use Faker\ORM\Spot\ColumnTypeGuesser;
 use function foo\func;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -80,7 +81,8 @@ class OfferReservationController extends Controller
     {
         $offer = Offer::where('id',$offerId)->first();
         $flight = Flight::where('id',$flightId)->first();
-        //return $flight->destination_city->name;
+        $city = City::where('id',$flight->destination_city_id)->first();
+       // return $city->cityImage;
         $returned_flight = Flight::where('id',$offer->returned_flight_id)->first();
         $room = HotelRoom::where('id',$offer->room_id)->first();
         $hotel = Hotel::where('id',$room->hotel_id)->first();

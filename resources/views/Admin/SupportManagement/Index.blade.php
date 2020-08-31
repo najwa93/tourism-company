@@ -30,18 +30,17 @@
         <br>
         <br/>
         @if ($message = Session::get('warning'))
-            <div class="alert alert-warning" role="alert">
+            <div class="alert alert-warning" role="alert" style="text-align: center">
                 <button type="button" class="close" data-dismiss="alert">×</button>
                 <span style="font-size: 15px;text-align: center;font-weight: bold">{{ $message }}</span>
             </div>
 
         @endif
         @if ($message = Session::get('success'))
-            <div class="alert alert-success " role="alert">
+            <div class="alert alert-success" role="alert">
                 <button type="button" class="close" data-dismiss="alert">×</button>
-                <span style="font-size: 15px;text-align: center;font-weight: bold">{{ $message }}</span>
+                <span style="font-size: 25px;text-align: center;font-weight: bold">{{ $message }}</span>
             </div>
-
         @endif
         <div style="text-align: center; color:#64AEF7; font-size: 28px;"><label>&nbsp;&nbsp;قــائـــمـــة
                 الـرســائـل</label></div>

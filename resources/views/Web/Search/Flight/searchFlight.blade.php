@@ -4,7 +4,7 @@
 
     .p1 {
     margin-top: 0;
-    background-image: url('{{asset("images/test.png")}}');
+    background-image: url('{{asset("images/reservation.png")}}');
     background-size: cover;
     height: 600px;
     overflow-y: auto;
@@ -68,7 +68,7 @@
                         <td>{{$flight['destination_city']}}</td>
                         <td>{{$flight['date']}}</td>
                         <td>{{$flight['time']}}</td>
-                        <td>{{$flight['ticket_price']}}$</td>
+                        <td>${{$flight['ticket_price']}}</td>
                         <th scope="col"><a href="{{route('flightDetails',$flight['flight_id'])}}"><button type="button" class="btn btn-warning" style="color: white; width: 120px;height: 35px; font-size: 20px;padding: 4px ">&nbsp;احجز الاّن</button></a><br>
                     </tr>
                 @endforeach

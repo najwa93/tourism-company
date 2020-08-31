@@ -45,7 +45,7 @@
                         </div>
                         <div class="buttons" style="margin: 20px;">
                         <a href="{{ route('hotelReservation',['hotel' => $hotel->id,'room' => $room->id])}}"><button type="button" class="btn btn-info"  name="btnsave" style="color: white; height: 40px; font-size: 20px;"><span class="glyphicon glyphicon-floppy-save" style="color: orange;"></span>&nbsp;احجز الاّن</button></a>
-                            <a href="{{ route('home_page.index')}}"><button type="submit" class="btn btn-info" name="btnsave" style="color: white; height: 40px; font-size: 20px;"><span class="glyphicon glyphicon-floppy-save" style="color: orange;"></span>&nbsp;الغاء</button></a>
+                            <a href="{{ route('home_page.index')}}"><button type="submit" class="btn btn-info" name="btnsave" style="color: white; height: 40px; font-size: 20px;"><span class="glyphicon glyphicon-remove" style="color: orange;"></span>&nbsp;الغاء</button></a>
                         </div>
                     </div>
 

@@ -109,7 +109,7 @@ class WebController extends Controller
          $message->save();
 
          Notification::send($user,new Msg($message));*/
-        return redirect()->back();
+        return redirect()->back()->with('success','تم إرسال الرسالة سيتم الرد عليكم بأقرب وقت');
 
     }
 
@@ -216,7 +216,6 @@ class WebController extends Controller
         $this->validate($request, ['email' => 'string', 'email', 'max:255', 'unique:users',
             'first_name' => ['required', 'string', 'max:255'],
             'user_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['string', 'max:255','nullable'],
             'phone_number' => ['max:255'],
             'c_password' => ['required'],]);
         $user = Auth::user();
@@ -295,9 +294,9 @@ class WebController extends Controller
         //return "heelo";
         $checkInDate = $request->input('datepicker');
         $checkOutDate = $request->input('datepicker1');
-        if ($checkInDate >= $checkOutDate) {
+       /* if ($checkInDate >= $checkOutDate) {
             return redirect()->route('searchFlights')->with('warning', 'لاتوجدنتائج');
-        }
+        }*/
 
 
         $hotels = [];

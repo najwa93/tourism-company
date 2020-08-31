@@ -134,7 +134,10 @@
                         <h3><span style="color: #FFA500;font-weight: bold;margin-bottom: 20px">  حول المدينة :</span> {{$flight->destination_city->description}}</h3>
                         <h3><span style="color: #FFA500;font-weight: bold;margin-bottom: 20px">   صور من المدينة :</span></h3>
                         <div class="autoplay">
-
+                            @foreach($flight->destination_city->cityImage as $img)
+                                <img src="{{url('/images/'.$img->img_path)}}"
+                                     style="width: 250px;height: 200px; margin: 10px" alt="city Image">
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -142,7 +145,7 @@
         </div>
         <div class="buttons" style="margin: 20px;">
             <a href="{{route('offerReservation',['offer' => $offer->id,'flight' => $flight->id])}}"><button type="button" class="btn btn-info"  name="btnsave" style="color: white; height: 40px; font-size: 20px;"><span class="glyphicon glyphicon-floppy-save" style="color: orange;"></span>&nbsp;احجز الاّن</button></a>
-            <button type="button" class="btn btn-info" name="btnsave" style="color: white; height: 40px; font-size: 20px;"><span class="glyphicon glyphicon-floppy-save" style="color: orange;"></span>&nbsp;الغاء</button>
+            <a href="{{ route('home_page.index')}}"><button type="submit" class="btn btn-info" name="btnsave" style="color: white; height: 40px; font-size: 20px;"><span class="glyphicon glyphicon-remove" style="color: orange;"></span>&nbsp;الغاء</button></a>
         </div>
     </div>
 

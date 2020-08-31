@@ -53,7 +53,7 @@
             </div>
         @endif
         <div class="container" style="color: #64AEF7; font-size: 20px;">
-            <h1 style="font-weight: bold">الحجز الفندقي</h1>
+            <h2 style="font-weight: bold;color:black;text-align: center;margin-bottom: 30px">الحجز الفندقي</h2>
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -98,7 +98,7 @@
                 </tbody>
             </table>
 
-            <h1 style="font-weight: bold">حجز رحلات الطيران</h1>
+            <h2 style="font-weight: bold;color:black;text-align: center;margin-bottom: 30px">حجز رحلات الطيران</h2>
             <table class="table table-striped">
                 <thead>
                 <tr>
