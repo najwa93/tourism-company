@@ -215,7 +215,12 @@ class OfferController extends Controller
         $offer->flight_id = $flightVal;
         $returnedFlightVal =  $request->input('returned_flight');
         $offer->returned_flight_id = $returnedFlightVal;
-        $roomId =  $request->input('room');
+       // $roomId =  $request->input('room');
+        $rooms = $request->input('rooms');
+        foreach($rooms as $room){
+            orders::create($service);
+        }
+        $roomId =  $request->input('services');
        // $room = HotelRoom::where('id',$roomId)->first();
         $offer->room_id = $roomId;
         //$offer->status = $request->input('flight') == 'true' ? 1 : 0;

@@ -27,7 +27,7 @@ class Offer extends Model
 //    }
 
     public function room(){
-        return $this->belongsTo(HotelRoom::class);
+        return $this->hasMany(HotelRoom::class);
     }
     public function flight_degree(){
         return $this->belongsTo(FlightDegree::class);

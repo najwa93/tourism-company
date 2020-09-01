@@ -188,7 +188,7 @@
 
             <div class="col-md-6 col-xs-12" style="margin-top: 10px;">
                 <label style="color:#64AEF7;"><span class="glyphicon glyphicon-gift" style="color: orange;"></span>&nbsp;مدة
-                    العرض </label><br>
+                    الرحلة </label><br>
                 <input type="text" name="offer_duration" class="form-control" value="{{old('offer_duration')}}"
                        placeholder="ادخل  مدة العرض ">
             </div>
@@ -242,8 +242,8 @@
             <tbody style="text-align: center;" dir="ltr">
             @foreach($allHotelData as $value)
                 <tr>
-                    <td><input type="radio" name="room" value="{{$value['hotel_room_id']}}"  {{old('room') == $value['hotel_room_id'] ? 'checked':''}}></td>
-
+                    {{--<td><input type="radio" name="room" value="{{$value['hotel_room_id']}}"  {{old('room') == $value['hotel_room_id'] ? 'checked':''}}></td>--}}
+                    <td><input type="checkbox" name="rooms[]" value="{{$value['hotel_room_id']}}"/></td>
                     <td>{{$value['hotel']}}</td>
                     <td>{{$value['country']}}</td>
                     <td>{{$value['city']}}</td>

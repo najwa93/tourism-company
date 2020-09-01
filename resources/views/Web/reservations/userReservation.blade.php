@@ -72,7 +72,7 @@
                         <td>{{$reservation['room_type']}}</td>
                         <td>{{$reservation['customers_count']}}</td>
                         <td>{{$reservation['room_details']}}</td>
-                        <td>{{$reservation['customers_count']}}</td>
+                        <td>${{$reservation['night_price']}}</td>
                         @if($reservation['offer_id'] != null)
                             <td><i class="fas fa-user-check"></i></td>
                         @else

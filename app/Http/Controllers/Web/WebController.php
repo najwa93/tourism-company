@@ -216,7 +216,6 @@ class WebController extends Controller
         $this->validate($request, ['email' => 'string', 'email', 'max:255', 'unique:users',
             'first_name' => ['required', 'string', 'max:255'],
             'user_name' => ['required', 'string', 'max:255'],
-            'phone_number' => ['max:255'],
             'c_password' => ['required'],]);
         $user = Auth::user();
         if ($this->check($request->input('c_password'))) {

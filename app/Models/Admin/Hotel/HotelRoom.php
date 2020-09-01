@@ -2,6 +2,7 @@
 
 namespace App\Models\Admin\Hotel;
 
+use App\Models\Admin\Offer\Offer;
 use App\Models\User\HotelReservation\HotelReservation;
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,5 +19,9 @@ class HotelRoom extends Model
 
     public function hotelReservation(){
         return $this->hasMany(HotelReservation::class);
+    }
+
+    public function room(){
+        return $this->belongsTo(Offer::class);
     }
 }

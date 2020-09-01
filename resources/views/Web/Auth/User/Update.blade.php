@@ -306,7 +306,7 @@
                     <label style="margin: 17px 0;font-size: 23px">الاسم الأخير:</label>
                     <input id="last_name" type="text"
                            class="form-control @error('last_name') is-invalid @enderror"
-                           name="last_name" value="{{ $user->last_name }}" 
+                           name="last_name" value="{{ $user->last_name }}"
                            autocomplete="last_name" autofocus placeholder="أدخل الاسم  الأخير">
 
                     @error('last_name')
@@ -331,7 +331,7 @@
                         <label style="margin: 17px 0;font-size: 23px">رقم الهاتف:</label>
                         <input id="phone_number" type="text"
                                class="form-control @error('phone_number') is-invalid @enderror"
-                               name="phone_number" value="{{ $user->phone_number }}" required
+                               name="phone_number" value="{{ $user->phone_number }}"
                                autocomplete="phone_number" autofocus placeholder="أدخل  رقم الهاتف">
 
                         @error('phone_number')
