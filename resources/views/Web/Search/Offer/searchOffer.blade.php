@@ -48,24 +48,31 @@
         <div class="well" style="font-size: 25px;font-weight: bold; color: #64AEF7; text-align: center;"><span class="glyphicon glyphicon-user" style="color: orange;"></span>&nbsp;قائمة رحلات الطيران
         </div>
         <div class="container" style="color: #64AEF7; font-size: 20px;">
-            @if($offer_data != null | [])
+            @if($searched_data != null | [])
             <table class="table table-striped">
                 <thead>
                 <tr>
                     <th scope="col">البلد</th>
                     <th scope="col">المدينة</th>
                     <th scope="col">التاريخ</th>
+                    <th scope="col">سعر العرض</th>
+                    <th scope="col">الفندق</th>
+                    <th scope="col">نوع الغرفة</th>
                     <th>التفاصيل</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($offer_data as $offer)
+                @foreach($searched_data as $offer)
                     <tr>
                         <td>{{$offer['country']}}</td>
                         <td>{{$offer['destination_city']}}</td>
                         <td>{{$offer['date']}}</td>
+                        <td>${{$offer['price']}}</td>
+                        <td>{{$offer['room']->hotel->name}}</td>
+                        <td>{{$offer['room']->room_type->name}}</td>
                         <th scope="col"><a href="{{route('offerDetails',['offer' => $offer['offer_id'],'flight' => $offer['flight_id']])}}"><button type="button" class="btn btn-warning" style="color: white; width: 120px;height: 35px; font-size: 20px;padding: 4px ">&nbsp;التفاصيل</button></a><br>
                     </tr>
+
                 @endforeach
                 </tbody>
             </table>

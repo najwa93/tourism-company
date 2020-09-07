@@ -60,36 +60,57 @@ class OfferReservationController extends Controller
             $query->where('name', 'like', '%' . $dest_city . '%');
         })
             ->get();
-       // return $offers;
+        //return $offers;
+       /* foreach ($offers as $offer){
+            $offer_room = $offer->room;
+            $data['room'] = $offer_room;
+        }*/
+       // return $data;
+       $searched_data = [];
         $data = [];
         $offer_data = [];
         foreach ($offers as $offer) {
                 $flight = Flight::where('id',$offer->flight_id)->first();
                 $data['offer_id'] = $offer->id;
+                $data['price'] = $offer->price;
                 $data['flight_id'] = $flight->id;
                 $data['country'] = $flight->destination_city->country->name;
                 $data['destination_city'] = $flight->destination_city->name;
                 $data['date'] = $flight->date;
-                array_push($offer_data, $data);
+            foreach($offer->room as $offerRoom) {
+                if ($offerRoom->is_available != 0){
+                 $data['room'] = $offerRoom;
+                 $searched_data[] = $data;
+                }
+
+            }
+
+                //array_push($offer_data, $data);
         }
-        //return $offer_data;
-        return view('Web.Search.Offer.searchOffer', compact('offer_data'));
+    // return $searched_data;
+        return view('Web.Search.Offer.searchOffer', compact('searched_data'));
     }
 
     // offer details
     public function offerDetails( $offerId, $flightId)
     {
-        $offer = Offer::where('id',$offerId)->first();
+        $offer = Offer::where('id',$offerId)
+            ->with('room')
+            ->first();
+        //return $offer;
         $flight = Flight::where('id',$flightId)->first();
+        //return $flight;
         $city = City::where('id',$flight->destination_city_id)->first();
        // return $city->cityImage;
         $returned_flight = Flight::where('id',$offer->returned_flight_id)->first();
-        $room = HotelRoom::where('id',$offer->room_id)->first();
+
+        $room = HotelRoom::where('offer_id',$offer->id)->first();
+       // return $room;
         $hotel = Hotel::where('id',$room->hotel_id)->first();
        //return $hotel;
       //  return $returned_flight;
         //return $offer_data;
-        return view('Web.Search.Offer.searchOfferDetails', compact('offer','flight','returned_flight','hotel'));
+        return view('Web.Search.Offer.searchOfferDetails', compact('offer','flight','returned_flight','hotel','room'));
     }
 
     public function offerReservation($offerId,$flightId){
@@ -106,14 +127,15 @@ class OfferReservationController extends Controller
         $this->validate($request, ['credit' => 'required', 'credit_number' => 'required|numeric|min:0']);
         $user = Auth::user();
         $offer = Offer::where('id',$offerId)->first();
+        $offer_price = $offer->price;
         $flight = Flight::where('id',$flightId)->first();
       // return $offer;
         $user->credit = $request->input('credit');
         $userBalance = $request->input('credit_number');
-        if ($userBalance < $offer->price) {
+        if ($userBalance < $offer_price) {
             return redirect()->back()->with('error', 'الرصيد غيركافي لعملية الحجز');
         }
-        $user->credit_balance = $request->input('credit_number');
+        $user->credit_balance = $userBalance - $offer_price;
         $user->save();
         $offersCheck = OfferReservation::where('user_id',$user->id)->first();
 
@@ -143,7 +165,9 @@ class OfferReservationController extends Controller
        // return  $flightReservation;
         $hotelReservation = new HotelReservation();
         $hotelReservation->user_id = Auth::user()->id;
-        $room = HotelRoom::where('id',$offer->room_id)->first();
+        $room = HotelRoom::where('offer_id',$offer->id)->first();
+        $room->is_available = 0;
+        $room->save();
         $hotel = Hotel::where('id',$room->hotel_id)->first();
         $hotelReservation->hotel_id =$hotel->id;
         $hotelReservation->room_id =$room->id;
@@ -158,6 +182,7 @@ class OfferReservationController extends Controller
         $offerReservation->offer_id = $offer->id;
         $offerReservation->date = $flight->date;
         $offerReservation->time = $flight->time;
+
         $offerReservation->save();
 
         return redirect()->route('showUserReservations')->with('success', 'تمت عملية حجز العرض بنجاح');

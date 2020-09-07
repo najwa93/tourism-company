@@ -196,8 +196,10 @@
             <div class="col-md-6 col-xs-12" style="margin-top: 10px;">
                 <label style="color:#64AEF7;"><span class="glyphicon glyphicon-gift" style="color: orange;"></span>&nbsp;سعر
                     العرض </label><br>
-                <input type="text" name="price" class="form-control" value="{{old('price')}}"
+                <input type="text" name="price" id="price" class="col-xs-8 form-control" value="{{old('price')}}"
                        placeholder="ادخل سعرالعرض ">
+                <label for="price"
+                       class=" col-form-label text-md-right" style="border:2px solid #FFA500;margin: 1px 5px;padding: 1px 6px;border-radius: 5px;font-size: 20px"><span style="color: black">$</span></label>
                 @error('price')
                 <div class="alert alert-danger col-xs-6">يرجى تحديد سعر العرض</div>
                 @enderror
@@ -250,11 +252,11 @@
                     <td>{{$value['hotel_room']}}</td>
                     <td>{{$value['hotel_room_type']}}</td>
                     <td>{{$value['customers_count']}}</td>
-                    <td>{{$value['night_price']}}</td>
+                    <td>${{$value['night_price']}}</td>
                 </tr>
             @endforeach
             </tbody>
-            @error('room')
+            @error('rooms')
             <div class="alert alert-danger">يرجى اختيار رحلة الفندق </div>
             @enderror
         </table>

@@ -173,6 +173,6 @@ class CityController extends Controller
         }
         $city->delete();
 
-        return redirect()->route('Countries.show', $country->id);
+        return redirect()->route('Countries.show', $country->id)->with('success','تم حذف مدينة بنجاح');
     }
 }

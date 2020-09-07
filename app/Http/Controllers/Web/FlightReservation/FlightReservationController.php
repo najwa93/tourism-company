@@ -147,7 +147,11 @@ class FlightReservationController extends Controller
             }
             $flightReservation->save();
 
-            $user->credit_balance = $request->input('credit_number');
+            $ticket_price = $flightReservation->reservation_price;
+            $balance = $request->input('credit_number');
+
+            $user->credit_balance = $balance - $ticket_price;
+            $user->credit_balance = $balance - $ticket_price;
             $user->save();
             $flightReservation->save();
             //$hotelReservation->check_in_date = $request->session()->get('checkin');

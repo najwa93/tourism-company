@@ -42,7 +42,7 @@
                             @endif
                             <h3><span style="color: #FFA500;font-weight: bold;margin-bottom: 20px">  معلومات عن الفندق :</span> {{$hotel->details}}</h3>
                             <h3><span style="color: #FFA500;font-weight: bold;margin-bottom: 20px">  تفاصيل الغرفة :</span> {{$room->details}}</h3>
-                            <a href="{{$hotel->location}}" class="btn btn-success" target="_blank" style="font-size: 17px;font-weight: bold">استعرض موقع الفندق</a>
+                            <a href="{{$hotel->location}}" class="btn btn-success" target="_blank" style="font-size: 17px;font-weight: bold">استعراض موقع الفندق</a>
                         </div>
                         <div class="buttons" style="margin: 20px;">
                         <a href="{{ route('hotelReservation',['hotel' => $hotel->id,'room' => $room->id])}}"><button type="button" class="btn btn-info"  name="btnsave" style="color: white; height: 40px; font-size: 20px;"><span class="glyphicon glyphicon-floppy-save" style="color: orange;"></span>&nbsp;احجز الاّن</button></a>

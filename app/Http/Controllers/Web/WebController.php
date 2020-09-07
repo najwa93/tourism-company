@@ -319,7 +319,7 @@ class WebController extends Controller
             $hotel_rooms = HotelRoom::where('hotel_id', $hotel->id)->where('is_available', '=', 1)
                 ->where('customers_count', '=', $customers_count)
                 ->get();
-
+            //return $hotels;
             // array_push($hotels,$hotel_rooms);
             $hotels[] = $hotel_rooms;
         }
@@ -341,7 +341,7 @@ class WebController extends Controller
             }
         }
 
-        //return $hotel_data;
+       // return $hotel_data;
 
         return view('Web.Search.Hotel.searchHotel', compact('hotel_data'));
     }
@@ -420,7 +420,9 @@ class WebController extends Controller
         $hotelReservation->reservation_cost = $room->night_price;
         $hotelReservation->save();
 
-        $user->credit_balance = $request->input('credit_number');
+        $night_price = $room->night_price;
+        $balance = $request->input('credit_number');
+        $user->credit_balance = $balance - $night_price;
         $user->save();
         return redirect()->route('showUserReservations')->with('success', 'تمت عملية حجز فندق بنجاح');;
     }
@@ -452,6 +454,7 @@ class WebController extends Controller
                 $hotel['hotel_reservation_id'] = $hotelReserv->id;
                 $hotel['hotel_id'] = $hotelReserv->hotel_id;
                 $hotel['hotel'] = $hotelReserv->hotel->name;
+                $hotel['city'] = $hotelReserv->hotel->city->name;
                 $hotel['room_type'] = $hotelReserv->room->room_type->name;
                 $hotel['room_details'] = $hotelReserv->room->details;
                 $hotel['night_price'] = $hotelReserv->reservation_cost;
@@ -468,6 +471,8 @@ class WebController extends Controller
                 $flight['date'] = $flightReserv->flight->date;
                 $flight['time'] = $flightReserv->flight->time;
                 $flight['flight_degree'] = $flightReserv->flight_degree->name;
+                $flight['reservation_price'] = $flightReserv->reservation_price;
+
                 $flight['offer_id'] = $flightReserv->offer_id;
                 array_push($flight_reservation_data, $flight);
             }
@@ -493,6 +498,7 @@ class WebController extends Controller
         $room = HotelRoom::where('id', $roomId)->first();
 
         $room->is_available = true;
+
         $room->save();
         $hotelReservation->delete();
 
@@ -507,6 +513,13 @@ class WebController extends Controller
             $offer_reservation = OfferReservation::where('offer_id',$flightReservation->offer_id)->first();
             $offer_reservation->delete();
             $hotel_reservation = HotelReservation::where('offer_id',$flightReservation->offer_id)->first();
+            $roomId = $hotel_reservation->room_id;
+
+            $room = HotelRoom::where('id', $roomId)->first();
+
+            $room->is_available = true;
+
+            $room->save();
             $hotel_reservation->delete();
         }
 

@@ -118,6 +118,10 @@
                                      style="width: 250px;height: 200px; margin: 10px" alt="hotel Image">
                             @endforeach
                         </div>
+                        <h3><span style="color: #FFA500;font-weight: bold;margin-bottom: 20px">  تفاصيل الغرفة :</span></h3>
+                        <div>
+                            <h3><span style="font-weight: bold;margin-bottom: 20px">{{$room->details}}</span></h3>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -139,6 +143,8 @@
                                      style="width: 250px;height: 200px; margin: 10px" alt="city Image">
                             @endforeach
                         </div>
+                        <a href="{{$flight->destination_city->city_location}}" class="btn btn-success" target="_blank" style="font-size: 17px;font-weight: bold">استعراض موقع المدينة</a>
+
                     </div>
                 </div>
             </div>

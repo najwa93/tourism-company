@@ -25,7 +25,7 @@ class CreateHotelsTable extends Migration
             $table->string('phone_number');
             $table->string('email')->nullable();
             $table->string('details')->nullable();;
-            $table->string('location')->nullable();
+            $table->text('location')->nullable();
             $table->timestamps();
         });
     }

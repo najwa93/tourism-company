@@ -25,14 +25,14 @@
     <br>
     <div class="container">
         <br>
-        <div class="col-md-6 col-xs-12" style="float: right;">
+        <div  style="float: right;">
             <label style=" font-size: 25px;
     color: orange; font-weight: bold;"><span class="glyphicon glyphicon-pencil" style="color: orange;"></span>&nbsp;
                تعديل عرض سياحي</label>
             <hr>
             <br>
             <br>
-    <form action="{{route('Offers.update',$editedOffer->id)}}" method="post">
+    <form action="{{route('Offers.update',$data['offer_id'])}}" method="post">
         {{csrf_field()}}
         @method('PUT')
         <div class="container" style="font-size: 18px;">
@@ -77,22 +77,22 @@
                 </tr>
                 </thead>
                 <tbody style="text-align: center;" dir="ltr">
-                @foreach($allData as $value)
+
                     <tr>
                         {{--<td><input type="radio" {{ ($value['flight_id'] == $editedOffer->flight_id)? "checked" : "" }} value="{{$value['flight_id']}}" name="flight"></td>--}}
-                        <td><input type="radio" checked value="{{$value['flight_id']}}" name="flight"></td>
+                        <td><input type="radio" checked value="{{$data['flight_id']}}" name="flight"></td>
 
-                        <td>{{$value['flight_source_city']}}</td>
-                        <td>{{$value['flight_destination_city']}}</td>
-                        <td>{{$value['flight_date']}}</td>
-                        <td>{{$value['flight_time']}}</td>
-                        <td>{{$value['flight_company']}}</td>
-                        <td>{{$value['flight_economy_seats_count']}}</td>
-                        <td>{{$value['flight_first_class_seats_count']}}</td>
-                        <td>{{$value['flight_economy_ticket_price']}}</td>
-                        <td>{{$value['flight_first_class_ticket_price']}}</td>
+                        <td>{{$data['flight_source_city']}}</td>
+                        <td>{{$data['flight_destination_city']}}</td>
+                        <td>{{$data['flight_date']}}</td>
+                        <td>{{$data['flight_time']}}</td>
+                        <td>{{$data['flight_company']}}</td>
+                        <td>{{$data['flight_economy_seats_count']}}</td>
+                        <td>{{$data['flight_first_class_seats_count']}}</td>
+                        <td>${{$data['flight_economy_ticket_price']}}</td>
+                        <td>${{$data['flight_first_class_ticket_price']}}</td>
                     </tr>
-                @endforeach
+
                 </tbody>
                 @error('flight')
                 <div class="alert alert-danger">يرجى اختيار رحلة الذهاب </div>
@@ -143,21 +143,21 @@
                 </tr>
                 </thead>
                 <tbody style="text-align: center;" dir="ltr">
-                @foreach($allData as $value)
+
                     <tr>
-                        <td><input type="radio" name="returned_flight" checked value="{{$value['returned_flight_id']}}">
+                        <td><input type="radio" name="returned_flight" checked value="{{$data['returned_flight_id']}}">
                         </td>
-                        <td>{{$value['returned_flight_source_city']}}</td>
-                        <td>{{$value['returned_flight_destination_city']}}</td>
-                        <td>{{$value['returned_flight_date']}}</td>
-                        <td>{{$value['returned_flight_time']}}</td>
-                        <td>{{$value['returned_flight_company']}}</td>
-                        <td>{{$value['returned_flight_economy_seats_count']}}</td>
-                        <td>{{$value['returned_flight_first_class_seats_count']}}</td>
-                        <td>{{$value['returned_flight_economy_ticket_price']}}</td>
-                        <td>{{$value['returned_flight_first_class_ticket_price']}}</td>
+                        <td>{{$data['returned_flight_source_city']}}</td>
+                        <td>{{$data['returned_flight_destination_city']}}</td>
+                        <td>{{$data['returned_flight_date']}}</td>
+                        <td>{{$data['returned_flight_time']}}</td>
+                        <td>{{$data['returned_flight_company']}}</td>
+                        <td>{{$data['returned_flight_economy_seats_count']}}</td>
+                        <td>{{$data['returned_flight_first_class_seats_count']}}</td>
+                        <td>${{$data['returned_flight_economy_ticket_price']}}</td>
+                        <td>${{$data['returned_flight_first_class_ticket_price']}}</td>
                     </tr>
-                @endforeach
+
                 </tbody>
                 @error('returned_flight')
                 <div class="alert alert-danger">يرجى اختيار رحلة العودة </div>
@@ -171,7 +171,7 @@
                     <label style="color:#64AEF7;"><span class="glyphicon glyphicon-user" style="color: orange;"></span>&nbsp;عـدد
                         المقاعـد</label><br>
                     <input type="number" name="seats_count" min="1" max="500" class="form-control" id="usrname"
-                           value="{{$editedOffer->seats_number}}" placeholder="ادخل  عدد المقاعـد">
+                           value="{{$data['seats_number']}}" placeholder="ادخل  عدد المقاعـد">
                     @error('seats_count')
                     <div class="alert alert-danger col-xs-6">يرجى تحديدعدد مقاعد الرحلة </div>
                     @enderror
@@ -182,7 +182,7 @@
                         الرحلـة </label><br>
                     <select id="country" name="flight_degree" class="form-control">
                         @foreach($flightDegrees as $value)
-                            <option {{$value->id == $editedOffer->flight_degree_id?'selected="selected"':''}} value="{{$value->id}}">{{$value->name}}</option>
+                            <option {{$value->id == $data['flight_degree_id']?'selected="selected"':''}} value="{{$value->id}}">{{$value->name}}</option>
 
                             {{--
                                                     <option {{$value->id == $editedOffer->flight_degree_id?'selected="selected"':''}} value="{{$value->id}}">{{$value->name}}</option>
@@ -196,16 +196,18 @@
 
                 <div class="col-md-6 col-xs-12" style="margin-top: 10px;">
                     <label style="color:#64AEF7;"><span class="glyphicon glyphicon-gift" style="color: orange;"></span>&nbsp;مدة
-                        العرض </label><br>
+                        الرحلة</label><br>
                     <input type="text" name="offer_duration" class="form-control"
-                           value="{{$editedOffer->offer_duration}}" placeholder="ادخل  مدة العرض ">
+                           value="{{$data['offer_duration']}}" placeholder="ادخل  مدة العرض ">
                 </div>
 
                 <div class="col-md-6 col-xs-12" style="margin-top: 10px;">
                     <label style="color:#64AEF7;"><span class="glyphicon glyphicon-gift" style="color: orange;"></span>&nbsp;سعر
                         العرض </label><br>
-                    <input type="text" name="price" class="form-control"
-                           value="{{$editedOffer->price}}" placeholder="ادخل سعرالعرض ">
+                    <input type="text" name="price"  id="price" class="col-xs-8 form-control"
+                           value="{{$data['price']}}" placeholder="ادخل سعرالعرض ">
+                    <label for="price"
+                           class=" col-form-label text-md-right" style="border:2px solid #FFA500;margin: 1px 5px;padding: 1px 6px;border-radius: 5px;font-size: 20px"><span style="color: black">$</span></label>
                     @error('price')
                     <div class="alert alert-danger">يرجى تحديد سعر العرض </div>
                     @enderror
@@ -248,9 +250,13 @@
                 </tr>
                 </thead>
                 <tbody style="text-align: center;" dir="ltr">
-                @foreach($allData as $value)
+
+                @foreach($data['room'] as $value)
                     <tr>
+{{--
                         <td><input type="radio" name="room" checked value="{{$value['hotelRoom_id']}}"></td>
+--}}
+                        <td><input type="checkbox" name="rooms[]" value="{{$value['hotelRoom_id']}}" checked disabled="disabled"/></td>
 
                         <td>{{$value['hotel_name']}}</td>
                         <td>{{$value['hotel_country']}}</td>
@@ -258,7 +264,7 @@
                         <td>{{$value['hotelRoom_name']}}</td>
                         <td>{{$value['hotelRoom_type']}}</td>
                         <td>{{$value['hotelRoom_customers_count']}}</td>
-                        <td>{{$value['hotelRoom_night_price']}}</td>
+                        <td>${{$value['hotelRoom_night_price']}}</td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -281,7 +287,7 @@
                         <label for="usr">عدد المسافرين</label>
                         <input type="number" name="customers_count" min="1" max="500" class="form-control" id="usr"
                                placeholder="أدخــل  عدد المسافرين"
-                               value="{{$editedOffer->customers_count}}" style="font-size: 20px; color: black;">
+                               value="{{$data['customers_count']}}" style="font-size: 20px; color: black;">
                         @error('customers_count')
                         <div class="alert alert-danger">يرجى تحديدعدد المسافرين </div>
                         @enderror
@@ -289,7 +295,7 @@
                     <div class="form-group ">
                         <label for="usr">التفاصيل</label>
                         <textarea class="form-control" name="details" placeholder="تفاصيل العرض"
-                                  style="text-align: right; font-size:20px; color: black;" rows="4"> {{$editedOffer->details}}</textarea>
+                                  style="text-align: right; font-size:20px; color: black;" rows="4"> {{$data['details']}}</textarea>
                     </div>
                     <button type="submit" class="btn btn-info"
                             style="color: white; width: 100px;height: 40px; font-size: 20px;"><span

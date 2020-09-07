@@ -200,7 +200,7 @@ class OfferController extends Controller
             'customers_count' => 'required',
             'flight' => 'required',
             'returned_flight' => 'required',
-            'room' => 'required',
+            'rooms' => 'required',
             'price' => 'required'
         ]);
         $offer = new Offer();
@@ -208,7 +208,7 @@ class OfferController extends Controller
         $offer->seats_number = $request->input('seats_count');
         $offer->flight_degree_id = $request->input('flight_degree');
         $offer->offer_duration = $request->input('offer_duration');
-        $offer->details = $request->input('offer_duration');
+        $offer->details = $request->input('details');
         $offer->price = $request->input('price');
        // $offer->flight_status = $request->input('flight_degree');
         $flightVal =  $request->input('flight');
@@ -217,12 +217,18 @@ class OfferController extends Controller
         $offer->returned_flight_id = $returnedFlightVal;
        // $roomId =  $request->input('room');
         $rooms = $request->input('rooms');
+        $offer->save();
+        //return $rooms;
         foreach($rooms as $room){
-            orders::create($service);
-        }
-        $roomId =  $request->input('services');
+            $offer_room = HotelRoom::where('id',$room)->first();
+            $offer_room->offer_id = $offer->id;
+            //$offer_room->offer_id = $offer->id;
+            $offer_room->save();
+            //return $offer_room;
+         }
+        //$roomId =  $request->input('services');
        // $room = HotelRoom::where('id',$roomId)->first();
-        $offer->room_id = $roomId;
+      //  $offer->room_id = $roomId;
         //$offer->status = $request->input('flight') == 'true' ? 1 : 0;
         $offer->save();
 
@@ -261,68 +267,71 @@ class OfferController extends Controller
            // ->with('hotel.city')
            // ->with('hotel.country')
             ->with('room.hotel')
-                ->get();
-     // return $offer;
+                ->first();
+     //  return $offer;
         $data = [];
-        $allData = [];
-        foreach ($offer as $value){
-            $data['offer_id'] = $value['id'];
-            $data['status'] = $value['status'];
-            $data['customers_count'] = $value['customers_count'];
-            $data['seats_number'] = $value['seats_number'];
-            $data['price'] = $value['price'];
-            $data['offer_duration'] = $value['offer_duration'];
-            $data['details'] = $value['details'];
+        $hotel_data = [];
 
-            // flight details
-            $data['flight_id'] = $value['flight']['id'];
-            $data['flight_source_city'] = $value['flight']['source_city']['name'];
-            $data['flight_destination_city'] = $value['flight']['destination_city']['name'];
-            $data['flight_date'] = $value['flight']['date'];
-            $data['flight_time'] = $value['flight']['time'];
-            $data['flight_company'] = $value['flight']['flight_company']['name'];
-            $data['flight_economy_seats_count'] = $value['flight']['economy_seats_count'];
-            $data['flight_first_class_seats_count'] = $value['flight']['first_class_seats_count'];
-            $data['flight_economy_ticket_price'] = $value['flight']['economy_ticket_price'];
-            $data['flight_first_class_ticket_price'] = $value['flight']['first_class_ticket_price'];
+        $allData = [];
+
+
+            $data['offer_id'] = $offer['id'];
+            //$data['status'] = $offer['status'];
+            $data['customers_count'] = $offer['customers_count'];
+            $data['seats_number'] = $offer['seats_number'];
+            $data['price'] = $offer['price'];
+            $data['offer_duration'] = $offer['offer_duration'];
+            $data['details'] = $offer['details'];
+            $data['flight_degree'] = $offer->flight_degree->name;
+            $data['flight_degree_id'] = $offer->flight_degree_id;
+
+            //return $data;
+            $data['flight_id'] = $offer['flight']['id'];
+            $data['flight_source_city'] = $offer['flight']['source_city']['name'];
+            $data['flight_destination_city'] = $offer['flight']['destination_city']['name'];
+            $data['flight_date'] = $offer['flight']['date'];
+            $data['flight_time'] = $offer['flight']['time'];
+            $data['flight_company'] = $offer['flight']['flight_company']['name'];
+            $data['flight_economy_seats_count'] = $offer['flight']['economy_seats_count'];
+            $data['flight_first_class_seats_count'] = $offer['flight']['first_class_seats_count'];
+            $data['flight_economy_ticket_price'] = $offer['flight']['economy_ticket_price'];
+            $data['flight_first_class_ticket_price'] = $offer['flight']['first_class_ticket_price'];
 
 
             // return flight details
-            $data['returned_flight_id'] = $value['returned_flight']['id'];
-            $data['returned_flight_source_city'] = $value['returned_flight']['source_city']['name'];
-            $data['returned_flight_destination_city'] = $value['returned_flight']['destination_city']['name'];
-            $data['returned_flight_date'] = $value['returned_flight']['date'];
-            $data['returned_flight_time'] = $value['returned_flight']['time'];
-            $data['returned_flight_company'] = $value['returned_flight']['flight_company']['name'];
-            $data['returned_flight_economy_seats_count'] = $value['returned_flight']['economy_seats_count'];
-            $data['returned_flight_first_class_seats_count'] = $value['returned_flight']['first_class_seats_count'];
-            $data['returned_flight_economy_ticket_price'] = $value['returned_flight']['economy_ticket_price'];
-            $data['returned_flight_first_class_ticket_price'] = $value['returned_flight']['first_class_ticket_price'];
+            $data['returned_flight_id'] = $offer['returned_flight']['id'];
+            $data['returned_flight_source_city'] = $offer['returned_flight']['source_city']['name'];
+            $data['returned_flight_destination_city'] = $offer['returned_flight']['destination_city']['name'];
+            $data['returned_flight_date'] = $offer['returned_flight']['date'];
+            $data['returned_flight_time'] = $offer['returned_flight']['time'];
+            $data['returned_flight_company'] = $offer['returned_flight']['flight_company']['name'];
+            $data['returned_flight_economy_seats_count'] = $offer['returned_flight']['economy_seats_count'];
+            $data['returned_flight_first_class_seats_count'] = $offer['returned_flight']['first_class_seats_count'];
+            $data['returned_flight_economy_ticket_price'] = $offer['returned_flight']['economy_ticket_price'];
+            $data['returned_flight_first_class_ticket_price'] = $offer['returned_flight']['first_class_ticket_price'];
+            // return $data;
 
-          //  return $value['room']['hotel'];
             // hotel
-            $data['hotel_id'] = $value['room']['hotel']['id'];
-            //return $data;
-            $data['hotel_name'] = $value['room']['hotel']['name'];
-            $data['hotel_city'] = $value['room']['hotel']['city']['name'];
-            $data['hotel_country'] = $value['room']['hotel']['country']['name'];
-            $data['hotelRoom_id'] = $value['room']['id'];
-            $data['hotelRoom_name'] = $value['room']['name'];
-            $data['hotelRoom_customers_count'] = $value['room']['customers_count'];
-            $data['hotelRoom_night_price'] = $value['room']['night_price'];
-            $data['hotelRoom_type'] = $value['room']->room_type->name;
-            /*foreach ($value['hotel']['hotel_room'] as $hotelRoom) {
-                $data['hotelRoom_name'] = $hotelRoom['name'];
-                $data['hotelRoom_customers_count'] = $hotelRoom['customers_count'];
-                $data['hotelRoom_night_price'] = $hotelRoom['night_price'];
-                $data['hotelRoom_type'] = $hotelRoom['room_type']['name'];
+            foreach ($offer->room as $roomValue) {
 
-            }*/
-            array_push($allData,$data);
-        }
-       //return $allData;
+                $hotel_data['hotel_id'] = $roomValue['hotel']['id'];
 
-        return view('Admin.OffersManagement.Update',compact('editedOffer','allData','flightDegrees'));
+                $hotel_data['hotel_name'] = $roomValue['hotel']['name'];
+                $hotel_data['hotel_city'] =$roomValue['hotel']['city']['name'];
+                $hotel_data['hotel_country'] = $roomValue['hotel']['country']['name'];
+                $hotel_data['hotelRoom_id'] = $roomValue['id'];
+                $hotel_data['hotelRoom_name'] = $roomValue['name'];
+                $hotel_data['hotelRoom_customers_count'] = $roomValue['customers_count'];
+                $hotel_data['hotelRoom_night_price'] = $roomValue['night_price'];
+                $hotel_data['hotelRoom_type'] = $roomValue->room_type->name;
+
+                $data['room'][] = $hotel_data;
+            // array_push($data,$hotel_data);
+            }
+
+       // return $data;
+
+        return view('Admin.OffersManagement.Update',compact('data','allData','flightDegrees'));
 
     }
 
@@ -349,7 +358,7 @@ class OfferController extends Controller
         $editedOffer->seats_number = $request->input('seats_count');
         $editedOffer->flight_degree_id = $request->input('flight_degree');
         $editedOffer->offer_duration = $request->input('offer_duration');
-        $editedOffer->details = $request->input('offer_duration');
+        $editedOffer->details = $request->input('details');
         $editedOffer->price = $request->input('price');
 
         $editedOffer->save();
@@ -371,59 +380,68 @@ class OfferController extends Controller
           //  ->with('hotel.city')
            // ->with('hotel.country')
           ->with('room.hotel')
-            ->get();
+            ->first();
         // return $offer;
         $data = [];
+        $hotel_data = [];
         $allData = [];
-        foreach ($offer as $value){
-            $data['offer_id'] = $value['id'];
-            $data['status'] = $value['status'];
-            $data['customers_count'] = $value['customers_count'];
-            $data['seats_number'] = $value['seats_number'];
-            $data['price'] = $value['price'];
-            $data['offer_duration'] = $value['offer_duration'];
-            $data['details'] = $value['details'];
+        $data['offer_id'] = $offer['id'];
+        //$data['status'] = $offer['status'];
+        $data['customers_count'] = $offer['customers_count'];
+        $data['seats_number'] = $offer['seats_number'];
+        $data['price'] = $offer['price'];
+        $data['offer_duration'] = $offer['offer_duration'];
+        $data['details'] = $offer['details'];
+        $data['flight_degree'] = $offer->flight_degree->name;
+        $data['flight_degree_id'] = $offer->flight_degree_id;
 
-            // flight details
-            $data['flight_id'] = $value['flight']['id'];
-            $data['flight_source_city'] = $value['flight']['source_city']['name'];
-            $data['flight_destination_city'] = $value['flight']['destination_city']['name'];
-            $data['flight_date'] = $value['flight']['date'];
-            $data['flight_time'] = $value['flight']['time'];
-            $data['flight_company'] = $value['flight']['flight_company']['name'];
-            $data['flight_economy_seats_count'] = $value['flight']['economy_seats_count'];
-            $data['flight_first_class_seats_count'] = $value['flight']['first_class_seats_count'];
-            $data['flight_economy_ticket_price'] = $value['flight']['economy_ticket_price'];
-            $data['flight_first_class_ticket_price'] = $value['flight']['first_class_ticket_price'];
+        //return $data;
+        $data['flight_id'] = $offer['flight']['id'];
+        $data['flight_source_city'] = $offer['flight']['source_city']['name'];
+        $data['flight_destination_city'] = $offer['flight']['destination_city']['name'];
+        $data['flight_date'] = $offer['flight']['date'];
+        $data['flight_time'] = $offer['flight']['time'];
+        $data['flight_company'] = $offer['flight']['flight_company']['name'];
+        $data['flight_economy_seats_count'] = $offer['flight']['economy_seats_count'];
+        $data['flight_first_class_seats_count'] = $offer['flight']['first_class_seats_count'];
+        $data['flight_economy_ticket_price'] = $offer['flight']['economy_ticket_price'];
+        $data['flight_first_class_ticket_price'] = $offer['flight']['first_class_ticket_price'];
 
 
-            // return flight details
-            $data['returned_flight_id'] = $value['returned_flight']['id'];
-            $data['returned_flight_source_city'] = $value['returned_flight']['source_city']['name'];
-            $data['returned_flight_destination_city'] = $value['returned_flight']['destination_city']['name'];
-            $data['returned_flight_date'] = $value['returned_flight']['date'];
-            $data['returned_flight_time'] = $value['returned_flight']['time'];
-            $data['returned_flight_company'] = $value['returned_flight']['flight_company']['name'];
-            $data['returned_flight_economy_seats_count'] = $value['returned_flight']['economy_seats_count'];
-            $data['returned_flight_first_class_seats_count'] = $value['returned_flight']['first_class_seats_count'];
-            $data['returned_flight_economy_ticket_price'] = $value['returned_flight']['economy_ticket_price'];
-            $data['returned_flight_first_class_ticket_price'] = $value['returned_flight']['first_class_ticket_price'];
+        // return flight details
+        $data['returned_flight_id'] = $offer['returned_flight']['id'];
+        $data['returned_flight_source_city'] = $offer['returned_flight']['source_city']['name'];
+        $data['returned_flight_destination_city'] = $offer['returned_flight']['destination_city']['name'];
+        $data['returned_flight_date'] = $offer['returned_flight']['date'];
+        $data['returned_flight_time'] = $offer['returned_flight']['time'];
+        $data['returned_flight_company'] = $offer['returned_flight']['flight_company']['name'];
+        $data['returned_flight_economy_seats_count'] = $offer['returned_flight']['economy_seats_count'];
+        $data['returned_flight_first_class_seats_count'] = $offer['returned_flight']['first_class_seats_count'];
+        $data['returned_flight_economy_ticket_price'] = $offer['returned_flight']['economy_ticket_price'];
+        $data['returned_flight_first_class_ticket_price'] = $offer['returned_flight']['first_class_ticket_price'];
+        // return $data;
 
-            // hotel
-            $data['hotel_id'] = $value['room']['hotel']['id'];
-            //return $data;
-            $data['hotel_name'] = $value['room']['hotel']['name'];
-            $data['hotel_city'] = $value['room']['hotel']['city']['name'];
-            $data['hotel_country'] = $value['room']['hotel']['country']['name'];
-            $data['hotelRoom_id'] = $value['room']['id'];
-            $data['hotelRoom_name'] = $value['room']['name'];
-            $data['hotelRoom_customers_count'] = $value['room']['customers_count'];
-            $data['hotelRoom_night_price'] = $value['room']['night_price'];
-            $data['hotelRoom_type'] = $value['room']->room_type->name;
-            array_push($allData,$data);
+        // hotel
+        foreach ($offer->room as $roomValue) {
+
+            $hotel_data['hotel_id'] = $roomValue['hotel']['id'];
+
+            $hotel_data['hotel_name'] = $roomValue['hotel']['name'];
+            $hotel_data['hotel_city'] =$roomValue['hotel']['city']['name'];
+            $hotel_data['hotel_country'] = $roomValue['hotel']['country']['name'];
+            $hotel_data['hotelRoom_id'] = $roomValue['id'];
+            $hotel_data['hotelRoom_name'] = $roomValue['name'];
+            $hotel_data['hotelRoom_customers_count'] = $roomValue['customers_count'];
+            $hotel_data['hotelRoom_night_price'] = $roomValue['night_price'];
+            $hotel_data['hotelRoom_type'] = $roomValue->room_type->name;
+
+            $data['room'][] = $hotel_data;
+            // array_push($data,$hotel_data);
         }
+
+        // return $data;
         // return $allData;
-        return view('Admin.OffersManagement.Delete',compact('editedOffer','allData','flightDegrees'));
+        return view('Admin.OffersManagement.Delete',compact('data','flightDegrees'));
     }
     /**
      * Remove the specified resource from storage.

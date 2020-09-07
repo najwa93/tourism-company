@@ -58,6 +58,7 @@
                 <thead>
                 <tr>
                     <th scope="col">اسم الفندق</th>
+                    <th scope="col">المدينة</th>
                     <th scope="col">نوع الغرفة</th>
                     <th scope="col">عدد الأشخاص</th>
                     <th scope="col">التفاصيل</th>
@@ -69,6 +70,7 @@
                 @foreach($allData['hotelReservation'] as $reservation)
                     <tr>
                         <td>{{$reservation['hotel']}}</td>
+                        <td>{{$reservation['city']}}</td>
                         <td>{{$reservation['room_type']}}</td>
                         <td>{{$reservation['customers_count']}}</td>
                         <td>{{$reservation['room_details']}}</td>
@@ -106,6 +108,7 @@
                     <th scope="col">إلى المدينة</th>
                     <th scope="col">التاريخ</th>
                     <th scope="col">الوقت</th>
+                    <th scope="col">نوع التذكرة</th>
                     <th scope="col">سعرالتذكرة</th>
                     <th scope="col">يشمل العرض</th>
                     </th>
@@ -119,6 +122,7 @@
                         <td>{{$reservation['date']}}</td>
                         <td>{{$reservation['time']}}</td>
                         <td>{{$reservation['flight_degree']}}</td>
+                        <td>${{$reservation['reservation_price']}}</td>
                         @if($reservation['offer_id'] != null)
                             <td><i class="fas fa-user-check"></i></td>
                         @else
