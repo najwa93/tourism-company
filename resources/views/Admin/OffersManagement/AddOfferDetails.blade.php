@@ -190,7 +190,7 @@
                 <label style="color:#64AEF7;"><span class="glyphicon glyphicon-gift" style="color: orange;"></span>&nbsp;مدة
                     الرحلة </label><br>
                 <input type="text" name="offer_duration" class="form-control" value="{{old('offer_duration')}}"
-                       placeholder="ادخل  مدة العرض ">
+                       placeholder="ادخل  مدة الرحلة ">
             </div>
 
             <div class="col-md-6 col-xs-12" style="margin-top: 10px;">

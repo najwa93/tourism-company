@@ -11,61 +11,9 @@
         }
         .header{
             width: 100%;
-            height:52px;
         }
 
-        .btn {
-            width: 370px;
-            height: 166px;
-            padding: 14px 28px;
-            font-size: 30px;
-            cursor: pointer;
-            display: inline-block;
-        }
 
-        /* Green */
-        .success {
-            border-color: #4CAF50;
-            color: green;
-        }
-
-        .success:hover {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        /* Blue */
-        .info {
-            border-color: #2196F3;
-            color: dodgerblue;
-        }
-
-        .info:hover {
-            background: #2196F3;
-            color: white;
-        }
-
-        /* Orange */
-        .warning {
-            border-color: #ff9800;
-            color: orange;
-        }
-
-        .warning:hover {
-            background: #ff9800;
-            color: white;
-        }
-
-        /* Red */
-        .danger {
-            border-color: #f44336;
-            color: red;
-        }
-
-        .danger:hover {
-            background: #f44336;
-            color: white;
-        }
         @media screen and (max-width: 1000px) {
             .col-md-4
             {
@@ -80,8 +28,6 @@
         }
 
         .content{
-
-            background-color: #f2f4f6;
         }
     </style>
 </head>
@@ -90,18 +36,20 @@
 
 </header>
 <br>
-<div class="container content" >
-    <div class="col-md-4">
-    <h1 style="text-align: center;color: #ff9800;margin-bottom: 20px;padding-top: 20px">TravelRo Company</h1>
-   {{-- <p style="font-size: 25px;color: #000;font-weight: bold;padding: 20px;">dsds</p>--}}
-    <p style="font-size: 25px;color: #000;font-weight: bold;margin: 20px">{{$replyMsg}}</p>
-   </div>
-</div>
-<footer>
-    <div style="font-size: 20px;font-family: cursive; text-align: center; width: 100%; height: 36px; padding-top: 12px; background-color:#64AEF7" >
-        <p style="color:white;">ترافل رو للسياحة والسفر  2020</p>
+<div class="container" >
+    <h1 style="text-align: center;color: #ff9800;margin-bottom: 20px;">TravelRo Company</h1>
+    <div class="content" style="background-color:#f2f4f6;height: 100%;width: 100%">
+    <div class="col-md-12" style="margin: 30px 30px 0;height: 50px;padding: 20px 60px">
+        <p style="font-size: 20px;color: #000;font-weight: bold">{{$replyMsg}}</p>
     </div>
-</footer>
+    </div>
+    <footer >
+        <div style="font-size: 20px;font-family: cursive; text-align: center; width: 100%; height: 36px;  background-color:#64AEF7;margin-bottom: 0" >
+            <p style="color:white;">ترافل رو للسياحة والسفر  2020</p>
+        </div>
+    </footer>
+</div>
+
 
 </body>
 </html>

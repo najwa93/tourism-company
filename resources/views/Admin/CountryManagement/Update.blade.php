@@ -62,7 +62,7 @@
                     <div class="form-group">
                         <label for="flag">عـلــم الـبــلــد:</label>
                         <input type="file" name="image">
-                        <img src="{{url('/images/'.$country->img_path)}}" style="width: 150px;height: 140px;">
+                        <img src="{{url($country->img_path)}}" >
                     </div>
                     @endif
 

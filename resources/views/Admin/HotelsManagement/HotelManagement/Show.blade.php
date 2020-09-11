@@ -79,7 +79,7 @@
                     <td>{{$value['hotel_room_type']}}</td>
                     <td>{{$value['customers_count']}}</td>
                     <td>{{$value['details']}}</td>
-                    <td>{{$value['night_price']}}</td>
+                    <td>${{$value['night_price']}}</td>
                     <td>
                         <div class="btn-group btn-group-justified" role="group" aria-label="...">
                             <div class="btn-group" role="group">

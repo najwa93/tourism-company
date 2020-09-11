@@ -7,6 +7,7 @@ use App\Models\Admin\Country\Country;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Intervention\Image\Facades\Image;
 
 
 class CountryController extends Controller
@@ -47,6 +48,7 @@ class CountryController extends Controller
     {
         $this->validate($request, [
             'countryname' => 'required|string',
+            'image'  => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
         $countries = Country::all();
         $checkCountry = $request->input('countryname');
@@ -59,15 +61,17 @@ class CountryController extends Controller
         }
         $country = new Country();
         if ($request->hasFile('image')) {
-            $this->validate($request, [
-                'image' => 'image',
-            ], [
-                'image.required' => ' The image field is required.',
-            ]);
-
             $flagImg = $request->file('image');
-            $path = $flagImg->storeAs('flag', $flagImg->getClientOriginalName(), 'images');
-            $country->img_path = $path;
+            $resize_image = Image::make($flagImg->getRealPath());
+            $destinationPath ='images/';
+           // return $destinationPath;
+            $image_name = $flagImg->getClientOriginalName();
+
+            $resize_image->resize(500, 500, function($constraint){
+                $constraint->aspectRatio();
+            })->save($destinationPath . 'flag/' . $image_name);
+          //  $path = $flagImg->storeAs('flag', $flagImg->getClientOriginalName(), 'images');
+            $country->img_path =  $destinationPath.'flag/' . $image_name;
         }
 
         $country->name = $request->input('countryname');
@@ -125,10 +129,11 @@ class CountryController extends Controller
     {
         $country = Country::findOrfail($country_id);
 
+
         $this->validate($request, [
             'countryname' => 'required|string',
         ]);
-       /* $countries = Country::all();
+    /*    $countries = Country::all();
         $checkCountry = $request->input('countryname');
         if ($countries != null | []) {
             foreach ($countries as $country) {
@@ -137,22 +142,26 @@ class CountryController extends Controller
                 }
             }
         }*/
+
+
         $country->name = $request->input('countryname');
-
         if ($request->hasFile('image')) {
-            $this->validate($request, [
-                'image' => 'image',
-            ], [
-                'image.required' => ' The image field is required.',
-            ]);
-
+            unlink( $country->img_path);
             $flagImg = $request->file('image');
-            $path = $flagImg->storeAs('flag', $flagImg->getClientOriginalName(), 'images');
-            $country->img_path = $path;
+            $resize_image = Image::make($flagImg->getRealPath());
+            $destinationPath ='images/';
+            // return $destinationPath;
+            $image_name = $flagImg->getClientOriginalName();
+
+            $resize_image->resize(150, 140, function($constraint){
+                $constraint->aspectRatio();
+            })->save($destinationPath . 'flag/' . $image_name);
+            //  $path = $flagImg->storeAs('flag', $flagImg->getClientOriginalName(), 'images');
+            $country->img_path =  $destinationPath.'flag/' . $image_name;
         }
 
         $country->save();
-
+       // return $country;
         return redirect()->route('Countries.index')->with('success', 'تم تعديل بلد بنجاح');
     }
 

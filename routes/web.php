@@ -15,7 +15,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
+//Route::get('replymessage', 'Web\WebController@index');
 Auth::routes();
 
 //User Routes

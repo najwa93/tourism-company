@@ -107,7 +107,7 @@
                         <input id="file-input" type="file" name="images[]" multiple>
                         <div class="panel-body">
                             @foreach($hotelImgs as $hotelImg)
-                                <img src="{{url('/images/'.$hotelImg->img_path)}}" style="width: 150px;height: 140px;">
+                                <img src="{{url($hotelImg->img_path)}}" style="width: 150px;height: 140px;">
                             @endforeach
                         </div>
 

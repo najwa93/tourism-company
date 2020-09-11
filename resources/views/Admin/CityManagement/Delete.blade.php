@@ -59,7 +59,7 @@
                     <label for="flag">صـور مـن الـمـديـنـة</label>
                     <div class="panel-body">
                         @foreach($cityImgs as $cityImg)
-                            <img src="{{url('/images/'.$cityImg->img_path)}}" style="width: 150px;height: 140px;">
+                            <img src="{{url($cityImg->img_path)}}" >
                         @endforeach
                     </div>
                 </div>

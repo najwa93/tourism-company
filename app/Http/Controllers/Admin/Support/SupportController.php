@@ -161,7 +161,7 @@ class SupportController extends Controller
         //$msg->markAsRead();
 
         //return $message;
-        return redirect()->route('messages');
+        return redirect()->route('messages')->with('success','تم إرسال رسالة لجميع المستخدمين بنجاح');
     }
 
     /**

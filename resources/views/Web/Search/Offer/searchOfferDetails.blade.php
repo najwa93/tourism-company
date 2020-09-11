@@ -109,18 +109,18 @@
 
                     <div class="panel-heading"><h1 style="font-weight: bold;color: #64AEF7;">تفاصيل الفندق</h1></div>
                     <div class="panel-body">
-                        <h3><span style="color: #FFA500;font-weight: bold;margin-bottom: 20px">  اسم الفندق :</span> {{$hotel->name}}</h3>
-                        <h3><span style="color: #FFA500;font-weight: bold;margin-bottom: 20px">  حول الفندق :</span> {{$hotel->details}}</h3>
-                        <h3><span style="color: #FFA500;font-weight: bold;margin-bottom: 20px">   صور من الفندق :</span></h3>
+                        <h3 style="color: #FFA500;font-weight: bold;margin-bottom: 20px">  اسم الفندق :</h3><h4> {{$hotel->name}}</h4>
+                        <h3 style="color: #FFA500;font-weight: bold;margin-bottom: 20px">  حول الفندق :</h3> <h4> {{$hotel->details}}</h4>
+                        <h3 style="color: #FFA500;font-weight: bold;margin-bottom: 20px">   صور من الفندق :</h3>
                         <div class="autoplay">
                             @foreach($hotel->hotelImage as $img)
-                                <img src="{{url('/images/'.$img->img_path)}}"
+                                <img src="{{url($img->img_path)}}"
                                      style="width: 250px;height: 200px; margin: 10px" alt="hotel Image">
                             @endforeach
                         </div>
-                        <h3><span style="color: #FFA500;font-weight: bold;margin-bottom: 20px">  تفاصيل الغرفة :</span></h3>
+                        <h3 style="color: #FFA500;font-weight: bold;margin-bottom: 20px">  تفاصيل الغرفة :</h3>
                         <div>
-                            <h3><span style="font-weight: bold;margin-bottom: 20px">{{$room->details}}</span></h3>
+                            <h4><span style="font-weight: bold;margin-bottom: 20px">{{$room->details}}</span></h4>
                         </div>
                     </div>
                 </div>
@@ -134,12 +134,12 @@
 
                     <div class="panel-heading"> <h1 style="font-weight: bold;color: #64AEF7;">تفاصيل المدينة</h1></div>
                     <div class="panel-body">
-                        <h3><span style="color: #FFA500;font-weight: bold;margin-bottom: 20px">  اسم المدينة :</span> {{$flight->destination_city->name}}</h3>
-                        <h3><span style="color: #FFA500;font-weight: bold;margin-bottom: 20px">  حول المدينة :</span> {{$flight->destination_city->description}}</h3>
-                        <h3><span style="color: #FFA500;font-weight: bold;margin-bottom: 20px">   صور من المدينة :</span></h3>
+                        <h3 style="color: #FFA500;font-weight: bold;margin-bottom: 20px">  اسم المدينة :</h3><h4> {{$flight->destination_city->name}}</h4>
+                        <h3 style="color: #FFA500;font-weight: bold;margin-bottom: 20px">  حول المدينة :</h3><h4> {{$flight->destination_city->description}}</h4>
+                        <h3 style="color: #FFA500;font-weight: bold;margin-bottom: 20px">   صور من المدينة :</h3>
                         <div class="autoplay">
                             @foreach($flight->destination_city->cityImage as $img)
-                                <img src="{{url('/images/'.$img->img_path)}}"
+                                <img src="{{url($img->img_path)}}"
                                      style="width: 250px;height: 200px; margin: 10px" alt="city Image">
                             @endforeach
                         </div>

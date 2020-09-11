@@ -145,8 +145,7 @@
     </div><br>
     <hr><br>
     <div class="well" style="font-size: 25px;font-weight: bold; color: #64AEF7; text-align: center;"><span
-                class="glyphicon glyphicon-envelope" style="color: orange;"></span>&nbsp;&nbsp;إرسال بـريد إلكترونـي
-        لجميع مستخدمي الموقع
+                class="glyphicon glyphicon-envelope" style="color: orange;"></span>&nbsp;&nbsp;إرسال بـريد إلكترونـي لجميع مستخدمي الموقع
     </div><br>
     <div class="container">
         <form method="post" action="{{route('send_email')}}">
@@ -154,8 +153,7 @@
         <div style="font-size: 22px; font-weight: bold; color:#64AEF7;margin-right: 80px;">
             <label for="usr">إرسـال رسـالـة لجمـيـع المسـتخدمين</label>
             <br>
-            <textarea class="form-control" placeholder="أدخــل  الرسـالـة " name="msg-users" style="text-align: right; font-size:20px; "
-                      rows="4">
+            <textarea class="form-control" placeholder="أدخــل  الرسـالـة " name="msg-users" style="text-align: right; font-size:20px; " rows="4">
     </textarea>
             @error('msg-users')
             <div class="alert alert-danger">يرجى إدخال الرسالة </div>

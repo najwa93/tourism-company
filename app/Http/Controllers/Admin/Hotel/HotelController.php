@@ -8,6 +8,7 @@ use App\Models\Admin\City\City;
 use App\Models\Admin\Country\Country;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Intervention\Image\Facades\Image;
 
 
 class HotelController extends Controller
@@ -75,7 +76,8 @@ class HotelController extends Controller
             'name' => 'required|string',
             'country' => 'required',
             'city' => 'required',
-            'phone' => 'required|string'
+            'phone' => 'required|string',
+            'image'  => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
         $hotel = new Hotel();
@@ -92,11 +94,16 @@ class HotelController extends Controller
         // Save multiple photos in the database
         if ($request->hasFile('images')) {
             foreach ($request->images as $image) {
-                $imgName = $image->getClientOriginalName();
-                // $imgSize = $image->getClientSize();
-                $imgPath = $image->storeAs('hotels', $imgName, 'images');
+                $resize_image = Image::make($image->getRealPath());
+                $destinationPath ='images/';
+                // return $destinationPath;
+                $image_name = $image->getClientOriginalName();
+
+                $resize_image->resize(350, 340, function($constraint){
+                    $constraint->aspectRatio();
+                })->save($destinationPath . 'hotels/' . $image_name);
                 $image = new HotelImage();
-                $image->img_path = $imgPath;
+                $image->img_path = $destinationPath.'hotels/' . $image_name;
                 $image->hotel_id = $hotel->id;
                 $image->save();
             }
@@ -169,7 +176,8 @@ class HotelController extends Controller
             'name' => 'required|string',
             'country' => 'required',
             'city' => 'required',
-            'phone' => 'required|string'
+            'phone' => 'required|string',
+            'image'  => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
         $hotel = Hotel::findOrfail($hotel_id);
@@ -190,15 +198,20 @@ class HotelController extends Controller
         if ($request->hasFile('images')) {
             // $hotel->hotelImage()->detach();
             foreach ($hotelImages as $hotelImage) {
-                unlink(public_path('/images/' . $hotelImage->img_path));
+                unlink( $hotelImage->img_path);
                 $hotelImage->delete();
             }
             foreach ($request->images as $image) {
-                $imgName = $image->getClientOriginalName();
-                // $imgSize = $image->getClientSize();
-                $imgPath = $image->storeAs('hotels', $imgName, 'images');
+                $resize_image = Image::make($image->getRealPath());
+                $destinationPath ='images/';
+                // return $destinationPath;
+                $image_name = $image->getClientOriginalName();
+
+                $resize_image->resize(350, 340, function($constraint){
+                    $constraint->aspectRatio();
+                })->save($destinationPath . 'hotels/' . $image_name);
                 $image = new HotelImage();
-                $image->img_path = $imgPath;
+                $image->img_path = $destinationPath.'hotels/' . $image_name;
                 $image->hotel_id = $hotel->id;
                 $image->save();
             }

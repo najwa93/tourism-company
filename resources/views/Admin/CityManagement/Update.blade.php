@@ -55,17 +55,17 @@
                 <div class="alert alert-danger">يرجى إدخال موقع المدينة</div>
                 @enderror
 
-                @if($city->cityImgs != null || [])
+
                 <div class="form-group">
                     <label for="flag">صـور مـن الـمـديـنـة</label>
                     <input id="file-input" type="file" name="images[]" multiple>
                     <div class="panel-body">
                         @foreach($cityImgs as $cityImg)
-                            <img src="{{url('/images/'.$cityImg->img_path)}}" style="width: 150px;height: 140px;">
+                            <img src="{{url($cityImg->img_path)}}">
                         @endforeach
                     </div>
                 </div>
-                @endif
+
                 <br>
                 <button type="submit" class="btn btn-info" name="btnsave"
                         style="color: white; width: 100px;height: 40px; font-size: 20px;"><span

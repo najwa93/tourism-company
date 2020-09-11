@@ -48,7 +48,8 @@ class WebController extends Controller
         }
 
         //return $rated_messages;
-
+        //$replyMsg = "hello";
+       // return view('emails.replyMsg', compact('replyMsg'));
         return view('Web.Main_view', compact('flight_degrees', 'rated_messages'));
     }
 

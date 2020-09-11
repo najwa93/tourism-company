@@ -118,6 +118,7 @@
                                     to.parentNode.insertBefore(s, to);
                                 })();</script><a href="https://1map.com/map-embed">1 Map</a></div>
                     </div>--}}
+                    </div>
                     <div class="form-group">
                         <label for="flag">صـور مـن الـفـنـدق</label>
                         <input id="file-input" type="file" name="images[]" multiple>
@@ -133,6 +134,7 @@
             </form>
         </div>
     </div>
+
     <br>
     <br>
 

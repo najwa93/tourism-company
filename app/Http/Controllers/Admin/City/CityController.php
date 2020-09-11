@@ -8,6 +8,7 @@ use App\Models\Admin\Country\Country;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
+use Intervention\Image\Facades\Image;
 use phpDocumentor\Reflection\Location;
 use PHPUnit\Framework\Constraint\Count;
 
@@ -36,7 +37,8 @@ class CityController extends Controller
     {
         $this->validate($request, [
             'cityname' => 'required|string',
-            'location' => 'required'
+            'location' => 'required',
+            'image'  => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
         $country = Country::findOrfail($country_id);
         $cities = City::all();
@@ -57,17 +59,24 @@ class CityController extends Controller
         // Save multiple photos in the database
         if ($request->hasFile('images')) {
             foreach ($request->images as $image) {
-                $imgName = $image->getClientOriginalName();
-                // $imgSize = $image->getClientSize();
-                $imgPath = $image->storeAs('cities', $imgName, 'images');
+                $resize_image = Image::make($image->getRealPath());
+                $destinationPath ='images/';
+                // return $destinationPath;
+                $image_name = $image->getClientOriginalName();
+
+                $resize_image->resize(150, 140, function($constraint){
+                    $constraint->aspectRatio();
+                })->save($destinationPath . 'cities/' . $image_name);
+                //  $path = $flagImg->storeAs('flag', $flagImg->getClientOriginalName(), 'images');
+
                 $image = new CityImage();
-                $image->img_path = $imgPath;
+                $image->img_path =  $destinationPath.'cities/' . $image_name;;
                 $image->city_id = $city->id;
                 $image->save();
             }
         }
 
-        return redirect()->route('Countries.show', $country->id)->with('success', 'تم إضافة مدينة جديدة بنجاح');;
+        return redirect()->route('Countries.show', $country->id)->with('success', 'تم إضافة مدينة جديدة بنجاح');
     }
 
     /**
@@ -124,15 +133,22 @@ class CityController extends Controller
         // Save multiple photos in the database
         if ($request->hasFile('images')) {
             foreach ($cityImgs as $cityImage) {
-                unlink(public_path('/images/' . $cityImage->img_path));
+                unlink($cityImage->img_path);
                 $cityImage->delete();
             }
             foreach ($request->images as $image) {
-                $imgName = $image->getClientOriginalName();
-                // $imgSize = $image->getClientSize();
-                $imgPath = $image->storeAs('hotels', $imgName, 'images');
+                $resize_image = Image::make($image->getRealPath());
+                $destinationPath ='images/';
+                // return $destinationPath;
+                $image_name = $image->getClientOriginalName();
+
+                $resize_image->resize(350, 340, function($constraint){
+                    $constraint->aspectRatio();
+                })->save($destinationPath . 'cities/' . $image_name);
+                //  $path = $flagImg->storeAs('flag', $flagImg->getClientOriginalName(), 'images');
+
                 $image = new CityImage();
-                $image->img_path = $imgPath;
+                $image->img_path =  $destinationPath.'cities/' . $image_name;
                 $image->city_id = $city->id;
                 $image->save();
             }
@@ -168,7 +184,7 @@ class CityController extends Controller
         $cityImgs = CityImage::where('city_id',$city_id)
             ->get();
         foreach ($cityImgs as $cityImage) {
-            unlink(public_path('/images/' . $cityImage->img_path));
+            unlink($cityImage->img_path);
             $cityImage->delete();
         }
         $city->delete();
